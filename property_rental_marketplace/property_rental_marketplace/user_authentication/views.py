@@ -1,61 +1,63 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.views import View
+from property_rental_marketplace.user_authentication.forms import UserRegistrationForm 
 from django.contrib import messages
-from django.views import View 
+from django.contrib.auth.decorators import login_required 
 
+@login_required(login_url='sign_in')
 def index(request):
-    return render(request, 'authentication/index.html')
+    return render(request, 'home/index.html')
 
 class RegisterView(View):
     template_name = 'authentication/register.html'
 
     def post(self, request):
-        fname = request.POST.get('first_name')
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirmed_password = request.POST.get('confirmed_password')
+        form = UserRegistrationForm(request.POST)
 
-        user = User.objects.create_user(username, email, password)
-        user.first_name = fname
-        messages.success(request, 'Successful registration!!!')
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
 
-        return redirect('index')
+            messages.success(request, 'User: ' + user.username + ' successfully created account!')
+            user.save()
+
+            return redirect('sign_in')
+    
+        return render(request, self.template_name, {'form': form})
     
     def get(self, request):
-        return render(request, self.template_name)
-    
+        if request.user.is_authenticated:
+            return redirect('index')
+        
+        form = UserRegistrationForm()
 
+        for field in form.fields.values():
+            field.error_messages = {}
+
+        return render(request, self.template_name, {'form': form})
+    
 class SignInView(View):
     template_name = 'authentication/login.html'
 
     def post(self, request):
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-
-        name = user.first_name
-
-        context = {
-            'name': name
-        }
+        user = authenticate(request, username=username, password=password)
 
         if user is None:
-            messages.error(request, 'Wrong Credentials! Try again!')
-            return redirect('index')
-        else:
-            login(request, user)
-            name = user.first_name
-
-            context = {
-                'name': name
-            }
-            return render(request, 'authentication/index.html', context=context)
+            messages.info(request, 'Incorrect password or username!')
+            return render(request, self.template_name)
+            
+        login(request, user)
+        return redirect('index')
         
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('index')
         return render(request, self.template_name)
     
-
-def logout(request):
-    return render(request, 'authentication/logout.html')
+def sign_out(request):
+    logout(request)
+    return redirect('sign_in')
