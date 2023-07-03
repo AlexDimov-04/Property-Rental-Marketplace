@@ -76,11 +76,6 @@ class SignInView(View):
             return render(request, self.template_name)
 
     def get(self, request):
-        if request.session.get_expiry_age() <= 0:
-            messages.info(request, "Session has expired. Please log in again.")
-
-        print(request.session.get_expiry_age())
-
         if request.user.is_authenticated:
             return redirect("index")
 
