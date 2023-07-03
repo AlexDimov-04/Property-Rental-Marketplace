@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # 1 week in seconds
-SESSION_EXPIRATION_TIME = 604800
+SESSION_EXPIRATION_TIME = 604_800
 
 @login_required(login_url="sign_in")
 def index(request):
