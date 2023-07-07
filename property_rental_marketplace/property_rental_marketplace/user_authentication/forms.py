@@ -1,11 +1,8 @@
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
 
 
-class UserRegistrationForm(UserCreationForm):
-    MAX_LENGTH_NAME = 30
-
+class UserRegistrationForm(auth_forms.UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["email"].required = True
@@ -19,34 +16,28 @@ class UserRegistrationForm(UserCreationForm):
                 else "form-control"
             )
 
-            field.widget.attrs["id"] = f"{field_name}"
+            field.widget.attrs["id"] = field_name
 
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        username = cleaned_data.get("username")
 
         if email and User.objects.filter(email=email).exists():
-            raise forms.ValidationError("This email address is already in use.")
-
-        return email
-
-    def clean_username(self):
-        username = self.cleaned_data.get("username")
+            self.add_error("email", "This email address is already in use.")
 
         if len(username) < 2:
-            raise forms.ValidationError("Username must be at least 2 characters long.")
+            self.add_error("username", "Username must be at least 2 characters long.")
 
         if username.isdigit():
-            raise forms.ValidationError("Username cannot contain digits only.")
+            self.add_error("username", "Username cannot contain digits only.")
 
         if not username[0].islower():
-            raise forms.ValidationError("Username must start with a lowercase letter.")
+            self.add_error("username", "Username must start with a lowercase letter.")
 
-        return username
+        return cleaned_data
 
-    first_name = forms.CharField(max_length=MAX_LENGTH_NAME)
-    last_name = forms.CharField(max_length=MAX_LENGTH_NAME)
-
-    class Meta:
+    class Meta(auth_forms.UserCreationForm.Meta):
         model = User
         fields = (
             "first_name",
