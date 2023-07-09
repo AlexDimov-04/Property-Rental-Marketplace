@@ -1,8 +1,8 @@
-from property_rental_marketplace.user_authentication.decorators import allowed_users
+# from property_rental_marketplace.user_authentication.decorators import allowed_users
 from property_rental_marketplace.user_authentication.decorators import unauthenticated_user_restricted
 from property_rental_marketplace.user_authentication.forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
 from django.shortcuts import render
@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 SESSION_EXPIRATION_TIME = 604_800
 
 @login_required(login_url="sign_in")
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin'])
 def index(request):
     if request.session.get_expiry_age() == SESSION_EXPIRATION_TIME:
         print(SESSION_EXPIRATION_TIME)
@@ -73,3 +73,4 @@ class SignInView(auth_views.LoginView):
 
 class SignOutView(auth_views.LogoutView):
     next_page = reverse_lazy("sign_in")
+

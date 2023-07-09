@@ -1,5 +1,6 @@
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 
 class UserRegistrationForm(auth_forms.UserCreationForm):
@@ -47,3 +48,4 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
             "password1",
             "password2",
         )
+
