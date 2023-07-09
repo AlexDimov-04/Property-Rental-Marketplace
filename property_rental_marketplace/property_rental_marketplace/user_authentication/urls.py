@@ -1,6 +1,5 @@
 from django.urls import include, path
 from . import views
-from django_email_verification import urls as mail_urls
 
 urlpatterns = [
     path('', views.index, name='index'),
