@@ -1,8 +1,9 @@
 # from property_rental_marketplace.user_authentication.decorators import allowed_users
+from property_rental_marketplace.user_authentication.models import Profile
 from property_rental_marketplace.user_authentication.decorators import unauthenticated_user_restricted
 from property_rental_marketplace.user_authentication.forms import UserRegistrationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
 from django.shortcuts import render
@@ -38,6 +39,13 @@ class RegisterView(views.CreateView):
             return self.render_to_response(self.get_context_data(form=form))
 
         user = form.save(commit=False)
+        user.save()
+
+        user_profile = Profile.objects.create(user=user)
+        user_profile.first_name = form.cleaned_data['first_name']
+        user_profile.last_name = form.cleaned_data['last_name']
+        user_profile.save()
+        
         messages.success(
             self.request, "User: " + user.username + " successfully created an account!"
         )
@@ -73,4 +81,3 @@ class SignInView(auth_views.LoginView):
 
 class SignOutView(auth_views.LogoutView):
     next_page = reverse_lazy("sign_in")
-
