@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'property_rental_marketplace.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "rental_marketplace_db",
+        "NAME": "rentwise_db",
         "USER": "postgres-user",
         "PASSWORD": "aloalo123",
         "HOST": "127.0.0.1",
@@ -131,16 +131,8 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SMTP Configuration
-EMAIL_ACTIVE_FIELD = 'is_active'
-EMAIL_SERVER = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'alex.lemuel@gmail.com'
+EMAIL_HOST_PASSWORD = 'fjwyuxcigumlxijo'
 EMAIL_PORT = 587
-EMAIL_ADDRESS = 'alex.lemuel@gmail.com'
-EMAIL_FROM_ADDRESS = 'alex.lemuel@gmail.com'
-EMAIL_PASSWORD = 'dxaksjnuvolsgejl'
-EMAIL_MAIL_SUBJECT = 'Confirm your email!'
-EMAIL_MAIL_HTML = 'mail_body.html'
-EMAIL_MAIL_PLAIN = 'mail_body.txt'
-EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000'
-
-
