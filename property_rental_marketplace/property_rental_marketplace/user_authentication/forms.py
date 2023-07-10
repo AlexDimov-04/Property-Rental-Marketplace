@@ -1,14 +1,11 @@
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 
 
 class UserRegistrationForm(auth_forms.UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["email"].required = True
-        self.fields["first_name"].required = False
-        self.fields["last_name"].required = False
 
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = (
