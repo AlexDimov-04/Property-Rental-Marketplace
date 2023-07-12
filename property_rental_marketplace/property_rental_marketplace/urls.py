@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('property_rental_marketplace.user_authentication.urls')),
+    path('', include('property_rental_marketplace.heading_page.urls')),
+    path('authenticate/', include('property_rental_marketplace.user_authentication.urls')),
 ]

@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'property_rental_marketplace.user_authentication'
+    'property_rental_marketplace.user_authentication',
+    'property_rental_marketplace.heading_page'
 ]
 
 MIDDLEWARE = [
