@@ -602,6 +602,11 @@ progress {
   flex: 1 0 0%;
 }
 
+.row.g-5.align-items-center {
+  background-color: #202528;
+  padding-bottom: 50px;
+}
+
 .row.g-0.align-items-center.flex-column-reverse.flex-md-row {
   background: #202528;
 }
@@ -633,11 +638,6 @@ progress {
   flex: 0 0 auto;
   width: 16.66667%;
 }
-
-.col-lg-4.col-md-6.wow.fadeInUp {
-  background: #202528;
-}
-
 .col-auto {
   flex: 0 0 auto;
   width: auto;
@@ -2537,6 +2537,10 @@ textarea.form-control.is-invalid {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.d-block.h5.mb-2:hover {
+  text-decoration: underline;
+  color: #fff;
+}
 @media (prefers-reduced-motion: reduce) {
   .btn {
     transition: none;
@@ -2869,13 +2873,13 @@ fieldset:disabled .btn {
   border-color: #0e2e50;
 }
 .btn-outline-primary {
-  color: #00b98e;
-  border-color: #00b98e;
+  color: #dea205;
+  border-color: #dea205;
 }
 .btn-outline-primary:hover {
   color: #000;
-  background-color: #00b98e;
-  border-color: #00b98e;
+  background-color: #202528;
+  border-color: #202528;
 }
 .btn-check:focus + .btn-outline-primary,
 .btn-outline-primary:focus {
@@ -2899,7 +2903,7 @@ fieldset:disabled .btn {
 }
 .btn-outline-primary:disabled,
 .btn-outline-primary.disabled {
-  color: #00b98e;
+  color: #dea205;
   background-color: transparent;
 }
 .btn-outline-secondary {
@@ -6376,9 +6380,6 @@ fieldset:disabled .btn {
 .mt-2 {
   margin-top: 0.5rem !important;
 }
-.mt-3 {
-  margin-top: 1rem !important;
-}
 .mt-4 {
   margin-top: 1.5rem !important;
 }
@@ -6764,6 +6765,9 @@ fieldset:disabled .btn {
 .text-end {
   text-align: right !important;
 }
+.text-center.p-4.mt-3 {
+  background-color: #202528;
+}
 .text-center {
   text-align: center !important;
 }
@@ -6778,8 +6782,8 @@ fieldset:disabled .btn {
 }
 .text-lowercase {
   text-transform: lowercase !important;
-}text-pra
-.text-uppercase {
+}
+text-pra .text-uppercase {
   text-transform: uppercase !important;
 }
 .text-capitalize {
@@ -6837,6 +6841,11 @@ fieldset:disabled .btn {
 .text-reset {
   color: inherit !important;
 }
+.bg-white.rounded-top.text-primary.position-absolute.start-0.bottom-0.mx-4.pt-1.px-3 {
+  color: #fff !important;
+  background-color: #202528 !important;
+  
+}
 .bg-primary {
   background-color: #dea205 !important;
 }
@@ -6859,7 +6868,7 @@ fieldset:disabled .btn {
   background-color: #effdf5 !important;
 }
 .bg-dark {
-  background-color: #0e2e50 !important;
+  background-color: #202528 !important;
 }
 .bg-body {
   background-color: #effdf5 !important;
