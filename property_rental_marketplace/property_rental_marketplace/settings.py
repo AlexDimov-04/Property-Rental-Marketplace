@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'property_rental_marketplace.user_authentication',
-    'property_rental_marketplace.heading_page'
+    'property_rental_marketplace.heading_page',
 ]
 
 MIDDLEWARE = [
@@ -126,10 +126,18 @@ STATICFILES_DIRS = (
     BASE_DIR / 'staticfiles',
 )
 
+MEDIA_ROOT = (
+    BASE_DIR / 'media'
+)
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = 'sign_in'
 
 # SMTP Configuration
 EMAIL_USE_TLS = True

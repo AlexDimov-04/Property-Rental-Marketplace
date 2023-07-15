@@ -1,6 +1,6 @@
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
-
+from property_rental_marketplace.user_authentication.models import UserProfile
 
 class UserRegistrationForm(auth_forms.UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -15,6 +15,17 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
             )
 
             field.widget.attrs["id"] = field_name
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+            profile.email = user.email  
+            profile.save()
+
+        return user
 
     def clean(self):
         cleaned_data = super().clean()

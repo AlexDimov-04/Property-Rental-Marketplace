@@ -1,8 +1,7 @@
 # from property_rental_marketplace.user_authentication.decorators import allowed_users
-from property_rental_marketplace.user_authentication.models import Profile
+from property_rental_marketplace.user_authentication.models import UserProfile
 from property_rental_marketplace.user_authentication.decorators import unauthenticated_user_restricted
 from property_rental_marketplace.user_authentication.forms import UserRegistrationForm
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
@@ -13,15 +12,6 @@ from django.utils.decorators import method_decorator
 
 # 1 week in seconds
 SESSION_EXPIRATION_TIME = 604_800
-
-@login_required(login_url="sign_in")
-# @allowed_users(allowed_roles=['admin'])
-def index(request):
-    if request.session.get_expiry_age() == SESSION_EXPIRATION_TIME:
-        print(SESSION_EXPIRATION_TIME)
-        messages.info(request, "Session has expired. Please log in again.")
-
-    return render(request, "home/index.html")
 
 @method_decorator(unauthenticated_user_restricted, name='dispatch')
 class RegisterView(views.CreateView):
@@ -41,7 +31,7 @@ class RegisterView(views.CreateView):
         user = form.save(commit=False)
         user.save()
 
-        user_profile = Profile.objects.create(user=user)
+        user_profile = UserProfile.objects.create(user=user)
         user_profile.first_name = form.cleaned_data['first_name']
         user_profile.last_name = form.cleaned_data['last_name']
         user_profile.save()
@@ -55,7 +45,6 @@ class RegisterView(views.CreateView):
 @method_decorator(unauthenticated_user_restricted, name='dispatch')
 class SignInView(auth_views.LoginView):
     template_name = "authentication/login.html"
-    next_page = reverse_lazy('index')
 
     def form_invalid(self, form):
         messages.info(self.request, "Incorrect password or username!")
@@ -80,4 +69,4 @@ class SignInView(auth_views.LoginView):
 
 
 class SignOutView(auth_views.LogoutView):
-    next_page = reverse_lazy("sign_in")
+    pass
