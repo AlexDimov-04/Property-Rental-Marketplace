@@ -1,0 +1,11 @@
+*.pyc
+*.pem
+*.txt
+METADATA
+RECORD
+WHEEL
+INSTALLER
+AUTHORS
+*.mo
+*.po
+*.pyi
