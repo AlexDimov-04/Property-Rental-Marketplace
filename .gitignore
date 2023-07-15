@@ -10,3 +10,6 @@ AUTHORS
 *.po
 *.pyi
 *.vscode
+*.typed
+*.pyd
+*.exe
