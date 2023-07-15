@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'base_hero_page/head.html' %}
+</head>
+<body>
+    <div class="container-xxl bg-white p-0">
+        {% include "base_hero_page/navbar.html" %}
+
+        {% block main_content %}
+        {% endblock %}
+
+        {% include "base_hero_page/footer.html" %}
+    </div>
+    {% include "base_hero_page/scripts.html" %}
+</body>
+</html>
