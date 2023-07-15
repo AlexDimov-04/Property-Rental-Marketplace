@@ -9,3 +9,4 @@ AUTHORS
 *.mo
 *.po
 *.pyi
+*.vscode
