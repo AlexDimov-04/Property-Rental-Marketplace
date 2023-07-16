@@ -69,4 +69,8 @@ class SignInView(auth_views.LoginView):
 
 
 class SignOutView(auth_views.LogoutView):
-    pass
+    def dispatch(self, request, *args, **kwargs):
+        if request.session.get_expiry_age() == SESSION_EXPIRATION_TIME:
+            messages.info(request, "Session has expired. Please log in again.")
+            
+        return super().dispatch(request, *args, **kwargs)
