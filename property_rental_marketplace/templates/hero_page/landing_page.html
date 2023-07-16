@@ -2,6 +2,15 @@
 {% load static %}
 
 {% block main_content %}
+        {% for message in messages %}
+            <div class="alert alert-success my-2 p-3" role="alert">
+                <strong  style="font-size: 20px;">Success:</strong>
+                <p style="font-size:18px;">
+                    {{ message }}<br>
+                </p>
+            </div>
+        {% endfor %}
+
         <!-- Header Start -->
         <div class="container-fluid header bg-white p-0">
             <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
