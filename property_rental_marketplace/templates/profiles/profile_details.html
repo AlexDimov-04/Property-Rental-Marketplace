@@ -55,9 +55,9 @@
 							<div class="form-group">
 								<label for="first_name">First Name</label>
 								{% if not first_name %}
-								<input id="first_name" type="text" class="form-control" value="">
+									<input disabled id="first_name" type="text" class="form-control" value="">
 								{% else %}
-								<input id="first_name" type="text" class="form-control" value="{{first_name}}">
+									<input disabled id="first_name" type="text" class="form-control" value="{{first_name}}">
 								{% endif %}
 							</div>
 						</div>
@@ -65,9 +65,9 @@
 							<div class="form-group">
 								<label for="last_name">Last Name</label>
 								{% if not last_name %}
-								<input id="last_name" type="text" class="form-control" value="">
+									<input disabled id="last_name" type="text" class="form-control" value="">
 								{% else %}
-								<input id="last_name" type="text" class="form-control" value="{{last_name}}">
+									<input disabled id="last_name" type="text" class="form-control" value="{{last_name}}">
 								{% endif %}
 							</div>
 						</div>
@@ -75,16 +75,16 @@
 							<div class="form-group">
 								<label for="email">Email</label>
 								{% if not request.user.email %}
-								<input id="email" type="text" class="form-control" value="">
+									<input disabled id="email" type="text" class="form-control" value="">
 								{% else %}
-								<input id="email" type="text" class="form-control" value="{{request.user.email}}">
+									<input disabled id="email" type="text" class="form-control" value="{{request.user.email}}">
 								{% endif %}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="birth_date">Birth Date</label>
-								<input id="birth_date" name="birth_date" type="date" class="form-control">
+								<input disabled id="birth_date" name="birth_date" type="date" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -92,13 +92,11 @@
 								<label for="gender">Gender</label>
 
 								<select class="form-control" name="gender" id="gender">
-									<option value="">----------</option>
-									{% for choice_value, choice_label in gender_choices %}
-									<option value="{{choice_value}}">
-										{% if choice_value == gender %}selected{% endif %}
-										{{ choice_label }}
-									</option>
-									{% endfor %}
+									{% if not gender %}
+										<option value="">----------</option>
+									{% else %}
+										<option value="{{gender}}"></option>									
+									{% endif %}
 								</select>
 
 							</div>
@@ -107,24 +105,24 @@
 							<div class="form-group">
 								<label for="country">Country</label>
 								<select class="form-control" name="countries" id="country">
-									<option value="">----------</option>
-									{% for country in countries %}
-										<option value="{{ country.alpha2Code }}">{{ country.name }}</option>
-									{% endfor %}
+									{% if not country %}
+										<option value="">----------</option>
+									{% else %}
+										<option value="{{country}}"></option>									
+									{% endif %}
 								</select>						
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="bio">Bio <span style="font-size: 14px; color: grey;">(short introduction about yourself)</span></label>
-								<textarea id="bio" class="form-control"
-									rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!</textarea>
+								<textarea disabled id="bio" class="form-control"
+									rows="4">{{bio}}</textarea>
 							</div>
 						</div>
 					</div>
 					<div>
-						<button class="btn btn-primary">Update</button>
-						<button class="btn btn-light">Cancel</button>
+						<a href="{% url 'update_profile' %}" class="btn btn-primary">Update my profile</a>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
@@ -133,7 +131,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Old password</label>
-								<input type="password" class="form-control">
+								<input disabled type="password" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -141,13 +139,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>New password</label>
-								<input type="password" class="form-control">
+								<input disabled type="password" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Confirm new password</label>
-								<input type="password" class="form-control">
+								<input disabled type="password" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -162,19 +160,19 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Login</label>
-								<input type="text" class="form-control">
+								<input disabled type="text" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Two-factor auth</label>
-								<input type="text" class="form-control">
+								<input disabled type="text" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="recovery">
+									<input disabled class="form-check-input" type="checkbox" value="" id="recovery">
 									<label class="form-check-label" for="recovery">
 										Recovery
 									</label>
@@ -193,13 +191,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="app-check">
+									<input disabled class="form-check-input" type="checkbox" value="" id="app-check">
 									<label class="form-check-label" for="app-check">
 										App check
 									</label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+									<input disabled class="form-check-input" type="checkbox" value="" id="defaultCheck2">
 									<label class="form-check-label" for="defaultCheck2">
 										Lorem ipsum dolor sit.
 									</label>
@@ -216,7 +214,7 @@
 					<h3 class="mb-4">Notification Settings</h3>
 					<div class="form-group">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="notification1">
+							<input disabled class="form-check-input" type="checkbox" value="" id="notification1">
 							<label class="form-check-label" for="notification1">
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum accusantium
 								accusamus, neque cupiditate quis
@@ -225,7 +223,7 @@
 					</div>
 					<div class="form-group">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="notification2">
+							<input disabled class="form-check-input" type="checkbox" value="" id="notification2">
 							<label class="form-check-label" for="notification2">
 								hic nesciunt repellat perferendis voluptatum totam porro eligendi.
 							</label>
@@ -233,7 +231,7 @@
 					</div>
 					<div class="form-group">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="notification3">
+							<input disabled class="form-check-input" type="checkbox" value="" id="notification3">
 							<label class="form-check-label" for="notification3">
 								commodi fugiat molestiae tempora corporis. Sed dignissimos suscipit
 							</label>
