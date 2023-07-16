@@ -46,12 +46,14 @@ class UserProfile(models.Model):
     )
 
     bio = models.TextField(
-        max_length=500, 
+        max_length=500,
+        null=True, 
         blank=True
     )
 
     profile_image = models.ImageField(
         upload_to='profile_images',
+        null=True,
         blank=True
     )
 
