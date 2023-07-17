@@ -78,7 +78,6 @@
             </div>
         </div>
         <div>
-
             {% for field, error in form.errors.items %}
                 <div class="alert alert-danger">
                     <strong>Error:</strong>
@@ -86,153 +85,134 @@
                 </div>
             {% endfor %}
 
-            <button  type="submit" class="btn btn-primary" id="update_btn" onclick="create_window()">Update</button>
+            <a class="btn btn-primary" id="update_btn">Update</a>
             <a href="{% url 'profile_details' %}" class="btn btn-light">Cancel</a>
-        </div>
-    </form>
-
-    <section id="window">
-        <button class="show-modal">Show Modal</button>
-        <span class="overlay"></span>
-
-        <div class="modal-box">
-            <i class="fa-regular fa-circle-check"></i>
-            <h2>Completed</h2>
-            <h3>You have sucessfully downloaded all the source code files.</h3>
-
-            <div class="buttons">
-                <button class="close-btn">Ok, Close</button>
-                <button>Open File</button>
+        </div>  
+        
+        <section id="window">
+            <div class="modal-box">
+                <i class="fa-regular fa-circle-check"></i>
+                <img class="question_mark" style="width: 90px;" src="{% static 'images/question_icon.png' %}" alt="question_mark">
+                <h3>Do you want to save your changes?</h3>
+    
+                <div class="buttons">
+                    <button type="submit">Save</button>
+                    <a class="close-btn">Cancel</a>
+                </div>
             </div>
-        </div>
-
-        <style>
-            /* Google Fonts - Poppins */
-            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
     
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: "Poppins", sans-serif;
-            }
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }       
+        
+                #window {
+                    position: fixed;
+                    height: 100%;
+                    width: 100%;
+                    background: #fff;
+                    background-color: rgba(0, 0, 0, 0);
+                }
     
-            #window {
-                position: fixed;
-                height: 100%;
-                width: 100%;
-                background: #e3f2fd;
-            }
+                .question_mark {
+                    position: relative;
+                    bottom: 35px;
+                }
+        
+                button, .close-btn {
+                    font-size: 18px;
+                    font-weight: 400;
+                    color: #fff;
+                    padding: 14px 22px;
+                    border: none;
+                    background: #dea205;
+                    border-radius: 6px;
+                    cursor: pointer;
+                }
+        
+                button:hover,
+                .close-btn:hover {
+                    color: #fff;
+                    background-color: #e6ac1a;
+                }
+        
+                button.show-modal,
+                .modal-box {
+                    position: fixed;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                }
+                
+        
+                section.active .show-modal {
+                    display: none;
+                }
+        
+                section.active .overlay {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+        
+                .modal-box {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    max-width: 380px;
+                    width: 100%;
+                    padding: 100px 20px;
+                    border-radius: 24px;
+                    background-color: #202528;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: all 0.3s ease;
+                    transform: translate(-50%, -50%) scale(1.2);
+                }
+        
+                section.active .modal-box {
+                    opacity: 1;
+                    pointer-events: auto;
+                    transform: translate(-50%, -50%) scale(1);
+                }
     
-            button {
-                font-size: 18px;
-                font-weight: 400;
-                color: #fff;
-                padding: 14px 22px;
-                border: none;
-                background: #4070f4;
-                border-radius: 6px;
-                cursor: pointer;
-            }
+                .modal-box h3 {
+                    font-size: 30px;
+                    font-weight: 400;
+                    color: #fff;
+                    text-align: center;
+                }
+        
+                .modal-box .buttons {
+                    margin-top: 25px;
+                }
+        
+                .modal-box button,
+                .modal-box a {
+                    font-size: 14px;
+                    padding: 10px 50px;
+                    margin: 0 10px;
+                }
+            </style>
     
-            button:hover {
-                background-color: #265df2;
-            }
-    
-            button.show-modal,
-            .modal-box {
-                position: fixed;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-    
-            section.active .show-modal {
-                display: none;
-            }
-    
-            .overlay {
-                position: fixed;
-                height: 100%;
-                width: 100%;
-                background: rgba(0, 0, 0, 0.3);
-                opacity: 0;
-                pointer-events: none;
-            }
-    
-            section.active .overlay {
-                opacity: 1;
-                pointer-events: auto;
-            }
-    
-            .modal-box {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                max-width: 380px;
-                width: 100%;
-                padding: 30px 20px;
-                border-radius: 24px;
-                background-color: #fff;
-                opacity: 0;
-                pointer-events: none;
-                transition: all 0.3s ease;
-                transform: translate(-50%, -50%) scale(1.2);
-            }
-    
-            section.active .modal-box {
-                opacity: 1;
-                pointer-events: auto;
-                transform: translate(-50%, -50%) scale(1);
-            }
-    
-            .modal-box i {
-                font-size: 70px;
-                color: #4070f4;
-            }
-    
-            .modal-box h2 {
-                margin-top: 20px;
-                font-size: 25px;
-                font-weight: 500;
-                color: #333;
-            }
-    
-            .modal-box h3 {
-                font-size: 16px;
-                font-weight: 400;
-                color: #333;
-                text-align: center;
-            }
-    
-            .modal-box .buttons {
-                margin-top: 25px;
-            }
-    
-            .modal-box button {
-                font-size: 14px;
-                padding: 6px 12px;
-                margin: 0 10px;
-            }
-        </style>
-
-        <script>
-            const section = document.querySelector("section"),
-                overlay = document.querySelector(".overlay"),
-                showBtn = document.querySelector(".show-modal"),
-                closeBtn = document.querySelector(".close-btn");
-    
-            showBtn.addEventListener("click", () => section.classList.add("active"));
-    
-            overlay.addEventListener("click", () =>
-                section.classList.remove("active")
-            );
-    
-            closeBtn.addEventListener("click", () =>
-                section.classList.remove("active")
-            );
-        </script>
-    </section>
+            <script>
+                const section = document.querySelector("#window"),
+                    overlay = document.querySelector(".overlay"),
+                    updateBtn = document.querySelector("#update_btn"),
+                    closeBtn = document.querySelector(".close-btn");
+                    modalBox = document.querySelector('.modal-box')
+        
+                    updateBtn.addEventListener("click", () => {
+                        section.classList.add("active");
+                    });              
+        
+                    closeBtn.addEventListener("click", () =>
+                        section.classList.remove("active")
+                    );
+            </script>
+        </section>
+    </form>
 </div>
 {% endblock %}
