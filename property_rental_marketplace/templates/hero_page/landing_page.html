@@ -3,12 +3,14 @@
 
 {% block main_content %}
         {% for message in messages %}
-            <div class="alert alert-success my-2 p-3" role="alert">
-                <strong  style="font-size: 20px;">Success:</strong>
-                <p style="font-size:18px;">
-                    {{ message }}<br>
-                </p>
-            </div>
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success my-2 p-3" role="alert">
+                    <strong  style="font-size: 20px;">Success:</strong>
+                    <p style="font-size:18px;">
+                        {{ message }}<br>
+                    </p>
+                </div>
+            {% endif %}
         {% endfor %}
 
         <!-- Header Start -->
