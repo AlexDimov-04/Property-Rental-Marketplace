@@ -66,8 +66,6 @@ class UserProfileUpdateView(LoginRequiredMixin, views.UpdateView):
         return self.request.user.userprofile
 
     def form_valid(self, form):
-        if self.request.method == 'POST':
-            return render(self.request, 'profiles/profile_popup_window.html')
         messages.success(self.request, 'Profile updated successfully.')
         return super().form_valid(form)
 
