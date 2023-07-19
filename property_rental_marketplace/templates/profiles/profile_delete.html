@@ -1,0 +1,37 @@
+{% extends 'base_hero_page/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="popup center">
+    <img src="{% static 'images/question_icon.png' %}" alt="">
+
+    <div class="title">
+        Are you sure?
+    </div>
+    <div class="description">
+        Deleting your profile is a permanent action. You will lose access to all your account information, settings, and
+        data. This action cannot be undone!
+    </div>
+    <form method="POST" class="btns">
+        <a href="{% url 'profile_details' %}" id="dismiss-popup-btn">
+            Dismiss
+        </a>
+        {% csrf_token %}
+        <button type="submit" id="delete-popup-btn">
+            Delete
+        </button>
+    </form>
+</div>
+
+<script>
+    window.addEventListener("load", function () {
+        document.getElementsByClassName("popup")[0].classList.add("active");
+        document.getElementsByTagName('body')[0].classList.add('body-opacity');
+        document.getElementsByClassName('footer')[0].classList.add('bottom-footer');
+    });
+
+    document.getElementById("dismiss-popup-btn").addEventListener("click", function () {
+        document.getElementsByClassName("popup")[0].classList.remove("active");
+    });
+</script>
+{% endblock %}
