@@ -14,13 +14,13 @@ class UserProfile(models.Model):
     first_name = models.CharField(
         max_length=30, 
         null=True, 
-        blank=True
+        blank=True,
     )
 
     last_name = models.CharField(
         max_length=30,
         null=True,
-        blank=True  
+        blank=True,
     )
 
     email = models.EmailField(
