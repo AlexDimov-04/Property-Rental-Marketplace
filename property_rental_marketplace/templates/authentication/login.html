@@ -1,6 +1,17 @@
 {% extends 'base_authentication/base.html' %}
 
 {% block content %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class="alert alert-success my-2 p-3" role="alert">
+                <strong  style="font-size: 20px;">Success:</strong>
+                <p style="font-size:18px;">
+                    {{ message }}<br>
+                </p>
+            </div>
+        {% endif %}
+    {% endfor %}
+
     <h1 class="text-center">Login</h1>
 
     <form class="needs-validation" action="" method="POST">
