@@ -77,14 +77,21 @@
 								{% if not request.user.email %}
 									<input disabled id="email" type="text" class="form-control" value="">
 								{% else %}
-									<input disabled id="email" type="text" class="form-control" value="{{request.user.email}}">
+									<input disabled id="email" type="text" class="form-control"
+										value="{{request.user.email}}">
 								{% endif %}
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="birth_date">Birth Date</label>
-								<input disabled id="birth_date" name="birth_date" type="date" class="form-control">
+								{% if not birth_date %}
+									<input disabled id="birth_date" name="birth_date" type="text" class="form-control"
+										value="">
+								{% else %}
+									<input disabled id="birth_date" name="birth_date" type="text" class="form-control"
+										value="{{birth_date}}">
+								{% endif %}
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -95,7 +102,7 @@
 									{% if not gender %}
 										<option value="">----------</option>
 									{% else %}
-										<option value="{{gender}}"></option>									
+										<option value="">{{gender}}</option>
 									{% endif %}
 								</select>
 
@@ -108,21 +115,26 @@
 									{% if not country %}
 										<option value="">----------</option>
 									{% else %}
-										<option value="{{country}}"></option>									
+										<option value="">{{country}}</option>
 									{% endif %}
-								</select>						
+								</select>
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="bio">Bio <span style="font-size: 14px; color: grey;">(short introduction about yourself)</span></label>
-								<textarea disabled id="bio" class="form-control"
-									rows="4">{{bio}}</textarea>
+								<label for="bio">Bio <span style="font-size: 14px; color: grey;">(short introduction
+										about yourself)</span></label>
+								{% if not bio %}
+									<textarea disabled id="bio" class="form-control" rows="4"></textarea>
+								{% else %}
+									<textarea disabled id="bio" class="form-control" rows="4">{{bio}}</textarea>
+								{% endif %}
 							</div>
 						</div>
 					</div>
-					<div>
+					<div style="display: flex; gap: 10px;">
 						<a href="{% url 'update_profile' %}" class="btn btn-primary">Update my profile</a>
+						<a href="{% url 'delete_profile' %}" class="btn btn-primary delete">Delete my profile</a>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
@@ -197,7 +209,8 @@
 									</label>
 								</div>
 								<div class="form-check">
-									<input disabled class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+									<input disabled class="form-check-input" type="checkbox" value=""
+										id="defaultCheck2">
 									<label class="form-check-label" for="defaultCheck2">
 										Lorem ipsum dolor sit.
 									</label>
