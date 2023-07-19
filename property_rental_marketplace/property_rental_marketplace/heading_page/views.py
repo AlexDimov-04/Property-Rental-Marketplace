@@ -1,23 +1,26 @@
-from django.shortcuts import render
 import requests
+from ssl import SSLError
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
-from property_rental_marketplace.heading_page.forms import UserProfileUpdateForm
+from property_rental_marketplace.heading_page.forms import UserProfileUpdateForm, UserProfileDeleteForm
 from property_rental_marketplace.user_authentication.models import UserProfile
 
+# not for production, it should be changed
 @staticmethod
 def get_countries():
-    url = 'https://restcountries.com/v2/all'
-    response = requests.get(url)
-    if response.status_code == 200:
-        countries = response.json()
-        return countries
-    else:
-        return []
+    try:
+        response = requests.get("https://restcountries.com/v2/all", verify=False)
+        if response.status_code == 200:
+            countries = response.json()
+            return countries
+    except SSLError as e:
+        print(f"Failed to retrieve countries: {e}")
+    
+    return []
 
 @method_decorator(login_required(login_url="sign_in"), name='dispatch')
 class IndexView(views.TemplateView):
@@ -55,8 +58,8 @@ class UserProfileUpdateView(LoginRequiredMixin, views.UpdateView):
         context = super().get_context_data(**kwargs)
         user_profile = self.get_object()
 
-        context['gender'] = user_profile.gender
         context['gender_choices'] = UserProfile.GENDER_CHOICES
+        context['gender'] = user_profile.gender
         context['countries'] = get_countries()
         context['country'] = user_profile.country
 
@@ -72,4 +75,16 @@ class UserProfileUpdateView(LoginRequiredMixin, views.UpdateView):
     def form_invalid(self, form):
         messages.error(self.request, 'Profile update failed. Please correct the errors.')
         return super().form_invalid(form)
-          
+
+class UserProfileDeleteView(LoginRequiredMixin, views.DeleteView):
+    model = UserProfile
+    template_name = 'profiles/profile_delete.html'
+    success_url = reverse_lazy('sign_out')
+
+    def get_object(self, queryset=None):
+        return self.request.user.userprofile
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, 'Profile deleted successfully.')
+        return super().delete(request, *args, **kwargs)
+    
