@@ -39,13 +39,10 @@
                     <select class="form-control" name="gender" id="gender">
                         {% if not gender %}
                         <option value="">----------</option>
-                        {% else %}
-                        <option value="">{{gender}}</option>
                         {% endif %}
-
                         {% for choice_value, choice_label in gender_choices %}
                         <option value="{{choice_value}}">
-                            {% if choice_value == gender %}selected{% endif %}
+                            {% if choice_value == gender %}{% endif %}
                             {{ choice_label }}
                         </option>
                         {% endfor %}
@@ -56,15 +53,17 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="country">Country</label>
-                    <select class="form-control" name="countries" id="country">
+                    <select class="form-control" name="country" id="country">
                         {% if not country %}
-                        <option value="">----------</option>
+                            <option value="">----------</option>
                         {% else %}
-                        <option value="">{{country}}</option>
+                            <option value="">{{country}}</option>
                         {% endif %}
-
                         {% for country in countries %}
-                        <option value="{{ country.alpha2Code }}">{{ country.name }}</option>
+                            <option value="{{country.name}}">
+                                {% if country.alpha2Code == user_profile.country %}selected{% endif %}
+                                {{country.name}}
+                            </option>
                         {% endfor %}
                     </select>
                 </div>
@@ -79,140 +78,17 @@
         </div>
         <div>
             {% for field, error in form.errors.items %}
-                <div class="alert alert-danger">
-                    <strong>Error:</strong>
-                    {{ error|striptags }}
-                </div>
+            <div class="alert alert-danger">
+                <strong>Error:</strong>
+                {{ error|striptags }}
+            </div>
             {% endfor %}
 
             <a class="btn btn-primary" id="update_btn">Update</a>
             <a href="{% url 'profile_details' %}" class="btn btn-light">Cancel</a>
-        </div>  
-        
-        <section id="window">
-            <div class="modal-box">
-                <i class="fa-regular fa-circle-check"></i>
-                <img class="question_mark" style="width: 90px;" src="{% static 'images/question_icon.png' %}" alt="question_mark">
-                <h3>Do you want to save your changes?</h3>
-    
-                <div class="buttons">
-                    <button type="submit">Save</button>
-                    <a class="close-btn">Cancel</a>
-                </div>
-            </div>
-    
-            <style>
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }       
-        
-                #window {
-                    position: fixed;
-                    height: 100%;
-                    width: 100%;
-                    background: #fff;
-                    background-color: rgba(0, 0, 0, 0);
-                }
-    
-                .question_mark {
-                    position: relative;
-                    bottom: 35px;
-                }
-        
-                button, .close-btn {
-                    font-size: 18px;
-                    font-weight: 400;
-                    color: #fff;
-                    padding: 14px 22px;
-                    border: none;
-                    background: #dea205;
-                    border-radius: 6px;
-                    cursor: pointer;
-                }
-        
-                button:hover,
-                .close-btn:hover {
-                    color: #fff;
-                    background-color: #e6ac1a;
-                }
-        
-                button.show-modal,
-                .modal-box {
-                    position: fixed;
-                    left: 50%;
-                    top: 50%;
-                    transform: translate(-50%, -50%);
-                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-                }
-                
-        
-                section.active .show-modal {
-                    display: none;
-                }
-        
-                section.active .overlay {
-                    opacity: 1;
-                    pointer-events: auto;
-                }
-        
-                .modal-box {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    max-width: 380px;
-                    width: 100%;
-                    padding: 100px 20px;
-                    border-radius: 24px;
-                    background-color: #202528;
-                    opacity: 0;
-                    pointer-events: none;
-                    transition: all 0.3s ease;
-                    transform: translate(-50%, -50%) scale(1.2);
-                }
-        
-                section.active .modal-box {
-                    opacity: 1;
-                    pointer-events: auto;
-                    transform: translate(-50%, -50%) scale(1);
-                }
-    
-                .modal-box h3 {
-                    font-size: 30px;
-                    font-weight: 400;
-                    color: #fff;
-                    text-align: center;
-                }
-        
-                .modal-box .buttons {
-                    margin-top: 25px;
-                }
-        
-                .modal-box button,
-                .modal-box a {
-                    font-size: 14px;
-                    padding: 10px 50px;
-                    margin: 0 10px;
-                }
-            </style>
-    
-            <script>
-                const section = document.querySelector("#window"),
-                    overlay = document.querySelector(".overlay"),
-                    updateBtn = document.querySelector("#update_btn"),
-                    closeBtn = document.querySelector(".close-btn");
-                    modalBox = document.querySelector('.modal-box')
-        
-                    updateBtn.addEventListener("click", () => {
-                        section.classList.add("active");
-                    });              
-        
-                    closeBtn.addEventListener("click", () =>
-                        section.classList.remove("active")
-                    );
-            </script>
-        </section>
+        </div>
+
+        {% include 'profiles/profile_pop_up_message.html' %}
     </form>
 </div>
 {% endblock %}
