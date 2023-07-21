@@ -1,6 +1,24 @@
 {% extends 'base_authentication/base.html' %}
 
 {% block content %}
+    {% for message in messages %}
+        <div class="alert alert-danger my-2 p-3" role="alert">
+            <strong  style="font-size: 20px;">Error:</strong>
+            <p style="font-size:18px;">
+                {{ message }}<br>
+            </p>
+        </div>
+    {% endfor %}
+
+    {% for field, error in form.errors.items %}
+        <div class="alert alert-danger my-2 p-3" role="alert">
+            <strong  style="font-size: 20px;">Error:</strong>
+            <p style="font-size:18px;">
+                {{ error|striptags }}<br>
+            </p>
+        </div>
+    {% endfor %}
+
     <h1 class="text-center">Register</h1>
 
     <form class="needs-validation" action="" method="POST">
@@ -37,18 +55,6 @@
             <label class="form-label" for="password2">Confirm Password:</label>
             {{form.password2}}
         </div>
-
-        {% for field, error in form.errors.items %}
-            <div class="alert alert-danger my-2 p-1" role="alert">
-                {{ error|striptags }}
-            </div>
-        {% endfor %}
-
-        {% for message in messages %}
-            <div class="alert alert-danger my-2 p-1" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
 
         <div class="form-group">
             <label>
