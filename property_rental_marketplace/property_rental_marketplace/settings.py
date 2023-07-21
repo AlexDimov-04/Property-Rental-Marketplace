@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'property_rental_marketplace.user_authentication',
-    'property_rental_marketplace.heading_page',
+    'property_rental_marketplace.profile_management',
+    'property_rental_marketplace.property_market',
 ]
 
 MIDDLEWARE = [
