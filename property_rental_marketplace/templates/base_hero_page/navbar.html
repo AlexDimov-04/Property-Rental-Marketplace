@@ -31,9 +31,15 @@
                         <a href="404.html" class="dropdown-item">404 Error</a>
                     </div>
                 </div>
-                <a href="{% url 'profile_details' %}" class="nav-item nav-link">Profile</a>
+                {% if user_profile %}
+                    <a href="{% url 'profile_details' %}" class="nav-item nav-link">Profile</a>
+                {% endif %}
             </div>
-            <a href="{% url 'sign_out' %}" class="btn btn-primary px-3 d-none d-lg-flex">Log Out</a>
+            {% if user_profile %}
+                <a href="{% url 'sign_out' %}" class="btn btn-primary px-3 d-none d-lg-flex">Log Out</a>
+            {% else %}
+                <a href="{% url 'sign_in' %}" class="btn btn-primary px-3 d-none d-lg-flex">Log In</a>
+            {% endif %}
         </div>
     </nav>
 </div>
