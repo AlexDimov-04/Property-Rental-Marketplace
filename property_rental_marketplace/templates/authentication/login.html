@@ -9,6 +9,13 @@
                     {{ message }}<br>
                 </p>
             </div>
+        {% elif message.tags == 'info'%}
+            <div class="alert alert-danger my-2 p-3" role="alert">
+                <strong  style="font-size: 20px;">Error:</strong>
+                <p style="font-size:18px;">
+                    {{ message }}<br>
+                </p>
+            </div>
         {% endif %}
     {% endfor %}
 
@@ -26,18 +33,6 @@
             <label class="form-label" for="password">Password:</label>
             <input class="form-control" name="password" type="password" id="password" required>
         </div>
-
-        {% for message in messages %}
-            {% if message.tags == 'success' %}
-                <div class="alert alert-success my-2 p-3" role="alert">
-                    {{ message }}
-                </div>
-            {% elif message.tags == 'info' %}
-                <div class="alert alert-danger my-2 p-3" role="alert">
-                    {{ message }}
-                </div>
-            {% endif %}
-        {% endfor %}
 
         <div class="form-group form-check">
             <input class="form-check-input" type="checkbox" name="remember_me" id="check">
