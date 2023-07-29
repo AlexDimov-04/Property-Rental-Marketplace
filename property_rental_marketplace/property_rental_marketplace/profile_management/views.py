@@ -40,7 +40,7 @@ class IndexView(UserProfileMixin, views.TemplateView):
         context['user_profile'] = self.get_user_profile()
         return context
     
-class UserProfileView(LoginRequiredMixin, views.DetailView):
+class UserProfileView(LoginRequiredMixin, UserProfileMixin, views.DetailView):
     model = UserProfile
     template_name = 'profiles/profile_details.html'
 
@@ -48,6 +48,7 @@ class UserProfileView(LoginRequiredMixin, views.DetailView):
         context = super().get_context_data(**kwargs)
         user_profile = self.get_object()
 
+        context['user_profile'] = self.get_user_profile()
         context['first_name'] = user_profile.first_name
         context['last_name'] = user_profile.last_name
         context['birth_date'] = user_profile.birth_date
@@ -62,7 +63,7 @@ class UserProfileView(LoginRequiredMixin, views.DetailView):
     def get_object(self):
         return self.request.user.userprofile
 
-class UserProfileUpdateView(LoginRequiredMixin, views.UpdateView):
+class UserProfileUpdateView(LoginRequiredMixin, UserProfileMixin, views.UpdateView):
     model = UserProfile
     form_class = UserProfileUpdateForm
     template_name = 'profiles/profile_update.html'
@@ -72,6 +73,7 @@ class UserProfileUpdateView(LoginRequiredMixin, views.UpdateView):
         context = super().get_context_data(**kwargs)
         user_profile = self.get_object()
 
+        context['user_profile'] = self.get_user_profile()
         context['gender_choices'] = UserProfile.GENDER_CHOICES
         context['gender'] = user_profile.gender
         context['countries'] = get_countries()
@@ -90,10 +92,15 @@ class UserProfileUpdateView(LoginRequiredMixin, views.UpdateView):
         messages.error(self.request, 'Profile update failed. Please correct the errors.')
         return super().form_invalid(form)
 
-class UserProfileDeleteView(LoginRequiredMixin, views.DeleteView):
+class UserProfileDeleteView(LoginRequiredMixin, UserProfileMixin, views.DeleteView):
     model = UserProfile
     template_name = 'profiles/profile_delete.html'
     success_url = reverse_lazy('sign_out')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_profile'] = self.get_user_profile()
+        return context
 
     def get_object(self, queryset=None):
         return self.request.user.userprofile
