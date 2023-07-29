@@ -1,9 +1,10 @@
 from django.urls import reverse_lazy
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, Apartment, Villa, Shop, Building, Office
+from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm
 
-class PropertyListView(views.ListView):
+class PropertyListView(UserProfileMixin, views.ListView):
     model = BaseProperty
     template_name = 'properties/property_list.html'
     context_object_name = 'properties'
@@ -29,13 +30,19 @@ class PropertyListView(views.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search'] = self.request.GET.get('search', '')
+        context['user_profile'] = self.get_user_profile()
         return context
     
-class PropertyCreateView(views.CreateView):
+class PropertyCreateView(UserProfileMixin, views.CreateView):
     model = BaseProperty
-    template_name = 'properties/property_list.html'
-    fields = '__all__'
+    form_class = BasePropertyForm
+    template_name = 'properties/property_create.html'
     success_url = reverse_lazy('property_list')
 
     def form_valid(self, form):
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_profile'] = self.get_user_profile()
+        return context
