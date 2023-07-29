@@ -54,13 +54,11 @@
 
             <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
                 <div class="container">
-                    <form method="POST" action="{% url 'property_create' %}" class="row g-2">
-                        {% csrf_token %}
-                        {{form}}
+                    <div class="row g-2">
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-dark border-0 w-100 py-3">Create</button>
+                            <a href="{% url 'property_create' %}" class="btn btn-dark border-0 w-100 py-3">Add your properties</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
