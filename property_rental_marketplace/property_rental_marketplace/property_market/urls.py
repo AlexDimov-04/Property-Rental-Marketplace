@@ -3,6 +3,6 @@ from property_rental_marketplace.property_market.views import PropertyListView, 
 
 
 urlpatterns = [
-    path('property-list/', PropertyListView.as_view(), name='property_list'),
-    path('property-create/', PropertyCreateView.as_view(), name='property_create'),
+    path('list-properties/', PropertyListView.as_view(), name='property_list'),
+    path('create-properties/', PropertyCreateView.as_view(), name='property_create'),
 ]
