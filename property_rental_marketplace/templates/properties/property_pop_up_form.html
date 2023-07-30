@@ -19,6 +19,9 @@
                     <i class="fa fa-home"></i>
                 </div>
             </div>
+            
+            <div id="additionalFields"></div>
+
             <div class="input-group input-group-icon">
                 {{form.price}}
                 <div class="input-icon">
@@ -296,8 +299,8 @@
         position: fixed;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) scale(0.7); 
-        opacity: 0; 
+        transform: translate(-50%, -50%) scale(0.7);
+        opacity: 0;
         z-index: 1000;
     }
 
@@ -350,23 +353,47 @@
 
 <script>
     function toggleForm() {
-      const form = document.getElementById("popupForm");
-      const overlay = document.getElementById("overlay");
-      if (form.classList.contains("active")) {
-        form.classList.remove("active");  
-        overlay.style.display = "none";
-      } else {
-        form.classList.remove("hide");
-        form.classList.add("active");
-        overlay.style.display = "block";
-      }
+        const form = document.getElementById("popupForm");
+        const overlay = document.getElementById("overlay");
+        if (form.classList.contains("active")) {
+            form.classList.remove("active");
+            overlay.style.display = "none";
+        } else {
+            form.classList.remove("hide");
+            form.classList.add("active");
+            overlay.style.display = "block";
+        }
     }
-  
+
     function closeForm() {
-      const form = document.getElementById("popupForm");
-      const overlay = document.getElementById("overlay");
-      form.classList.remove("active");
-      form.classList.add("hide");
-      overlay.style.display = "none";
+        const form = document.getElementById("popupForm");
+        const overlay = document.getElementById("overlay");
+        form.classList.remove("active");
+        form.classList.add("hide");
+        overlay.style.display = "none";
     }
+</script>
+
+<script>
+    async function fetchAdditionalFormFields(propertyType) {
+        try {
+            const url = '{% url "additional_form_fields" %}?property_type=' + propertyType;
+            const response = await fetch(url);
+            const data = await response.json();
+            const additionalFieldsDiv = document.getElementById('additionalFields');
+            additionalFieldsDiv.innerHTML = data.html
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const propertyTypeSelect = document.querySelector('select[name="property_type"]');
+        propertyTypeSelect.addEventListener('change', function () {
+            const selectedPropertyType = propertyTypeSelect.value;
+            if (selectedPropertyType) {
+                fetchAdditionalFormFields(selectedPropertyType)
+            }
+        })
+    })
 </script>
