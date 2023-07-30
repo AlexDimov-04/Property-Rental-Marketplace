@@ -25,10 +25,7 @@ class BaseProperty(models.Model):
         choices=TYPE_CHOICES
     )
 
-    price = models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
+    price = models.PositiveIntegerField()
 
     title = models.CharField(
         max_length=100
@@ -99,8 +96,8 @@ class Shop(models.Model):
     property = models.OneToOneField(BaseProperty, on_delete=models.CASCADE)
     description = models.TextField()
     area_sqft = models.PositiveIntegerField()
-    has_parking = models.BooleanField()
-    has_window_display = models.BooleanField()
+    has_ac = models.BooleanField()
+    has_cctv = models.BooleanField()
 
     def __str__(self):
         return f"Shop: {self.property.title}"
