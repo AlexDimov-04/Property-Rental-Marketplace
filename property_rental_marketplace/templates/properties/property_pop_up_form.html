@@ -1,58 +1,60 @@
 <div class="overlay" id="overlay" style="display: none;"></div>
 
 <div class="wrapper-pop-up hide" id="popupForm">
-    <form method="POST" action="{% url 'property_create' %}">
-        {% csrf_token %}
-        <div class="row">
-            <h4 id="acc">Property Details</h4>
-            <label>State:</label>
-            <div class="input-group input-group-icon">
-                {{form.property_state}}
-                <div class="input-icon">
-                    <i class="fa fa-building"></i>
+    <div class="scroll-container">
+        <form method="POST" action="{% url 'property_create' %}">
+            {% csrf_token %}
+            <div class="row">
+                <h4 id="acc">Property Details</h4>
+                <label>State:</label>
+                <div class="input-group input-group-icon">
+                    {{form.property_state}}
+                    <div class="input-icon">
+                        <i class="fa fa-building"></i>
+                    </div>
                 </div>
-            </div>
-            <label>Type:</label>
-            <div class="input-group input-group-icon">
-                {{form.property_type}}
-                <div class="input-icon">
-                    <i class="fa fa-home"></i>
+                <label>Type:</label>
+                <div class="input-group input-group-icon">
+                    {{form.property_type}}
+                    <div class="input-icon">
+                        <i class="fa fa-home"></i>
+                    </div>
                 </div>
-            </div>
-            
-            <div id="additionalFields"></div>
+                
+                <div id="additionalFields"></div>
 
-            <div class="input-group input-group-icon">
-                {{form.price}}
-                <div class="input-icon">
-                    <i class="fa fa-dollar-sign"></i>
+                <div class="input-group input-group-icon">
+                    {{form.price}}
+                    <div class="input-icon">
+                        <i class="fa fa-dollar-sign"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="input-group input-group-icon">
-                {{form.title}}
-                <div class="input-icon">
-                    <i class="fa fa-book"></i>
+                <div class="input-group input-group-icon">
+                    {{form.title}}
+                    <div class="input-icon">
+                        <i class="fa fa-book"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="input-group input-group-icon">
-                {{form.location}}
-                <div class="input-icon">
-                    <i class="fa fa-map-marker"></i>
+                <div class="input-group input-group-icon">
+                    {{form.location}}
+                    <div class="input-icon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="input-group input-group-icon">
-                {{form.images}}
-                <div class="input-icon">
-                    <i class="fa fa-image"></i>
+                <div class="input-group input-group-icon">
+                    {{form.images}}
+                    <div class="input-icon">
+                        <i class="fa fa-image"></i>
+                    </div>
                 </div>
-            </div>
 
-            <div class="btn-wrapper">
-                <button type="submit" class="btn">Create</button>
-                <button type="button" class="btn" onclick="closeForm()">Close</button>
+                <div class="btn-wrapper">
+                    <button type="submit" class="btn">Create</button>
+                    <button type="button" class="btn" onclick="closeForm()">Close</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <style>
@@ -69,6 +71,26 @@
 
     .hide {
         visibility: hidden;
+    }
+
+    .scroll-container {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding-right: 13px;
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        width: 5px; 
+        height: 1px;
+    }
+
+    .scroll-container::-webkit-scrollbar-thumb {
+        background-color: #c0c0c0; 
+        border-radius: 4px;
+    }
+
+    .scroll-container::-webkit-scrollbar-thumb:hover {
+        background-color: #a0a0a0; 
     }
 
     .btn-wrapper {
@@ -341,6 +363,28 @@
 
     .col-third:last-of-type {
         padding-right: 0;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .wrapper-pop-up {
+            max-width: 80%;
+        }
+    }
+
+    @media only screen and (max-width: 610px) {
+        .btn-wrapper {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn-wrapper .btn {
+            width: 100%;
+        }
+
+        .input-group,
+        select {
+            width: 100%;
+        }
     }
 
     @media only screen and (max-width: 540px) {
