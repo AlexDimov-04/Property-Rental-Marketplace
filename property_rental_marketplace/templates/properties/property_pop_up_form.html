@@ -6,14 +6,14 @@
             {% csrf_token %}
             <div class="row">
                 <h4 id="acc">Property Details</h4>
-                <label>State:</label>
+                <label class="state">State:</label>
                 <div class="input-group input-group-icon">
                     {{form.property_state}}
-                    <div class="input-icon">
+                    <div class="input-icon" id="state">
                         <i class="fa fa-building"></i>
                     </div>
                 </div>
-                <label>Type:</label>
+                <label class="type">Type:</label>
                 <div class="input-group input-group-icon">
                     {{form.property_type}}
                     <div class="input-icon">
@@ -21,7 +21,9 @@
                     </div>
                 </div>
                 
-                <div id="additionalFields"></div>
+                <div id="additionalFields">
+                    
+                </div>
 
                 <div class="input-group input-group-icon">
                     {{form.price}}
@@ -67,6 +69,10 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.6);
         z-index: 999;
+    }
+
+    .wrapperContainer {
+        display: flex;
     }
 
     .hide {
@@ -132,7 +138,7 @@
         -o-transition: 0.35s ease-in-out;
         transition: 0.35s ease-in-out;
         transition: all 0.35s ease-in-out;
-        margin-bottom: 20px;
+        margin-bottom: 35px;
     }
 
     input:focus {
@@ -173,10 +179,6 @@
 
     input[type="radio"]+label i {
         padding-right: 0.4em;
-    }
-
-    input[type="checkbox"] {
-        display: none;
     }
 
     input[type="checkbox"]+label {
@@ -251,7 +253,6 @@
     }
 
     .input-group {
-        margin-bottom: 1em;
         zoom: 1;
     }
 
@@ -424,8 +425,25 @@
             const url = '{% url "additional_form_fields" %}?property_type=' + propertyType;
             const response = await fetch(url);
             const data = await response.json();
+
             const additionalFieldsDiv = document.getElementById('additionalFields');
             additionalFieldsDiv.innerHTML = data.html
+
+            const checkboxInputs = additionalFieldsDiv.querySelectorAll('input[type="checkbox"]');
+            const wrapperContainer = document.createElement('div');
+            wrapperContainer.classList.add('wrapperContainer');
+
+            checkboxInputs.forEach(input => {
+                const label = document.createElement('label');
+                label.textContent = input.name;
+
+                wrapperContainer.appendChild(label);
+                wrapperContainer.appendChild(input);
+            })
+
+            additionalFieldsDiv.appendChild(wrapperContainer);
+            
+            console.log(additionalFieldsDiv)
         } catch (error) {
             console.error('Error:', error);
         }
