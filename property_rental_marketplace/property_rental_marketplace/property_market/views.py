@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
@@ -38,46 +39,20 @@ class PropertyListView(UserProfileMixin, views.ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        search_keyword = self.request.GET.get('search', '')
-        property_type = self.request.GET.get('property_type', '')
-        location = self.request.GET.get('location', '')
-
-        if search_keyword:
-            queryset = queryset.filter(title__icontains=search_keyword)
-
-        if property_type:
-            queryset = queryset.filter(property_type=property_type)
-
-        if location:
-            queryset = queryset.filter(location=location)
-
+        queryset = super().get_queryset().select_related(
+            'apartment', 'villa', 'office', 'shop', 'building'
+        )
+        
+        search = self.request.GET.get('search', '')
+        if search:
+            queryset = queryset.filter(title__icontains=search)
+        
         return queryset
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search'] = self.request.GET.get('search', '')
         context['user_profile'] = self.get_user_profile()
-
-        property_type_mapping = PROPERTY_TYPE_MAPPING
-        properties = context['properties']
-        additional_fields = {}
-
-        for property_obj in properties:
-            property_type = property_obj.property_type
-            specific_property_info = property_type_mapping.get(property_type)
-
-            if specific_property_info:
-                specific_property_model = specific_property_info['model']
-                
-                try:
-                    specific_property = specific_property_model.objects.get(property=property_obj)
-                    additional_fields[property_obj.pk] = specific_property
-                except ObjectDoesNotExist:
-                    additional_fields[property_obj.pk] = None
-
-        context['additional_fields'] = additional_fields
-
         return context
     
 class PropertyCreateView(UserProfileMixin, views.CreateView):
