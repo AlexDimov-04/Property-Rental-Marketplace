@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
@@ -67,7 +67,6 @@ class PropertyCreateView(UserProfileMixin, views.CreateView):
         specific_property_info = PROPERTY_TYPE_MAPPING.get(property_type)
 
         if specific_property_info:
-            specific_property_model = specific_property_info['model']
             specific_property_form = specific_property_info['form']
 
             specific_form = specific_property_form(self.request.POST)
@@ -82,7 +81,7 @@ class PropertyCreateView(UserProfileMixin, views.CreateView):
 
                 return super().form_valid(form)
             
-        return JsonResponse({'error': 'Invalid property type'}, status=400)
+        return super().form_invalid(form)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -102,7 +101,9 @@ def get_additional_form_fields(request):
     form_class = form_classes.get(property_type)
     if form_class:
         form = form_class()
-        html = form.as_p()
+        html = ''
+        for field in form:
+            html += str(field)
     else:
         html = ''
 
