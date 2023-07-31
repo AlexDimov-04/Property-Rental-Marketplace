@@ -53,7 +53,7 @@ class Apartment(models.Model):
 
     num_bedrooms = models.PositiveIntegerField()
 
-    num_batrooms = models.PositiveIntegerField()
+    num_bathrooms = models.PositiveIntegerField()
 
     area_sqft  = models.PositiveIntegerField()
 
