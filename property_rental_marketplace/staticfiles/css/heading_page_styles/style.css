@@ -265,11 +265,11 @@ body {
 }
 
 .property-item .border-top {
-  border-top: 1px dashed rgba(0, 185, 142, 0.3) !important;
+  border-top: 1px dashed #dea205 !important;
 }
 
 .property-item .border-end {
-  border-right: 1px dashed rgba(0, 185, 142, 0.3) !important;
+  border-right: 1px dashed #dea205 !important;
 }
 
 .property-item.rounded.overflow-hidden {
