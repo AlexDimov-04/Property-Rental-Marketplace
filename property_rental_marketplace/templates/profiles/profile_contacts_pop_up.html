@@ -1,0 +1,226 @@
+<div class="overlay" id="overlay"></div>
+
+<div class="modal" id="contactModal">
+    <div class="modal_content">
+        <div class="modal-body">
+            <div class="contact-container">
+                <h4>Contact the owner</h4>
+                <span class="close" id="closeBtn">&times;</span>
+            </div>
+            <hr>
+            <div>
+                <div class="d-flex">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <p>Address: 198 West 21th Street, Suite 721 New York NY 10016</p>
+                </div>
+                <hr>
+                <div class="d-flex">
+                    <i class="bi bi-telephone-fill"></i>
+                    <p>Contact :- 8888888888</p>
+                </div>
+                <hr>
+                <div class="d-flex">
+                    <i class="bi bi-envelope-fill"></i>
+                    <p>Email:- Contact@gmail.com</p>
+                </div>
+                <hr>
+                <div class="d-flex">
+                    <i class="bi bi-browser-chrome"></i>
+                    <p>Website: www.contact.com</p>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        z-index: 1001;
+        max-width: 420px;
+        width: 90%;
+        max-height: 600px;
+        overflow: hidden;   
+    }
+
+    .contact-container {
+        display: flex;
+        gap: 100px;
+    }
+
+    .modal_content {
+        padding: 20px;
+        background-color: #dea205;
+    }
+
+    .profile-img {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #ccc;
+        /* Placeholder background color */
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #DA2C32;
+        color: #fff;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        position: relative;
+    }
+
+    .modal-header h2 {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .close {
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        position: relative;
+        bottom: 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+        background-color: #202528;
+        color: #fff;
+        max-height: 60vh; 
+        overflow-y: auto;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button[type="submit"] {
+        background-color: #DA2C32;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #c12026;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    /* Fade-out animation for the modal */
+    .fade-out {
+        animation: fadeOut 0.3s ease-out;
+    }
+
+    /* Scale animation for the link */
+    .scale {
+        animation: scale 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+
+    @keyframes scale {
+        from { transform: scale(1); }
+        to { transform: scale(1.1); }
+    }
+
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the modal and overlay elements
+        const modal = document.getElementById("contactModal");
+        const overlay = document.getElementById("overlay");
+
+        const contactLink = document.getElementById("contactLink");
+
+        const closeBtn = document.getElementById("closeBtn");
+
+        window.addEventListener("scroll", function () {
+            adjustModalPosition();
+        });
+
+        function openModal() {
+            modal.style.display = "block";
+            overlay.style.display = "block";
+            modal.classList.add("fade-in");
+        }
+
+        function closeModal() {
+            modal.classList.remove("fade-in");
+            modal.classList.add("fade-out");
+            setTimeout(function () {
+                modal.style.display = "none";
+                overlay.style.display = "none";
+                modal.classList.remove("fade-out");
+            }, 300);
+        }
+
+        contactLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            contactLink.classList.add("scale");
+            setTimeout(function () {
+                contactLink.classList.remove("scale");
+                openModal();
+            }, 200);
+        });
+
+        closeBtn.addEventListener("click", function () {
+            closeModal();
+        });
+
+        overlay.addEventListener("click", function () {
+            closeModal();
+        });
+    });
+</script>
