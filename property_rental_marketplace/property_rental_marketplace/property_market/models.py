@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 class BaseProperty(models.Model):
     STATE_CHOICES = [
@@ -14,6 +16,10 @@ class BaseProperty(models.Model):
         ('Shop', 'Shop'),
         ('Building', 'Building')
     ]
+
+    created_at = models.DateTimeField(default=timezone.now, editable=False)
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties_created', default=1)
 
     property_state = models.CharField(
         max_length=10,
