@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
@@ -74,6 +75,7 @@ class PropertyCreateView(UserProfileMixin, views.CreateView):
 
     def form_valid(self, form):
         property_type = form.cleaned_data['property_type']
+        form.instance.owner = self.request.user
 
         specific_property_info = PROPERTY_TYPE_MAPPING.get(property_type)
 
@@ -119,3 +121,28 @@ def get_additional_form_fields(request):
         html = ''
 
     return JsonResponse({'html': html})
+
+class PropertyDetailsView(UserProfileMixin, views.DetailView):
+    model = BaseProperty
+    template_name = 'properties/property_details.html'
+    context_object_name = 'property'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_profile'] = self.get_user_profile()
+        context['owner_username'] = self.object.owner.username
+        return context
+
+    # def get_object(self):
+    #     pk = self.kwargs.get('pk')
+    #     property_obj = get_object_or_404(BaseProperty, pk=pk)
+        
+    #     property_type = property_obj.property_type
+    #     specific_model = PROPERTY_TYPE_MAPPING.get(property_type, {}).get('model')
+        
+    #     if specific_model:
+    #         specific_property_obj = get_object_or_404(specific_model, property=property_obj)
+    #     else:
+    #         specific_property_obj = None  
+
+    #     return property_obj, specific_property_obj
