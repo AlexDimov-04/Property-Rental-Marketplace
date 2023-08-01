@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'property_rental_marketplace.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "rentwise_db",
+        "NAME": "RW_database",
         "USER": "postgres-user",
         "PASSWORD": "aloalo123",
         "HOST": "127.0.0.1",
