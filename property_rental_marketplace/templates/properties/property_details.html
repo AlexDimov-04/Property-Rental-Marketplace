@@ -22,52 +22,180 @@
                 <p><i class="fas fa-tag"></i><span>{{property.property_state}}</span></p>
                 <p><i class="fas fa-dollar-sign"></i><span>{{property.price}}</span></p>
                 <p><i class="fas fa-user"></i><span>{{ property.owner.username }}</span></p>
-                <p><i class="fas fa-calendar"></i><span>{{ property.created_at|date:"d-m-Y" }}</span></p>
-                <p><i class="fas fa-car"></i><span>sale</span></p>
+                <p><i class="fas fa-calendar"></i><span>{{ property.created_at|date:"F d, Y" }}</span></p>
+                <p><i class="fas fa-phone"></i><a href="#" id="contactLink">Contacts</a></p>
+                {% include 'profiles/profile_contacts_pop_up.html' %}
             </div>
-            <h3 class="title">details</h3>
-            <div class="flex">
-                <div class="box">
-                    <p><i>rooms :</i><span>2 BHK</span></p>
-                    <p><i>deposit amount :</i><span>0</span></p>
-                    <p><i>status :</i><span>ready to move</span></p>
-                    <p><i>bedroom :</i><span>3</span></p>
-                    <p><i>bathroom :</i><span>2</span></p>
-                    <p><i>balcony :</i><span>1</span></p>
+            <h3 class="title">Details</h3>
+            {% if property.property_type == 'Apartment' %}
+                <div class="flex">
+                    <div class="box">
+                        <p><i>Number Of Bedrooms:</i><span>{{ property.apartment.num_bedrooms }}</span></p>
+                        <p><i>Number Of Bathrooms:</i><span>{{ property.apartment.num_bathrooms }}</span></p>
+                    </div>
+                    <div class="box">
+                        <p><i>Area in Square Foot:</i><span>{{ property.apartment.area_sqft }}</span></p>
+                        <p><i>Floor Number:</i><span>{{ property.apartment.floor_number }}</span></p>
+                    </div>
                 </div>
-                <div class="box">
-                    <p><i>carpet area :</i><span>750sqft</span></p>
-                    <p><i>age :</i><span>3 years</span></p>
-                    <p><i>room floor :</i><span>3</span></p>
-                    <p><i>total floors :</i><span>22</span></p>
-                    <p><i>furnished :</i><span>semi-furnished</span></p>
-                    <p><i>loan :</i><span>available</span></p>
+                <h3 class="title">Extras</h3>
+                <div class="flex">
+                    <div class="box">
+                        {% if property.apartment.has_balcony %}
+                            <p><i class="fas fa-check"></i><span>Balcony</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Balcony</span></p>
+                        {% endif %}
+
+                        {% if property.apartment.is_furnished %}
+                            <p><i class="fas fa-check"></i><span>Furnished</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Furnished</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="box">
+                        {% if property.apartment.has_air_conditioning %}
+                            <p><i class="fas fa-check"></i><span>A/C</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>A/C</span></p>
+                        {% endif %}
+
+                        {% if property.apartment.garage %}
+                            <p><i class="fas fa-check"></i><span>Garage</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Garage</span></p>
+                        {% endif %}
+                    </div>
                 </div>
+                <h3 class="title">Description</h3>
+                <p class="description">{{ property.apartment.description }}</p>
+                <form action="" method="post">
+                    <input type="submit" value="save property" name="save" class="inline-btn">
+                </form>
+            {% elif property.property_type == 'Villa' %}
+                <div class="flex">
+                    <div class="box">
+                        <p><i>Number Of Bedrooms:</i><span>{{ property.villa.num_bedrooms }}</span></p>
+                        <p><i>Number Of Bathrooms:</i><span>{{ property.villa.num_bathrooms }}</span></p>
+                    </div>
+                    <div class="box">
+                        <p><i>Area in Square Foot:</i><span>{{ property.villa.area_sqft }}</span></p>
+                    </div>
+                </div>
+                <h3 class="title">Extras</h3>
+                <div class="flex">
+                    <div class="box">
+                        {% if property.villa.has_garden %}
+                            <p><i class="fas fa-check"></i><span>Garden</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Garden</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="box">
+                        {% if property.villa.has_pool %}
+                            <p><i class="fas fa-check"></i><span>Pool</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Pool</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="title">Description</h3>
+                <p class="description">{{ property.villa.description }}</p>
+                <form action="" method="post">
+                    <input type="submit" value="save property" name="save" class="inline-btn">
+                </form>
+            {% elif property.property_type == 'Office' %}
+                <div class="flex">
+                    <div class="box">
+                        <p><i>Number Of Rooms:</i><span>{{ property.office.num_rooms }}</span></p>
+                        <p><i>Area in Square Foot:</i><span>{{ property.office.area_sqft }}</span></p>
+                    </div>
+                    <div class="box">
+                        <p><i>Floor Number:</i><span>{{ property.office.floor_number }}</span></p>
+                    </div>
+                </div>
+                <h3 class="title">Extras</h3>
+                <div class="flex">
+                    <div class="box">
+                        {% if property.office.has_parking %}
+                            <p><i class="fas fa-check"></i><span>Parking</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Parking</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="box">
+                        {% if property.office.has_lift %}
+                            <p><i class="fas fa-check"></i><span>Elevator</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Elevator</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="title">Description</h3>
+                <p class="description">{{ property.office.description }}</p>
+                <form action="" method="post">
+                    <input type="submit" value="save property" name="save" class="inline-btn">
+                </form>
+            {% elif property.property_type == 'Shop' %}
+                <div class="flex">
+                    <div class="box">
+                        <p><i>Area in Square Foot:</i><span>{{ property.shop.area_sqft }}</span></p>
+                    </div>
+                </div>
+                <h3 class="title">Extras</h3>
+                <div class="flex">
+                    <div class="box">
+                        {% if property.shop.has_ac %}
+                            <p><i class="fas fa-check"></i><span>A/C</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>A/C</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="box">
+                        {% if property.shop.has_cctv %}
+                            <p><i class="fas fa-check"></i><span>CCTV</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>CCTV</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="title">Description</h3>
+                <p class="description">{{ property.shop.description }}</p>
+                <form action="" method="post">
+                    <input type="submit" value="save property" name="save" class="inline-btn">
+                </form>
+            {% elif property.property_type == 'Building' %}
+                <div class="flex">
+                    <div class="box">
+                        <p><i>Number Of Floors:</i><span>{{ property.building.num_floors }}</span></p>
+                    </div>
+                    <div class="box">
+                        <p><i>Total Area In Square Foot:</i><span>{{ property.building.total_area_sqft }}</span></p>
+                    </div>
+                </div>
+                <h3 class="title">Extras</h3>
+                <div class="flex">
+                    <div class="box">
+                        {% if property.building.has_lift %}
+                            <p><i class="fas fa-check"></i><span>Elevator</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Elevator</span></p>
+                        {% endif %}
+                    </div>
+                    <div class="box">
+                        {% if property.building.has_parking %}
+                            <p><i class="fas fa-check"></i><span>Parking</span></p>
+                        {% else %}
+                            <p><i class="fas fa-times"></i><span>Parking</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="title">Description</h3>
+                <p class="description">{{ property.building.description }}</p>
+                <form action="" method="post">
+                    <input type="submit" value="save property" name="save" class="inline-btn">
+                </form>
+            {% endif %}
             </div>
-            <h3 class="title">amenities</h3>
-            <div class="flex">
-                <div class="box">
-                    <p><i class="fas fa-check"></i><span>lifts</span></p>
-                    <p><i class="fas fa-check"></i><span>security guards</span></p>
-                    <p><i class="fas fa-times"></i><span>play ground</span></p>
-                    <p><i class="fas fa-check"></i><span>gardens</span></p>
-                    <p><i class="fas fa-check"></i><span>water supply</span></p>
-                    <p><i class="fas fa-check"></i><span>power backup</span></p>
-                </div>
-                <div class="box">
-                    <p><i class="fas fa-check"></i><span>parking area</span></p>
-                    <p><i class="fas fa-times"></i><span>gym</span></p>
-                    <p><i class="fas fa-check"></i><span>shopping mall</span></p>
-                    <p><i class="fas fa-check"></i><span>hospital</span></p>
-                    <p><i class="fas fa-check"></i><span>schools</span></p>
-                    <p><i class="fas fa-check"></i><span>market area</span></p>
-                </div>
-            </div>
-            <h3 class="title">Description</h3>
-            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cupiditate aliquid ipsum recusandae maxime nisi, velit eaque, libero, exercitationem culpa accusamus. Neque dolor quaerat modi saepe facere dignissimos temporibus molestias.</p>
-            <form action="" method="post">
-                <input type="submit" value="save property" name="save" class="inline-btn">
-            </form>
-            </div>
-        </section>
+            </section>
 {% endblock %}
