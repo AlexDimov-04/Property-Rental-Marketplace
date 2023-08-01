@@ -1,5 +1,6 @@
+from functools import reduce
+from operator import or_
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
@@ -7,7 +8,7 @@ from property_rental_marketplace.property_market.models import BaseProperty, Apa
 from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm, ApartmentForm \
     ,VillaForm, OfficeForm, ShopForm, BuildingForm
-from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 PROPERTY_TYPE_MAPPING = {
     'Apartment': {
@@ -43,16 +44,29 @@ class PropertyListView(UserProfileMixin, views.ListView):
             'apartment', 'villa', 'office', 'shop', 'building'
         )
         
-        search = self.request.GET.get('search', '')
-        if search:
-            queryset = queryset.filter(title__icontains=search)
-        
+        search_by_title = self.request.GET.get('search_by_title', '')
+        search_by_property_type = self.request.GET.get('property_type', '')
+        search_by_location = self.request.GET.get('location', '')
+
+        if search_by_title:
+            queryset = queryset.filter(title__icontains=search_by_title)
+
+        if search_by_property_type:
+            queryset = queryset.filter(property_type__icontains=search_by_property_type)
+
+        if search_by_location:
+            queryset = queryset.filter(location__icontains=search_by_location)
+
         return queryset
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['search'] = self.request.GET.get('search', '')
+        context['search_by_title'] = self.request.GET.get('search_by_title', '')
+        context['search_by_property_type'] = self.request.GET.get('property_type', '')
+        context['search_by_location'] = self.request.GET.get('location', '')
+        context['property_types'] = BaseProperty.TYPE_CHOICES
         context['user_profile'] = self.get_user_profile()
+
         return context
     
 class PropertyCreateView(UserProfileMixin, views.CreateView):
