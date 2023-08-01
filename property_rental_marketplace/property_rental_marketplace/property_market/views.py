@@ -1,5 +1,3 @@
-from functools import reduce
-from operator import or_
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -8,7 +6,6 @@ from property_rental_marketplace.property_market.models import BaseProperty, Apa
 from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm, ApartmentForm \
     ,VillaForm, OfficeForm, ShopForm, BuildingForm
-from django.db.models import Q
 
 PROPERTY_TYPE_MAPPING = {
     'Apartment': {
