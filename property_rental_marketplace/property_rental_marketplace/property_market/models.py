@@ -71,16 +71,24 @@ class Apartment(models.Model):
 
     has_air_conditioning = models.BooleanField()
 
+    garage = models.BooleanField()
+
     def __str__(self):
         return f"Apartment: {self.property.title}"
 
 class Villa(models.Model):
     property = models.OneToOneField(BaseProperty, on_delete=models.CASCADE)
+
     description = models.TextField()
+
     num_bedrooms = models.PositiveIntegerField()
+
     num_bathrooms = models.PositiveIntegerField()
+
     area_sqft = models.PositiveIntegerField()
+
     has_garden = models.BooleanField()
+
     has_pool = models.BooleanField()
 
     def __str__(self):
@@ -88,11 +96,17 @@ class Villa(models.Model):
 
 class Office(models.Model):
     property = models.OneToOneField(BaseProperty, on_delete=models.CASCADE)
+
     description = models.TextField()
+
     num_rooms = models.PositiveIntegerField()
+
     area_sqft = models.PositiveIntegerField()
+
     floor_number = models.PositiveIntegerField()
+
     has_parking = models.BooleanField()
+
     has_lift = models.BooleanField()
 
     def __str__(self):
@@ -100,9 +114,13 @@ class Office(models.Model):
     
 class Shop(models.Model):
     property = models.OneToOneField(BaseProperty, on_delete=models.CASCADE)
+
     description = models.TextField()
+
     area_sqft = models.PositiveIntegerField()
+
     has_ac = models.BooleanField()
+
     has_cctv = models.BooleanField()
 
     def __str__(self):
@@ -110,10 +128,15 @@ class Shop(models.Model):
     
 class Building(models.Model):
     property = models.OneToOneField(BaseProperty, on_delete=models.CASCADE)
+
     description = models.TextField()
+
     num_floors = models.PositiveIntegerField()
+
     total_area_sqft = models.PositiveIntegerField()
+
     has_lift = models.BooleanField()
+    
     has_parking = models.BooleanField()
 
     def __str__(self):
