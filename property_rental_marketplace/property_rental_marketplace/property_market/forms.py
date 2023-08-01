@@ -5,7 +5,7 @@ from .models import BaseProperty, Apartment, Villa, Office, Shop, Building
 class BasePropertyForm(forms.ModelForm):
     class Meta:
         model = BaseProperty
-        exclude = ("property",)
+        exclude = ("property", "owner", "created_at")
 
         widgets = {
             "price": forms.NumberInput(
