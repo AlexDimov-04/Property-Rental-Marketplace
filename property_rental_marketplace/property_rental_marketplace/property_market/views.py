@@ -130,4 +130,19 @@ class PropertyDetailsView(UserProfileMixin, views.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_profile'] = self.get_user_profile()
+        context['owner_username'] = self.object.owner.username
         return context
+
+    # def get_object(self):
+    #     pk = self.kwargs.get('pk')
+    #     property_obj = get_object_or_404(BaseProperty, pk=pk)
+        
+    #     property_type = property_obj.property_type
+    #     specific_model = PROPERTY_TYPE_MAPPING.get(property_type, {}).get('model')
+        
+    #     if specific_model:
+    #         specific_property_obj = get_object_or_404(specific_model, property=property_obj)
+    #     else:
+    #         specific_property_obj = None  
+
+    #     return property_obj, specific_property_obj
