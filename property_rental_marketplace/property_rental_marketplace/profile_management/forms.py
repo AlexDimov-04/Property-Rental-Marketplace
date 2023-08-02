@@ -1,12 +1,13 @@
 from django import forms
 from property_rental_marketplace.user_authentication.models import UserProfile
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class UserProfileBaseForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('profile_image', 'user',)
-
+        exclude = ('user',)
 
 class UserProfileUpdateForm(UserProfileBaseForm):
     birth_date = forms.DateField(
@@ -29,7 +30,7 @@ class UserProfileUpdateForm(UserProfileBaseForm):
         email = self.cleaned_data.get('email')
         current_user_email = self.instance.user.email 
 
-        if email != current_user_email and UserProfile.objects.filter(email=email).exists():
+        if email != current_user_email and User.objects.filter(email=email).exists():
             raise forms.ValidationError('This email is already in use.')
 
         return email

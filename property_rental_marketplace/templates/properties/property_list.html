@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <select name="property_type" class="form-select border-0 py-3">
-                                        <option value="" disabled selected>Search Property Type</option>
+                                        <option value="" selected>Search Property Type</option>
                                         {% for type in property_types %}
                                         <option value="{{ type.0 }}" {% if type.0 == search_by_property_type %}selected{% endif %}>{{ type.0 }}</option>
                                         {% endfor %}

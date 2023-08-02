@@ -74,11 +74,11 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="email">Email</label>
-								{% if not request.user.email %}
+								{% if not email %}
 									<input disabled id="email" type="text" class="form-control" value="">
 								{% else %}
 									<input disabled id="email" type="text" class="form-control"
-										value="{{request.user.email}}">
+										value="{{email}}">
 								{% endif %}
 							</div>
 						</div>
@@ -118,6 +118,17 @@
 										<option value="">{{country}}</option>
 									{% endif %}
 								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="phone">Phone</label>
+								{% if not phone %}
+									<input disabled id="phone" type="text" class="form-control" value="">
+								{% else %}
+									<input disabled id="phone" type="text" class="form-control"
+										value="{{ phone }}">
+								{% endif %}
 							</div>
 						</div>
 						<div class="col-md-12">
