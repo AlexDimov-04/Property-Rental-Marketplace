@@ -52,9 +52,10 @@ class UserProfileView(LoginRequiredMixin, UserProfileMixin, views.DetailView):
         context['first_name'] = user_profile.first_name
         context['last_name'] = user_profile.last_name
         context['birth_date'] = user_profile.birth_date
-        context['gender'] = user_profile.gender
+        context['email'] = user_profile.email
         context['gender'] = user_profile.gender
         context['country'] = user_profile.country
+        context['phone'] = user_profile.phone
         context['bio'] = user_profile.bio
         context['countries'] = get_countries()
 
