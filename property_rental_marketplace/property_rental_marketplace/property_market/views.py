@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.db.models import F
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -127,22 +128,16 @@ class PropertyDetailsView(UserProfileMixin, views.DetailView):
     template_name = 'properties/property_details.html'
     context_object_name = 'property'
 
+    def get_object(self, queryset=None):
+        property_id = self.kwargs.get('pk')
+        queryset = self.model.objects.select_related('owner__userprofile')  # Fetch the UserProfile
+        return get_object_or_404(queryset, pk=property_id)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_profile'] = self.get_user_profile()
-        context['owner_username'] = self.object.owner.username
+        context['owner_first_name'] = self.object.owner.userprofile.first_name
+        context['owner_last_name'] = self.object.owner.userprofile.last_name
+        context['owner_phone'] = self.object.owner.userprofile.phone  
+        context['owner_email'] = self.object.owner.userprofile.email 
         return context
-
-    # def get_object(self):
-    #     pk = self.kwargs.get('pk')
-    #     property_obj = get_object_or_404(BaseProperty, pk=pk)
-        
-    #     property_type = property_obj.property_type
-    #     specific_model = PROPERTY_TYPE_MAPPING.get(property_type, {}).get('model')
-        
-    #     if specific_model:
-    #         specific_property_obj = get_object_or_404(specific_model, property=property_obj)
-    #     else:
-    #         specific_property_obj = None  
-
-    #     return property_obj, specific_property_obj
