@@ -28,32 +28,33 @@
 <main>
     <article>
         <section class="about" id="about">
-            <div class="container">
+            <div class="container-about">
 
                 <figure class="about-banner">
-                    <img src="./assets/images/about-banner-1.png" alt="House interior">
-
-                    <img src="./assets/images/about-banner-2.jpg" alt="House interior" class="abs-img">
+                    <p class="section-subtitle">About Us</p>
+                    <h2>Our Marketplace</h2>
+                    <div class="property-images">
+                        <img src="{% static 'images/property-7.jpg' %}" alt="House interior">
+                        <img src="{% static 'images/property-8.jpg' %}" alt="House interior">
+                    </div>
                 </figure>
 
                 <div class="about-content">
-
-                    <p class="section-subtitle">About Us</p>
-
-                    <h2 class="h2 section-title">The Leading Real Estate Rental Marketplace.</h2>
+                    <h2 class="h2 section-title">Welcome on board at the <span style="color: #dea205;">Leading Rental
+                            Marketplace</span> - <span style="text-decoration: underline;">Rent <span
+                                style="color: #dea205;">Wise!</span></span></h2>
 
                     <p class="about-text">
-                        Over 39,000 people work for us in more than 70 countries all over the This breadth of global
-                        coverage,
-                        combined with
-                        specialist services
+                        Not only are we dedicated to connecting buyers with new-construction dream homes, but we have a
+                        robust team of rental property managers, marketers, buyers agents, and listing agents that’s
+                        ready to work for you.
                     </p>
 
                     <ul class="about-list">
 
                         <li class="about-item">
                             <div class="about-item-icon">
-                                <ion-icon name="home-outline"></ion-icon>
+                                <img src="{% static 'images/smart_home.svg' %}" alt="">
                             </div>
 
                             <p class="about-item-text">Smart Home Design</p>
@@ -61,7 +62,7 @@
 
                         <li class="about-item">
                             <div class="about-item-icon">
-                                <ion-icon name="leaf-outline"></ion-icon>
+                                <img src="{% static 'images/beautiful_scene.svg' %}" alt="">
                             </div>
 
                             <p class="about-item-text">Beautiful Scene Around</p>
@@ -69,7 +70,7 @@
 
                         <li class="about-item">
                             <div class="about-item-icon">
-                                <ion-icon name="wine-outline"></ion-icon>
+                                <img src="{% static 'images/lifestyle.svg' %}" alt="">
                             </div>
 
                             <p class="about-item-text">Exceptional Lifestyle</p>
@@ -77,20 +78,17 @@
 
                         <li class="about-item">
                             <div class="about-item-icon">
-                                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                                <img src="{% static 'images/client.svg' %}" alt="">
                             </div>
 
-                            <p class="about-item-text">Complete 24/7 Security</p>
+                            <p class="about-item-text">Client Service 24/7</p>
                         </li>
 
                     </ul>
 
                     <p class="callout">
-                        "Enimad minim veniam quis nostrud exercitation
-                        llamco laboris. Lorem ipsum dolor sit amet"
+                        "Ball’s in your court. Choose what solution works best for you!"
                     </p>
-
-                    <a href="#service" class="btn">Our Services</a>
 
                 </div>
 
@@ -98,11 +96,11 @@
         </section>
 
         <section class="service" id="service">
-            <div class="container">
+            <div class="container-about" style="background-color: #fff;">
 
                 <p class="section-subtitle">Our Services</p>
 
-                <h2 class="h2 section-title">Our Main Focus</h2>
+                <h2 class="h2 section-title" style="color:#202528">Main Purpose</h2>
 
                 <ul class="service-list">
 
@@ -110,7 +108,7 @@
                         <div class="service-card">
 
                             <div class="card-icon">
-                                <img src="./assets/images/service-1.png" alt="Service icon">
+                                <img src="{% static 'images/property-4.jpg' %}" alt="Service icon">
                             </div>
 
                             <h3 class="h3 card-title">
@@ -136,7 +134,7 @@
                         <div class="service-card">
 
                             <div class="card-icon">
-                                <img src="./assets/images/service-2.png" alt="Service icon">
+                                <img src="{% static 'images/property-5.jpg' %}" alt="Service icon">
                             </div>
 
                             <h3 class="h3 card-title">
@@ -162,7 +160,7 @@
                         <div class="service-card">
 
                             <div class="card-icon">
-                                <img src="./assets/images/service-3.png" alt="Service icon">
+                                <img src="{% static 'images/property-6.jpg' %}" alt="Service icon">
                             </div>
 
                             <h3 class="h3 card-title">
@@ -190,27 +188,23 @@
         </section>
 
         <section class="features">
-            <div class="container">
+            <div class="container-about" style="background-color: #fff;">
 
                 <p class="section-subtitle">Our Aminities</p>
 
-                <h2 class="h2 section-title">Building Aminities</h2>
+                <h2 class="h2 section-title" style="color: #202528;">Building Aminities</h2>
 
                 <ul class="features-list">
 
                     <li>
                         <a href="#" class="features-card">
-
-                            <div class="card-icon">
-                                <ion-icon name="car-sport-outline"></ion-icon>
+                            <div class="card-icon">                  
+                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/parking.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Parking Space</h3>
 
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </div>
-
+                            <div class="card-btn"></div>
                         </a>
                     </li>
 
@@ -218,15 +212,12 @@
                         <a href="#" class="features-card">
 
                             <div class="card-icon">
-                                <ion-icon name="water-outline"></ion-icon>
+                                <img style="border-radius: 100%; width: 100px; height: 100px; object-fit: cover;" src="{% static 'images/pool.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Swimming Pool</h3>
 
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </div>
-
+                            <div class="card-btn"></div>
                         </a>
                     </li>
 
@@ -234,15 +225,12 @@
                         <a href="#" class="features-card">
 
                             <div class="card-icon">
-                                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/cctv.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Private Security</h3>
 
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </div>
-
+                            <div class="card-btn"></div>
                         </a>
                     </li>
 
@@ -250,15 +238,12 @@
                         <a href="#" class="features-card">
 
                             <div class="card-icon">
-                                <ion-icon name="fitness-outline"></ion-icon>
+                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/a-c.jpg' %}" alt="">
                             </div>
 
-                            <h3 class="card-title">Medical Center</h3>
+                            <h3 class="card-title">Smart Air Conditioning</h3>
 
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </div>
-
+                            <div class="card-btn"></div>
                         </a>
                     </li>
 
@@ -266,15 +251,24 @@
                         <a href="#" class="features-card">
 
                             <div class="card-icon">
-                                <ion-icon name="library-outline"></ion-icon>
+                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/furniture.jpg' %}" alt="">
                             </div>
 
-                            <h3 class="card-title">Library Area</h3>
+                            <h3 class="card-title">Modern Furniture</h3>
 
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            <div class="card-btn"></div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+                            <div class="card-icon">
+                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/bedrooms.jpg' %}" alt="">
                             </div>
 
+                            <h3 class="card-title">Large Bedrooms</h3>
+
+                            <div class="card-btn"></div>
                         </a>
                     </li>
 
@@ -282,47 +276,24 @@
                         <a href="#" class="features-card">
 
                             <div class="card-icon">
-                                <ion-icon name="bed-outline"></ion-icon>
+                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/community.jpg' %}" alt="">
                             </div>
 
-                            <h3 class="card-title">King Size Beds</h3>
+                            <h3 class="card-title">Large Community</h3>
 
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </div>
-
+                            <div class="card-btn"></div>
                         </a>
                     </li>
 
                     <li>
                         <a href="#" class="features-card">
-
                             <div class="card-icon">
-                                <ion-icon name="home-outline"></ion-icon>
+                                <img style="border-radius: 100%; width: 100px; height: 100px; object-fit: cover;" src="{% static 'images/clients.jpg' %}" alt="">
                             </div>
 
-                            <h3 class="card-title">Smart Homes</h3>
+                            <h3 class="card-title">Satisfied Clients</h3>
 
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </div>
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="features-card">
-
-                            <div class="card-icon">
-                                <ion-icon name="football-outline"></ion-icon>
-                            </div>
-
-                            <h3 class="card-title">Kid’s Playland</h3>
-
-                            <div class="card-btn">
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
-                            </div>
-
+                            <div class="card-btn"></div>
                         </a>
                     </li>
 
@@ -332,11 +303,11 @@
         </section>
 
         <section class="blog" id="blog">
-            <div class="container">
+            <div class="container-about" style="background-color: #fff;">
 
                 <p class="section-subtitle">News & Blogs</p>
 
-                <h2 class="h2 section-title">Leatest News Feeds</h2>
+                <h2 class="h2 section-title" style="color: #202528;">Leatest News Feeds</h2>
 
                 <ul class="blog-list has-scrollbar">
 
@@ -344,7 +315,7 @@
                         <div class="blog-card">
 
                             <figure class="card-banner">
-                                <img src="./assets/images/blog-1.png" alt="The Most Inspiring Interior Design Of 2021"
+                                <img src="{% static 'images/property-5.jpg' %}" alt="The Most Inspiring Interior Design Of 2021"
                                     class="w-100">
                             </figure>
 
@@ -397,7 +368,7 @@
                         <div class="blog-card">
 
                             <figure class="card-banner">
-                                <img src="./assets/images/blog-2.jpg" alt="Recent Commercial Real Estate Transactions"
+                                <img src="{% static 'images/property-5.jpg' %}" alt="Recent Commercial Real Estate Transactions"
                                     class="w-100">
                             </figure>
 
@@ -450,7 +421,7 @@
                         <div class="blog-card">
 
                             <figure class="card-banner">
-                                <img src="./assets/images/blog-3.jpg"
+                                <img src="{% static 'images/property-5.jpg' %}"
                                     alt="Renovating a Living Room? Experts Share Their Secrets" class="w-100">
                             </figure>
 
@@ -505,7 +476,7 @@
         </section>
 
         <section class="cta">
-            <div class="container">
+            <div class="container-about">
 
                 <div class="cta-card">
                     <div class="card-content">
