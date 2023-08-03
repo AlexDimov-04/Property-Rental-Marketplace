@@ -5,6 +5,16 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-0 gx-5 align-items-end">
+                {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <div class="alert alert-success my-2 p-3" role="alert">
+                                <strong style="font-size: 20px;">Success:</strong>
+                                <p style="font-size:18px;">
+                                    {{ message }}<br>
+                                </p>
+                            </div>
+                        {% endif %}
+                {% endfor %}
                 <div class="col-lg-6">
                     <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
                         <h1 class="mb-3" style="color: #202528;">Property Listing</h1>
