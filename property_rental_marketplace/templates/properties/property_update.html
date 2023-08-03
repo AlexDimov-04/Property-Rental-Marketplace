@@ -17,14 +17,14 @@
                 </div>
                 <label class="type">Type:</label>
                 <div class="input-group input-group-icon">
-                    {{form.property_type}}
+                    <input type="text" name="property_type" value="{{ form.instance.get_property_type_display }}" readonly>
                     <div class="input-icon">
                         <i class="fa fa-home"></i>
                     </div>
                 </div>
                 
                 <div id="additionalFields">
-                    
+                    {% include 'properties/additional_property_fields/_additional_fields.html' with form=form %}
                 </div>
 
                 <div class="input-group input-group-icon">
@@ -374,46 +374,5 @@
         }
     }
 </style>
-
-<script>
-    async function fetchAdditionalFormFields(propertyType) {
-        try {
-            const url = '{% url "additional_form_fields" %}?property_type=' + propertyType;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            const additionalFieldsDiv = document.getElementById('additionalFields');
-            additionalFieldsDiv.innerHTML = data.html
-
-            const checkboxInputs = additionalFieldsDiv.querySelectorAll('input[type="checkbox"]');
-            const wrapperContainer = document.createElement('div');
-            wrapperContainer.classList.add('wrapperContainer');
-
-            checkboxInputs.forEach(input => {
-                const label = document.createElement('label');
-                label.textContent = input.name;
-
-                wrapperContainer.appendChild(label);
-                wrapperContainer.appendChild(input);
-            })
-
-            additionalFieldsDiv.appendChild(wrapperContainer);
-            
-            console.log(additionalFieldsDiv)
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const propertyTypeSelect = document.querySelector('select[name="property_type"]');
-        propertyTypeSelect.addEventListener('change', function () {
-            const selectedPropertyType = propertyTypeSelect.value;
-            if (selectedPropertyType) {
-                fetchAdditionalFormFields(selectedPropertyType)
-            }
-        })
-    })
-</script>
 
 {% endblock %}
