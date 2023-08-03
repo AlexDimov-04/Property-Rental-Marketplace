@@ -1,6 +1,6 @@
 from django import forms
 from property_rental_marketplace.user_authentication.models import UserProfile
-
+from django.db.models import Q
 
 class UserProfileBaseForm(forms.ModelForm):
     class Meta:
@@ -27,9 +27,9 @@ class UserProfileUpdateForm(UserProfileBaseForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        current_user_email = self.instance.user.email 
+        current_user_email = self.instance.user.email
 
-        if email != current_user_email and UserProfile.objects.filter(email=email).exists():
+        if email != current_user_email and UserProfile.objects.filter(~Q(user=self.instance.user), email=email).exists():
             raise forms.ValidationError('This email is already in use.')
 
         return email
