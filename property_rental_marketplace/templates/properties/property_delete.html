@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="popup center">
+    <img src="{% static 'images/question_icon.png' %}" alt="">
+
+    <div class="title">
+        Are you sure?
+    </div>
+    <div class="description">
+        Deleting a property is a permanent action and you will lose your property data!
+    </div>
+    <form method="POST" action="{% url 'property_delete' pk=property.pk %}" class="btns">
+        <a href="#" id="dismiss-popup-btn">
+            Dismiss
+        </a>
+        {% csrf_token %}
+        <button type="submit" id="delete-popup-btn">
+            Delete
+        </button>
+    </form>
+</div>
+
+<script>
+    const deleteBtn = document.getElementById('delete');
+
+    deleteBtn.addEventListener("click", function () {
+        document.getElementsByClassName("popup")[0].classList.add("active");
+        document.getElementsByTagName('body')[0].classList.add('body-opacity');
+    });
+
+    document.getElementById("dismiss-popup-btn").addEventListener("click", function () {
+        document.getElementsByClassName("popup")[0].classList.remove("active");
+        document.getElementsByTagName('body')[0].classList.remove('body-opacity');
+    });
+</script>
