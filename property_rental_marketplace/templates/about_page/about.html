@@ -1,0 +1,529 @@
+{% extends 'base_hero_page/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="container-fluid header bg-white p-0">
+    <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
+        <div class="col-md-6 p-5 mt-lg-5">
+            <h1 class="display-5 animated fadeIn mb-4">Unlock <span class="text-primary">The Door </span>For
+                Your <span class="text-primary"> Rental Score</span>!</h1>
+            <p class="animated fadeIn mb-4 pb-2">Discover your dream home with our extensive range of rental properties.
+                Whether you're looking for a cozy apartment, a spacious house, or a luxurious villa,
+                we've got the perfect rental options to suit your needs.</p>
+            <a href="{% url 'property_list' %}" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
+        </div>
+        <div class="col-md-6 animated fadeIn">
+            <div class="owl-carousel header-carousel">
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="{% static 'images/carousel-1.jpg' %}" alt="">
+                </div>
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="{% static 'images/carousel-2.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main>
+    <article>
+        <section class="about" id="about">
+            <div class="container">
+
+                <figure class="about-banner">
+                    <img src="./assets/images/about-banner-1.png" alt="House interior">
+
+                    <img src="./assets/images/about-banner-2.jpg" alt="House interior" class="abs-img">
+                </figure>
+
+                <div class="about-content">
+
+                    <p class="section-subtitle">About Us</p>
+
+                    <h2 class="h2 section-title">The Leading Real Estate Rental Marketplace.</h2>
+
+                    <p class="about-text">
+                        Over 39,000 people work for us in more than 70 countries all over the This breadth of global
+                        coverage,
+                        combined with
+                        specialist services
+                    </p>
+
+                    <ul class="about-list">
+
+                        <li class="about-item">
+                            <div class="about-item-icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </div>
+
+                            <p class="about-item-text">Smart Home Design</p>
+                        </li>
+
+                        <li class="about-item">
+                            <div class="about-item-icon">
+                                <ion-icon name="leaf-outline"></ion-icon>
+                            </div>
+
+                            <p class="about-item-text">Beautiful Scene Around</p>
+                        </li>
+
+                        <li class="about-item">
+                            <div class="about-item-icon">
+                                <ion-icon name="wine-outline"></ion-icon>
+                            </div>
+
+                            <p class="about-item-text">Exceptional Lifestyle</p>
+                        </li>
+
+                        <li class="about-item">
+                            <div class="about-item-icon">
+                                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                            </div>
+
+                            <p class="about-item-text">Complete 24/7 Security</p>
+                        </li>
+
+                    </ul>
+
+                    <p class="callout">
+                        "Enimad minim veniam quis nostrud exercitation
+                        llamco laboris. Lorem ipsum dolor sit amet"
+                    </p>
+
+                    <a href="#service" class="btn">Our Services</a>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section class="service" id="service">
+            <div class="container">
+
+                <p class="section-subtitle">Our Services</p>
+
+                <h2 class="h2 section-title">Our Main Focus</h2>
+
+                <ul class="service-list">
+
+                    <li>
+                        <div class="service-card">
+
+                            <div class="card-icon">
+                                <img src="./assets/images/service-1.png" alt="Service icon">
+                            </div>
+
+                            <h3 class="h3 card-title">
+                                <a href="#">Buy a home</a>
+                            </h3>
+
+                            <p class="card-text">
+                                over 1 million+ homes for sale available on the website, we can match you with a house
+                                you will want
+                                to call home.
+                            </p>
+
+                            <a href="#" class="card-link">
+                                <span>Find A Home</span>
+
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </a>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="service-card">
+
+                            <div class="card-icon">
+                                <img src="./assets/images/service-2.png" alt="Service icon">
+                            </div>
+
+                            <h3 class="h3 card-title">
+                                <a href="#">Rent a home</a>
+                            </h3>
+
+                            <p class="card-text">
+                                over 1 million+ homes for sale available on the website, we can match you with a house
+                                you will want
+                                to call home.
+                            </p>
+
+                            <a href="#" class="card-link">
+                                <span>Find A Home</span>
+
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </a>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="service-card">
+
+                            <div class="card-icon">
+                                <img src="./assets/images/service-3.png" alt="Service icon">
+                            </div>
+
+                            <h3 class="h3 card-title">
+                                <a href="#">Sell a home</a>
+                            </h3>
+
+                            <p class="card-text">
+                                over 1 million+ homes for sale available on the website, we can match you with a house
+                                you will want
+                                to call home.
+                            </p>
+
+                            <a href="#" class="card-link">
+                                <span>Find A Home</span>
+
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </a>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+
+                <p class="section-subtitle">Our Aminities</p>
+
+                <h2 class="h2 section-title">Building Aminities</h2>
+
+                <ul class="features-list">
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="car-sport-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">Parking Space</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="water-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">Swimming Pool</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">Private Security</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="fitness-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">Medical Center</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="library-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">Library Area</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="bed-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">King Size Beds</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">Smart Homes</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="features-card">
+
+                            <div class="card-icon">
+                                <ion-icon name="football-outline"></ion-icon>
+                            </div>
+
+                            <h3 class="card-title">Kid’s Playland</h3>
+
+                            <div class="card-btn">
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                            </div>
+
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </section>
+
+        <section class="blog" id="blog">
+            <div class="container">
+
+                <p class="section-subtitle">News & Blogs</p>
+
+                <h2 class="h2 section-title">Leatest News Feeds</h2>
+
+                <ul class="blog-list has-scrollbar">
+
+                    <li>
+                        <div class="blog-card">
+
+                            <figure class="card-banner">
+                                <img src="./assets/images/blog-1.png" alt="The Most Inspiring Interior Design Of 2021"
+                                    class="w-100">
+                            </figure>
+
+                            <div class="blog-content">
+
+                                <div class="blog-content-top">
+
+                                    <ul class="card-meta-list">
+
+                                        <li>
+                                            <a href="#" class="card-meta-link">
+                                                <ion-icon name="person"></ion-icon>
+
+                                                <span>by: Admin</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="card-meta-link">
+                                                <ion-icon name="pricetags"></ion-icon>
+
+                                                <span>Interior</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+
+                                    <h3 class="h3 blog-title">
+                                        <a href="#">The Most Inspiring Interior Design Of 2021</a>
+                                    </h3>
+
+                                </div>
+
+                                <div class="blog-content-bottom">
+                                    <div class="publish-date">
+                                        <ion-icon name="calendar"></ion-icon>
+
+                                        <time datetime="2022-27-04">Apr 27, 2022</time>
+                                    </div>
+
+                                    <a href="#" class="read-more-btn">Read More</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="blog-card">
+
+                            <figure class="card-banner">
+                                <img src="./assets/images/blog-2.jpg" alt="Recent Commercial Real Estate Transactions"
+                                    class="w-100">
+                            </figure>
+
+                            <div class="blog-content">
+
+                                <div class="blog-content-top">
+
+                                    <ul class="card-meta-list">
+
+                                        <li>
+                                            <a href="#" class="card-meta-link">
+                                                <ion-icon name="person"></ion-icon>
+
+                                                <span>by: Admin</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="card-meta-link">
+                                                <ion-icon name="pricetags"></ion-icon>
+
+                                                <span>Estate</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+
+                                    <h3 class="h3 blog-title">
+                                        <a href="#">Recent Commercial Real Estate Transactions</a>
+                                    </h3>
+
+                                </div>
+
+                                <div class="blog-content-bottom">
+                                    <div class="publish-date">
+                                        <ion-icon name="calendar"></ion-icon>
+
+                                        <time datetime="2022-27-04">Apr 27, 2022</time>
+                                    </div>
+
+                                    <a href="#" class="read-more-btn">Read More</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="blog-card">
+
+                            <figure class="card-banner">
+                                <img src="./assets/images/blog-3.jpg"
+                                    alt="Renovating a Living Room? Experts Share Their Secrets" class="w-100">
+                            </figure>
+
+                            <div class="blog-content">
+
+                                <div class="blog-content-top">
+
+                                    <ul class="card-meta-list">
+
+                                        <li>
+                                            <a href="#" class="card-meta-link">
+                                                <ion-icon name="person"></ion-icon>
+
+                                                <span>by: Admin</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="card-meta-link">
+                                                <ion-icon name="pricetags"></ion-icon>
+
+                                                <span>Room</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+
+                                    <h3 class="h3 blog-title">
+                                        <a href="#">Renovating a Living Room? Experts Share Their Secrets</a>
+                                    </h3>
+
+                                </div>
+
+                                <div class="blog-content-bottom">
+                                    <div class="publish-date">
+                                        <ion-icon name="calendar"></ion-icon>
+
+                                        <time datetime="2022-27-04">Apr 27, 2022</time>
+                                    </div>
+
+                                    <a href="#" class="read-more-btn">Read More</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+
+                <div class="cta-card">
+                    <div class="card-content">
+                        <h2 class="h2 card-title">Looking for a dream home?</h2>
+
+                        <p class="card-text">We can help you realize your dream of a new home</p>
+                    </div>
+
+                    <button class="btn cta-btn">
+                        <span>Explore Properties</span>
+
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </article>
+</main>
+{% endblock %}
