@@ -5,7 +5,9 @@ from django.contrib import messages
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from property_rental_marketplace.profile_management.forms import UserProfileUpdateForm
+from property_rental_marketplace.property_market.models import BaseProperty
 from property_rental_marketplace.user_authentication.models import UserProfile
+from django.db.models import Count
 
 # not for production, it should be changed
 @staticmethod
@@ -38,6 +40,24 @@ class IndexView(UserProfileMixin, views.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_profile'] = self.get_user_profile()
+
+        property_counts = BaseProperty.objects.values('property_type').annotate(count=Count('property_type'))
+
+        property_type_counts = {}
+        for item in property_counts:
+            property_type_counts[item['property_type']] = item['count']
+
+        context['property_type_counts'] = property_type_counts
+        
+        return context
+    
+class AboutView(UserProfileMixin, views.TemplateView):
+    template_name = 'about_page/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_profile'] = self.get_user_profile()
+        
         return context
     
 class UserProfileView(LoginRequiredMixin, UserProfileMixin, views.DetailView):
