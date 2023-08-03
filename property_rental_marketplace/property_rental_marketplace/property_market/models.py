@@ -50,6 +50,23 @@ class BaseProperty(models.Model):
     def __str__(self):
         return self.title
 
+class AdditionalField(models.Model):
+    FIELD_TYPE_CHOICES = [
+        ('text', 'Text'),
+        ('checkbox', 'Checkbox'),
+        ('number', 'Number'),
+    ]
+
+    property_type = models.ForeignKey(BaseProperty, on_delete=models.CASCADE)
+    field_name = models.CharField(max_length=100)
+    field_type = models.CharField(
+        max_length=10,
+        choices=FIELD_TYPE_CHOICES,
+    )
+
+    def __str__(self):
+        return self.field_name
+
 class Apartment(models.Model):
     property = models.OneToOneField(BaseProperty, on_delete=models.CASCADE)
 
