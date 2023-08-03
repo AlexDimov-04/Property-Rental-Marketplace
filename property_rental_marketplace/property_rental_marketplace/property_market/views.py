@@ -1,9 +1,8 @@
 from django.http import JsonResponse
-from django.db.models import F
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.contrib import messages
+from django.urls import reverse, reverse_lazy
 from django.views import generic as views
-from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
+from property_rental_marketplace.property_market.models import BaseProperty, AdditionalField, Apartment \
     ,Villa, Shop, Building, Office
 from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm, ApartmentForm \
@@ -128,11 +127,6 @@ class PropertyDetailsView(UserProfileMixin, views.DetailView):
     template_name = 'properties/property_details.html'
     context_object_name = 'property'
 
-    def get_object(self, queryset=None):
-        property_id = self.kwargs.get('pk')
-        queryset = self.model.objects.select_related('owner__userprofile')  # Fetch the UserProfile
-        return get_object_or_404(queryset, pk=property_id)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_profile'] = self.get_user_profile()
@@ -141,3 +135,31 @@ class PropertyDetailsView(UserProfileMixin, views.DetailView):
         context['owner_phone'] = self.object.owner.userprofile.phone  
         context['owner_email'] = self.object.owner.userprofile.email 
         return context
+
+
+class PropertyUpdateView(UserProfileMixin, views.UpdateView):
+    model = BaseProperty
+    form_class = BasePropertyForm
+    template_name = 'properties/property_update.html'
+
+    def get_success_url(self):
+        return reverse('property_details', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.object.pk
+        context['user_profile'] = self.get_user_profile()
+        return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Property updated successfully.')
+        return super().form_valid(form)
+
+class PropertyDeleteView(views.DeleteView):
+    model = BaseProperty
+    template_name = 'properties/property_delete.html'
+    success_url = reverse_lazy('property_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Property successfully deleted.')
+        return super().form_valid(form)
