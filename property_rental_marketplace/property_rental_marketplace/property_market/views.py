@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic as views
-from property_rental_marketplace.property_market.models import BaseProperty, AdditionalField, Apartment \
+from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
     ,Villa, Shop, Building, Office
 from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm, ApartmentForm \
@@ -141,6 +142,7 @@ class PropertyUpdateView(UserProfileMixin, views.UpdateView):
     model = BaseProperty
     form_class = BasePropertyForm
     template_name = 'properties/property_update.html'
+    context_object_name = 'property'
 
     def get_success_url(self):
         return reverse('property_details', kwargs={'pk': self.object.pk})
@@ -149,10 +151,52 @@ class PropertyUpdateView(UserProfileMixin, views.UpdateView):
         context = super().get_context_data(**kwargs)
         context['pk'] = self.object.pk
         context['user_profile'] = self.get_user_profile()
+        property_object = self.object
+
+        additional_fields = None
+        if property_object.property_type:
+            if property_object.property_type == 'Apartment':
+                additional_fields = get_object_or_404(Apartment, property=property_object)
+            elif property_object.property_type == 'Villa':
+                additional_fields = get_object_or_404(Villa, property=property_object)
+            elif property_object.property_type == 'Office':
+                additional_fields = get_object_or_404(Office, property=property_object)
+            elif property_object.property_type == 'Shop':
+                additional_fields = get_object_or_404(Shop, property=property_object)
+            elif property_object.property_type == 'Building':
+                additional_fields = get_object_or_404(Building, property=property_object)
+
+        context['additional_fields'] = additional_fields
+
         return context
     
     def form_valid(self, form):
         messages.success(self.request, 'Property updated successfully.')
+
+        self.object = form.save()
+
+        additional_fields = None
+        if self.object.property_type:
+            if self.object.property_type == 'Apartment':
+                additional_fields = get_object_or_404(Apartment, property=self.object)
+                additional_form = ApartmentForm(self.request.POST, instance=additional_fields)
+            elif self.object.property_type == 'Villa':
+                additional_fields = get_object_or_404(Villa, property=self.object)
+                additional_form = VillaForm(self.request.POST, instance=additional_fields)
+            elif self.object.property_type == 'Office':
+                additional_fields = get_object_or_404(Office, property=self.object)
+                additional_form = OfficeForm(self.request.POST, instance=additional_fields)
+            elif self.object.property_type == 'Shop':
+                additional_fields = get_object_or_404(Shop, property=self.object)
+                additional_form = ShopForm(self.request.POST, instance=additional_fields)
+            elif self.object.property_type == 'Building':
+                additional_fields = get_object_or_404(Building, property=self.object)
+                additional_form = BuildingForm(self.request.POST, instance=additional_fields)
+
+        if additional_fields:
+                if additional_form.is_valid():
+                    additional_form.save()
+
         return super().form_valid(form)
 
 class PropertyDeleteView(views.DeleteView):
