@@ -1,0 +1,16 @@
+{% if form.instance.property_type == 'Apartment' %}
+    <!-- Render additional fields for Apartment -->
+    {% include 'properties/additional_property_fields/_apartment_fields.html' with form=form %}
+{% elif form.instance.property_type == 'Villa' %}
+    <!-- Render additional fields for Villa -->
+    {% include 'properties/additional_property_fields/_villa_fields.html' with form=form %}
+{% elif form.instance.property_type == 'Office' %}
+    <!-- Render additional fields for Office -->
+    {% include 'properties/additional_property_fields/_office_fields.html' with form=form %}
+{% elif form.instance.property_type == 'Shop' %}
+    <!-- Render additional fields for Shop -->
+    {% include 'properties/additional_property_fields/_shop_fields.html' with form=form %}
+{% elif form.instance.property_type == 'Building' %}
+    <!-- Render additional fields for Building -->
+    {% include 'properties/additional_property_fields/_building_fields.html' with form=form %}
+{% endif %}

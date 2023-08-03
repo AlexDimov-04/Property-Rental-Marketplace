@@ -1,0 +1,22 @@
+<input type="text" value="{{ additional_fields.description }}" name="description" placeholder="Building Description"
+    required id="id_description">
+<input type="number" value="{{ additional_fields.num_floors }}" name="num_floors" placeholder="Number Of Floors"
+    required id="id_num_floors">
+<input type="number" value="{{ additional_fields.total_area_sqft }}" name="total_area_sqft"
+    placeholder="Total Area Sqft" min="0" required id="id_total_area_sqft">
+
+<div class="wrapperContainer">
+    <label for="id_has_lift">Elevator</label>
+    {% if additional_fields.has_lift %}
+        <input type="checkbox" name="has_lift" id="id_has_lift" checked>
+    {% else %}
+        <input type="checkbox" name="has_lift" id="id_has_lift">
+    {% endif %}
+
+    <label for="id_has_parking">Parking</label>
+    {% if additional_fields.has_parking %}
+        <input type="checkbox" name="has_parking" id="id_has_parking" checked>
+    {% else %}
+        <input type="checkbox" name="has_parking" id="id_has_parking">
+    {% endif %}
+</div>

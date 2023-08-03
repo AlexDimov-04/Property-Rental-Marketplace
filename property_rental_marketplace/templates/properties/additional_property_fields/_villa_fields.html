@@ -1,0 +1,24 @@
+<input type="text" value="{{ additional_fields.description }}" name="description" placeholder="Building Description"
+    required id="id_description">
+<input type="number" value="{{ additional_fields.num_bedrooms }}" name="num_bedrooms" placeholder="Number Of Bedrooms"
+    required id="id_num_bedrooms">
+<input type="number" value="{{ additional_fields.num_bathrooms }}" name="num_bathrooms"
+    placeholder="Number Of Bathrooms" required id="id_num_bathrooms">
+<input type="number" value="{{ additional_fields.area_sqft }}" name="area_sqft" placeholder="Area In Square Foot"
+    required id="id_area_sqft">
+
+<div class="wrapperContainer">
+    <label for="id_has_lift">Garden</label>
+    {% if additional_fields.has_garden %}
+        <input type="checkbox" name="has_garden" id="id_has_garden" checked>
+    {% else %}
+        <input type="checkbox" name="has_garden" id="id_has_garden">
+    {% endif %}
+
+    <label for="id_has_parking">Pool</label>
+    {% if additional_fields.has_pool %}
+        <input type="checkbox" name="has_pool" id="id_has_pool" checked>
+    {% else %}
+        <input type="checkbox" name="has_pool" id="id_has_pool">
+    {% endif %}
+</div>
