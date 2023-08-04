@@ -1,0 +1,37 @@
+<div>
+    <span class="icon_saved"></span>
+</div>
+
+<style>
+    div {
+        position: relative;
+    }
+
+    .icon_saved {
+        position: absolute;
+        bottom: 30px;
+        left: 320px;
+        width: 20px;
+        height: 30px;
+        background-color: #dea205;
+        display: inline-block;
+    }
+
+    .icon_saved:after {
+        content: '';
+        height: 0;
+        width: 0;
+        display: block;
+        border: 9px transparent solid;
+        border-top-width: 0;
+        border-bottom-color: #202528;
+        position: absolute;
+        bottom: 0;
+        left: 1px;
+    }
+
+    .icon_saved:hover,
+    .icon_saved.active {
+        background-color: #dea205;
+    }
+</style>
