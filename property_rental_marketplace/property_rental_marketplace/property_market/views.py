@@ -1,13 +1,14 @@
 from django.http import JsonResponse
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic as views
-from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
+from property_rental_marketplace.property_market.models import BaseProperty, SavedProperty, Apartment \
     ,Villa, Shop, Building, Office
 from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm, ApartmentForm \
-    ,VillaForm, OfficeForm, ShopForm, BuildingForm
+    ,VillaForm, OfficeForm, ShopForm, BuildingForm, SavePropertyForm
+from property_rental_marketplace.user_authentication.models import UserProfile
 
 PROPERTY_TYPE_MAPPING = {
     'Apartment': {
@@ -65,6 +66,11 @@ class PropertyListView(UserProfileMixin, views.ListView):
         context['search_by_location'] = self.request.GET.get('location', '')
         context['property_types'] = BaseProperty.TYPE_CHOICES
         context['user_profile'] = self.get_user_profile()
+
+        user_profile = self.get_user_profile()
+        saved_properties = SavedProperty.objects.filter(user=user_profile.user).values_list('property', flat=True)
+
+        context['saved_properties'] = saved_properties
 
         return context
     
@@ -134,9 +140,15 @@ class PropertyDetailsView(UserProfileMixin, views.DetailView):
         context['owner_first_name'] = self.object.owner.userprofile.first_name
         context['owner_last_name'] = self.object.owner.userprofile.last_name
         context['owner_phone'] = self.object.owner.userprofile.phone  
-        context['owner_email'] = self.object.owner.userprofile.email 
-        return context
+        context['owner_email'] = self.object.owner.userprofile.email
 
+        property_object = self.object
+        user_profile = self.get_user_profile() 
+
+        property_saved = SavedProperty.objects.filter(user=user_profile.user, property=property_object).exists()
+        context['property_saved'] = property_saved
+
+        return context
 
 class PropertyUpdateView(UserProfileMixin, views.UpdateView):
     model = BaseProperty
@@ -207,3 +219,41 @@ class PropertyDeleteView(views.DeleteView):
     def form_valid(self, form):
         messages.success(self.request, 'Property successfully deleted.')
         return super().form_valid(form)
+    
+class SavePropertyView(views.View):
+    model = BaseProperty
+    form_class = SavePropertyForm
+
+    def post(self, request, pk):
+        property_object = get_object_or_404(self.model, pk=pk)
+        user_profile = request.user.userprofile
+
+        if SavedProperty.objects.filter(user=user_profile.user, property=property_object).exists():
+            messages.error(request, 'This property is already saved.')
+        else:
+            form = self.form_class(request.POST)
+
+            saved_property = form.save(commit=False)
+            saved_property.user = user_profile.user
+            saved_property.property = property_object
+            saved_property.save()
+
+            messages.success(request, 'Property saved successfully.')
+
+        return redirect('property_list')
+
+class UnsavePropertyView(views.View):
+    model = BaseProperty
+
+    def post(self, request, pk):
+        property_object = get_object_or_404(self.model, pk=pk)
+        user_profile = request.user.userprofile
+
+        try:
+            saved_property = SavedProperty.objects.get(user=user_profile.user, property=property_object)
+            saved_property.delete()
+            messages.success(request, 'Property unsaved successfully.')
+        except SavedProperty.DosesNotExist:
+            messages.error(request, 'This property is not saved.')
+
+        return redirect('property_details', pk=pk)
