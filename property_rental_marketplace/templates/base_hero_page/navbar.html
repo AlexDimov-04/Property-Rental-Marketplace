@@ -17,15 +17,26 @@
                 <a href="{% url 'index' %}" class="nav-item nav-link">Home</a>
                 <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Property</a>
-                    <div class="dropdown-menu rounded-0 m-0">
-                        <a href="property-list.html" class="dropdown-item">Property List</a>
-                        <a href="property-type.html" class="dropdown-item">Property Type</a>
-                        <a href="property-agent.html" class="dropdown-item">Property Agent</a>
-                    </div>
+                    {% if user_profile %}
+                        <a href="{% url 'saved_properties_collection' %}" class="nav-link">Saved Properties</a>
+                    {% else %}
+                        <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dropdown</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="property-list.html" class="dropdown-item">Property List</a>
+                            <a href="property-type.html" class="dropdown-item">Property Type</a>
+                            <a href="property-agent.html" class="dropdown-item">Property Agent</a>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                        <a href="404.html" class="dropdown-item">404 Error</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dropdown 1</a>
                     <div class="dropdown-menu rounded-0 m-0">
                         <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                         <a href="404.html" class="dropdown-item">404 Error</a>
