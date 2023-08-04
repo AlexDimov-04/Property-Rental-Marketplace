@@ -1,6 +1,7 @@
 from django.urls import path, include
 from property_rental_marketplace.property_market.views import PropertyListView, PropertyCreateView \
-    ,get_additional_form_fields, PropertyDetailsView, PropertyUpdateView, PropertyDeleteView
+    ,get_additional_form_fields, PropertyDetailsView, PropertyUpdateView, PropertyDeleteView \
+    ,SavePropertyView, UnsavePropertyView
 
 properties_operations = [
     path('', PropertyDetailsView.as_view(), name='property_details'),
@@ -12,5 +13,7 @@ urlpatterns = [
     path('list-properties/', PropertyListView.as_view(), name='property_list'),
     path('create-properties/', PropertyCreateView.as_view(), name='property_create'),
     path('get_additional_form_fields/', get_additional_form_fields, name='additional_form_fields'),
+    path('save-property/<int:pk>/', SavePropertyView.as_view(), name='save_property'),
+    path('unsave-property/<int:pk>/', UnsavePropertyView.as_view(), name='unsave_property'),
     path('property/<int:pk>/', include(properties_operations))
 ]
