@@ -6,6 +6,7 @@ from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from property_rental_marketplace.profile_management.forms import UserProfileUpdateForm
 from property_rental_marketplace.property_market.models import BaseProperty
+from property_rental_marketplace.property_market.models import SavedProperty
 from property_rental_marketplace.user_authentication.models import UserProfile
 from django.db.models import Count
 
@@ -60,6 +61,18 @@ class AboutView(UserProfileMixin, views.TemplateView):
         
         return context
     
+class SavedPropertiesCollectionView(UserProfileMixin, views.ListView):
+    model = SavedProperty
+    template_name = 'properties/saved_properties_collection.html'
+    context_object_name = 'saved_properties'
+    paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_profile'] = self.get_user_profile()
+        
+        return context
+    
 class UserProfileView(LoginRequiredMixin, UserProfileMixin, views.DetailView):
     model = UserProfile
     template_name = 'profiles/profile_details.html'
@@ -106,6 +119,14 @@ class UserProfileUpdateView(LoginRequiredMixin, UserProfileMixin, views.UpdateVi
         return self.request.user.userprofile
 
     def form_valid(self, form):
+        user = self.request.user
+
+        user.email = form.cleaned_data['email']
+        user.first_name = form.cleaned_data['first_name']
+        user.last_name = form.cleaned_data['last_name']
+
+        user.save()
+
         messages.success(self.request, 'Profile updated successfully.')
         return super().form_valid(form)
 
