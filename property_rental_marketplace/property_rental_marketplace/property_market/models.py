@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 class BaseProperty(models.Model):
     STATE_CHOICES = [
         ('For Sell', 'For Sell'),
@@ -20,6 +21,8 @@ class BaseProperty(models.Model):
     created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties_created', default=1)
+
+    saved_by_users = models.ManyToManyField(User, through='SavedProperty', related_name='saved_properties')
 
     property_state = models.CharField(
         max_length=10,
@@ -49,6 +52,14 @@ class BaseProperty(models.Model):
 
     def __str__(self):
         return self.title
+
+class SavedProperty(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='savedProperties', null=True, blank=True)
+    property = models.ForeignKey(BaseProperty, on_delete=models.CASCADE, null=True, blank=True)
+    saved_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} saved {self.property.title}"
 
 class Apartment(models.Model):
     property = models.OneToOneField(BaseProperty, on_delete=models.CASCADE)
