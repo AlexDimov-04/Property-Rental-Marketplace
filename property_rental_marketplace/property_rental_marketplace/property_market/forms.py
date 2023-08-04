@@ -1,11 +1,15 @@
 from django import forms
-from .models import BaseProperty, Apartment, Villa, Office, Shop, Building
+from .models import BaseProperty, SavedProperty, Apartment, Villa, Office, Shop, Building
 
+class SavePropertyForm(forms.ModelForm):
+    class Meta:
+        model = SavedProperty
+        fields = ['property']
 
 class BasePropertyForm(forms.ModelForm):
     class Meta:
         model = BaseProperty
-        exclude = ("property", "owner", "created_at")
+        exclude = ("property", "owner", "created_at", "saved_by_users")
 
         widgets = {
             "price": forms.NumberInput(
