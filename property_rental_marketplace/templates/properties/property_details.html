@@ -10,6 +10,13 @@
                         {{ message }}<br>
                     </p>
                 </div>
+            {% elif message.tags == 'error' %}
+                <div class="alert alert-danger my-2 p-3" role="alert">
+                    <strong style="font-size: 20px;">Error:</strong>
+                    <p style="font-size:18px;">
+                        {{ message }}<br>
+                    </p>
+                </div>
             {% endif %}
         {% endfor %}
 
@@ -193,9 +200,18 @@
                 <p class="description">{{ property.building.description }}</p>
             {% endif %}
             <div class="action-buttons">
-                <form action="" method="POST">
-                    <input type="submit" value="save property" name="save" class="inline-btn">
-                </form>
+                {% if property_saved %}
+                    <form action="{% url 'unsave_property' pk=property.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Unsave Property" name="unsave" class="inline-btn btn-unsave">
+                    </form>
+                {% else %}
+                    <form action="{% url 'save_property' pk=property.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Save Property" name="save" class="inline-btn btn-save">
+                    </form>
+                {% endif %}
+
             {% if user.username == property.owner.username %}   
                 <a href="{% url 'property_update' pk=property.pk %}" class="property-action">Edit Property</a>
 
