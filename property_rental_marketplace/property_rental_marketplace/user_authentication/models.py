@@ -53,7 +53,7 @@ class UserProfile(models.Model):
 
     phone = models.CharField(
         validators=[phone_regex],
-        max_length=17,  # Adjust the max length to fit your phone numbers (e.g., '+999999999')
+        max_length=17,
         null=True,
         blank=True,
         help_text='Contact Phone Number'
@@ -66,7 +66,7 @@ class UserProfile(models.Model):
     )
 
     profile_image = models.ImageField(
-        upload_to='profile_images',
+        upload_to='profile_images/',
         null=True,
         blank=True
     )
