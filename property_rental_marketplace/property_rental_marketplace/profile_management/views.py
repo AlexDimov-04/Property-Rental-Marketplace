@@ -93,6 +93,7 @@ class UserProfileView(LoginRequiredMixin, UserProfileMixin, views.DetailView):
         context['gender'] = user_profile.gender
         context['country'] = user_profile.country
         context['phone'] = user_profile.phone
+        context['profile_image'] = user_profile.profile_image
         context['bio'] = user_profile.bio
         context['countries'] = get_countries()
 
@@ -125,9 +126,15 @@ class UserProfileUpdateView(LoginRequiredMixin, UserProfileMixin, views.UpdateVi
     def form_valid(self, form):
         user = self.request.user
 
-        user.email = form.cleaned_data['email']
-        user.first_name = form.cleaned_data['first_name']
-        user.last_name = form.cleaned_data['last_name']
+        email = form.cleaned_data.get('email')
+        first_name = form.cleaned_data.get('first_name')
+        last_name = form.cleaned_data.get('last_name')
+
+        if email:
+            user.email = email
+            
+        user.first_name = first_name if first_name else ''
+        user.last_name = last_name if last_name else ''
 
         user.save()
 
