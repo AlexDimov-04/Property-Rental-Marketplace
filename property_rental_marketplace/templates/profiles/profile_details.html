@@ -13,11 +13,13 @@
 						{% if not profile_image %}
 							<img src="{% static 'images/default_pic.png' %}" alt="Image" class="shadow">
 						{% else %}
-							<img src="/property_rental_marketplace/media/profile_images/alex.png" alt="Image"
-								class="shadow">
+							<a href="{{user_profile.profile_image.url}}">
+								<img class="profile-pic" src="{{ user_profile.profile_image.url }}" alt="Image"
+									class="shadow" style="object-fit: cover;">
+							</a>
 						{% endif %}
 					</div>
-					<h4 class="text-center">{{request.user}}</h4>
+					<h4 class="text-center">{{user_profile}}</h4>
 				</div>
 				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
@@ -128,6 +130,16 @@
 								{% else %}
 									<input disabled id="phone" type="text" class="form-control"
 										value="{{ phone }}">
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="phone">Profile Image</label>
+								{% if not profile_image %}
+									<input disabled id="profile_image" type="text" class="form-control" value="Not Provided">
+								{% else %}
+									<input disabled id="profile_image" type="text" class="form-control" value="{{ profile_image }}">
 								{% endif %}
 							</div>
 						</div>
