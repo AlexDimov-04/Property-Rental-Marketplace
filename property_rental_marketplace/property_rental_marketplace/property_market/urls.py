@@ -2,6 +2,8 @@ from django.urls import path, include
 from property_rental_marketplace.property_market.views import PropertyListView, PropertyCreateView \
     ,get_additional_form_fields, PropertyDetailsView, PropertyUpdateView, PropertyDeleteView \
     ,SavePropertyView, UnsavePropertyView
+from django.conf import settings
+from django.conf.urls.static import static
 
 properties_operations = [
     path('', PropertyDetailsView.as_view(), name='property_details'),
@@ -17,3 +19,6 @@ urlpatterns = [
     path('unsave-property/<int:pk>/', UnsavePropertyView.as_view(), name='unsave_property'),
     path('property/<int:pk>/', include(properties_operations))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
