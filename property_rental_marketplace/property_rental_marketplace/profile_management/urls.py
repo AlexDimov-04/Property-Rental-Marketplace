@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.urls import path, include
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from property_rental_marketplace.property_market.views import PropertyListView
 from . import views
@@ -36,3 +38,6 @@ urlpatterns = [
     path('saved-properties/', views.SavedPropertiesCollectionView.as_view(), name='saved_properties_collection'),
     path('profile/', include(profile_denpendencies)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
