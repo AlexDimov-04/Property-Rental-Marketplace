@@ -3,7 +3,7 @@
 
 {% block main_content %}
 <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
-    <form method="POST" action="" class="tab-pane fade show active" id="account" role="tabpanel"
+    <form method="POST" enctype="multipart/form-data" action="" class="tab-pane fade show active" id="account" role="tabpanel"
         aria-labelledby="account-tab">
         <h3 class="mb-4">Update Profile</h3>
         {% csrf_token %}
@@ -72,6 +72,12 @@
                 <div class="form-group">
                     <label for="phone">Phone</label>
                     {{form.phone}}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="profile_image">Profile Image</label>
+                    {{form.profile_image}}
                 </div>
             </div>
             <div class="col-md-12">
