@@ -2,7 +2,7 @@
 
 <div class="wrapper-pop-up hide" id="popupForm">
     <div class="scroll-container">
-        <form method="POST" action="{% url 'property_create' %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'property_create' %}">
             {% csrf_token %}
             <div class="row">
                 <h4 id="acc">Property Details</h4>
