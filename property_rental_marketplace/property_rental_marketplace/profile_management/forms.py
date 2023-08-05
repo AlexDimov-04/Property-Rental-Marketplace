@@ -5,7 +5,7 @@ from django.db.models import Q
 class UserProfileBaseForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('profile_image', 'user',)
+        exclude = ('user',)
 
 
 class UserProfileUpdateForm(UserProfileBaseForm):
