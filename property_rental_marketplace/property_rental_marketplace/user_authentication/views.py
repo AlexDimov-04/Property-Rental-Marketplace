@@ -1,9 +1,8 @@
-# from property_rental_marketplace.user_authentication.decorators import allowed_users
 from property_rental_marketplace.user_authentication.models import UserProfile
-from property_rental_marketplace.user_authentication.decorators import unauthenticated_user_restricted
 from property_rental_marketplace.user_authentication.forms import UserRegistrationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -13,7 +12,6 @@ from django.utils.decorators import method_decorator
 # 1 week in seconds
 SESSION_EXPIRATION_TIME = 604_800
 
-@method_decorator(unauthenticated_user_restricted, name='dispatch')
 class RegisterView(views.CreateView):
     template_name = "authentication/register.html"
     form_class = UserRegistrationForm
@@ -35,6 +33,9 @@ class RegisterView(views.CreateView):
         user_profile.first_name = form.cleaned_data['first_name']
         user_profile.last_name = form.cleaned_data['last_name']
         user_profile.save()
+
+        renter_group, created = Group.objects.get_or_create(name='renter')
+        user.groups.add(renter_group)
         
         messages.success(
             self.request, "User: " + user.username + " successfully created an account!"
@@ -42,7 +43,6 @@ class RegisterView(views.CreateView):
 
         return super().form_valid(form)
 
-@method_decorator(unauthenticated_user_restricted, name='dispatch')
 class SignInView(auth_views.LoginView):
     template_name = "authentication/login.html"
 
@@ -66,7 +66,6 @@ class SignInView(auth_views.LoginView):
         else:
             messages.info(request, "Incorrect password or username!")
             return render(request, self.template_name)
-
 
 class SignOutView(auth_views.LogoutView):
     def dispatch(self, request, *args, **kwargs):
