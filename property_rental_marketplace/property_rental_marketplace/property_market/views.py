@@ -256,4 +256,4 @@ class UnsavePropertyView(views.View):
         except SavedProperty.DosesNotExist:
             messages.error(request, 'This property is not saved.')
 
-        return redirect('property_details', pk=pk)
+        return redirect('property_list')
