@@ -23,10 +23,6 @@ class BasePropertyForm(forms.ModelForm):
             "location": forms.TextInput(
                 attrs={"placeholder": "Location"}
             ),
-
-            "images": forms.ClearableFileInput(
-                attrs={"placeholder": "Image"}
-            ),
         }
 
 
