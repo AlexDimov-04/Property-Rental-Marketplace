@@ -42,8 +42,6 @@ class BaseProperty(models.Model):
 
     images = models.ImageField(
         upload_to='property_images',
-        null=True,
-        blank=True,
     )
 
     location = models.CharField(
