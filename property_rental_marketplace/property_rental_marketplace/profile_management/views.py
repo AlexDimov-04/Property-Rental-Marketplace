@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 import requests
 from ssl import SSLError
 from django.urls import reverse_lazy
@@ -7,8 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from property_rental_marketplace.profile_management.forms import UserProfileUpdateForm
 from property_rental_marketplace.property_market.models import BaseProperty
 from property_rental_marketplace.property_market.models import SavedProperty
+from property_rental_marketplace.profile_management.decorators import allowed_users, admin_only
 from property_rental_marketplace.user_authentication.models import UserProfile
+from django.utils.decorators import method_decorator
 from django.db.models import Count
+
 
 # not for production, it should be changed
 @staticmethod
@@ -35,6 +39,7 @@ class UserProfileMixin:
         
         return None
 
+# @method_decorator(allowed_users(allowed_roles=['admin']), name='dispatch')
 class IndexView(UserProfileMixin, views.TemplateView):
     template_name = "hero_page/landing_page.html"
 
@@ -54,7 +59,6 @@ class IndexView(UserProfileMixin, views.TemplateView):
     
 class AboutView(UserProfileMixin, views.TemplateView):
     template_name = 'about_page/about.html'
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_profile'] = self.get_user_profile()
