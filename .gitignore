@@ -16,3 +16,8 @@ AUTHORS
 *.jpg
 *.png
 *.env
+*.json
+*.gz
+*.eot
+*.ttf
+*.rst
