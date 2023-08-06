@@ -34,6 +34,7 @@ profile_denpendencies = [
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('about/', views.AboutView.as_view(), name='about'),
+    path('dashboard/', views.AdminDashboardView.as_view(), name='dashboard'),
     path('properties/list_properties/<str:property_type>/', PropertyListView.as_view(), name='list_properties'),
     path('saved-properties/', views.SavedPropertiesCollectionView.as_view(), name='saved_properties_collection'),
     path('profile/', include(profile_denpendencies)),
