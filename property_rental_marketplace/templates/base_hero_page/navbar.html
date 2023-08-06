@@ -16,6 +16,7 @@
             <div class="navbar-nav ms-auto">
                 <a href="{% url 'index' %}" class="nav-item nav-link">Home</a>
                 <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
+                <a href="{% url 'dashboard' %}" class="nav-item nav-link">Dashboard</a>
                 <div class="nav-item dropdown">
                     {% if user_profile %}
                         <a href="{% url 'saved_properties_collection' %}" class="nav-link">Saved Properties</a>
