@@ -45,6 +45,11 @@
                 <a href="{% url 'register' %}">Sign up</a>
             </div>
         </div>
+        <div class="form-group was-validated">
+            <div>
+                <a href="{% url 'reset_password' %}">Forgot password?</a>
+            </div>
+        </div>
         {% csrf_token %}
         <input class="btn btn-success w-100" type="submit" value="SIGN IN">
     </form>
