@@ -162,31 +162,25 @@
 				</div>
 				<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
 					<h3 class="mb-4">Password Settings</h3>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Old password</label>
-								<input disabled type="password" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>New password</label>
-								<input disabled type="password" class="form-control">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Confirm new password</label>
-								<input disabled type="password" class="form-control">
-							</div>
-						</div>
-					</div>
+					<br>
+					<h5 class="mb-4">Follow this simple steps to change your password.</h5>
+					<ul class="food-steps-list list-unstyled fw-bold fs-5">
+						<li>
+							Step 1: Submit email form
+						</li>
+						<li>
+							Step 2: Check your email
+						</li>
+						<li>
+							Step 3: Click the link
+						</li>
+						<li>
+
+							Step 4: You are good to go!
+						</li>
+					</ul>
 					<div>
-						<button class="btn btn-primary">Update</button>
-						<button class="btn btn-light">Cancel</button>
+						<a href="{% url 'reset_password' %}" class="btn btn-primary">Change my password</a>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
