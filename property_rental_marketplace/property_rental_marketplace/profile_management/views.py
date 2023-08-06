@@ -64,6 +64,9 @@ class AboutView(UserProfileMixin, views.TemplateView):
         context['user_profile'] = self.get_user_profile()
         
         return context
+
+class AdminDashboardView(UserProfileMixin, views.TemplateView):
+    template_name = 'dashboard/dashboard.html'
     
 class SavedPropertiesCollectionView(UserProfileMixin, views.ListView):
     model = SavedProperty
