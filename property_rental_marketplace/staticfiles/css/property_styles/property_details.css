@@ -1,0 +1,181 @@
+:root {
+  --main-color: #dea205;
+  --light-color: #e1bc5d;
+  --light-bg: #eee;
+  --grey: #202528;
+  --black: #303030;
+  --white: #fff;
+  --border: 0.1rem solid var(--light-color);
+  --box-shodow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.view-property .details {
+  background-color: var(--grey);
+  padding: 2rem;
+  overflow-x: hidden;
+  margin-top: 3rem;
+}
+
+.view-property .details .thumb {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.view-property .details .thumb .big-image img {
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+}
+
+.view-property .details .thumb .small-images {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.view-property .details .thumb .small-images img {
+  height: 4rem;
+  width: 6rem;
+  object-fit: cover;
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+
+.view-property .details .thumb .small-images img:hover {
+  transform: scale(1.1);
+}
+
+.view-property .details .name {
+  font-size: 2rem;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.view-property .details .location {
+  padding-top: 1rem;
+  font-size: 1.6rem;
+  color: var(--white);
+}
+
+.view-property .details .location i {
+  margin-right: 1rem;
+  color: var(--main-color);
+}
+
+.view-property .details .info {
+  display: flex;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.view-property .details .info p {
+  font-size: 1.7rem;
+}
+
+.view-property .details .info p span,
+.view-property .details .info p a {
+  color: var(--white);
+}
+
+.view-property .details .info p a:hover {
+  text-decoration: underline;
+}
+
+.view-property .details .info p i {
+  margin-right: 1.5rem;
+  color: var(--main-color);
+}
+
+.view-property .details .title {
+  font-size: 2rem;
+  color: var(--white);
+  padding-bottom: 1.5rem;
+  border-bottom: var(--border);
+}
+
+.view-property .details .flex {
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-property .details .flex .box {
+  flex: 1 1 40rem;
+}
+
+.view-property .details .flex .box p {
+  padding: 0.5rem 0;
+  font-size: 1.6rem;
+  color: var(--white);
+}
+
+.view-property .details .flex .box i {
+  color: var(--main-color);
+  margin-right: 1.5rem;
+}
+
+.view-property .details .description {
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+.inline-btn {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: var(--main-color);
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  border-radius: 10px;
+  border: none;
+}
+
+.inline-btn:hover {
+  background-color: var(--light-color);
+}
+
+.inline-btn {
+  display: inline-block;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.property-action {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: var(--main-color);
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  border-radius: 10px;
+  border: none;
+}
+
+.property-action:hover {
+  color: var(--white);
+  background-color: var(--light-color)
+}
+
+@media (max-width: 800px) {
+  .view-property .details .flex,
+  .action-buttons {
+    flex-wrap: wrap;
+  }
+}
