@@ -21,3 +21,4 @@ AUTHORS
 *.eot
 *.ttf
 *.rst
+/djangoenvironment/
