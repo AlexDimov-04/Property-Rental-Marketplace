@@ -36,6 +36,8 @@ urlpatterns = [
     path('about/', views.AboutView.as_view(), name='about'),
     path('contacts/', views.ContactsView.as_view(), name='contacts'),
     path('newsletter/', views.NewsLetterView.as_view(), name='newsletter'),
+    path('comments/', views.UserCommentView.as_view(), name='comments'),
+    path('faq/', views.FaqView.as_view(), name='faq'),
     path('properties/list_properties/<str:property_type>/', PropertyListView.as_view(), name='list_properties'),
     path('saved-properties/', views.SavedPropertiesCollectionView.as_view(), name='saved_properties_collection'),
     path('profile/', include(profile_denpendencies)),
