@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, SavedProperty, Apartment \
@@ -8,7 +8,6 @@ from property_rental_marketplace.property_market.models import BaseProperty, Sav
 from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm, ApartmentForm \
     ,VillaForm, OfficeForm, ShopForm, BuildingForm, SavePropertyForm
-from property_rental_marketplace.user_authentication.models import UserProfile
 
 PROPERTY_TYPE_MAPPING = {
     'Apartment': {
@@ -65,15 +64,16 @@ class PropertyListView(UserProfileMixin, views.ListView):
         context['search_by_property_type'] = self.request.GET.get('property_type', '')
         context['search_by_location'] = self.request.GET.get('location', '')
         context['property_types'] = BaseProperty.TYPE_CHOICES
-        context['user_profile'] = self.get_user_profile()
 
-        user_profile = self.get_user_profile()
-        saved_properties = SavedProperty.objects.filter(user=user_profile.user).values_list('property', flat=True)
+        if self.request.user.is_authenticated:
+            context['user_profile'] = self.get_user_profile()
+            user_profile = self.get_user_profile()
+            saved_properties = SavedProperty.objects.filter(user=user_profile.user).values_list('property', flat=True)
 
-        context['saved_properties'] = saved_properties
+            context['saved_properties'] = saved_properties
 
         return context
-    
+ 
 class PropertyCreateView(UserProfileMixin, views.CreateView):
     model = BaseProperty
     form_class = BasePropertyForm
@@ -142,11 +142,12 @@ class PropertyDetailsView(UserProfileMixin, views.DetailView):
         context['owner_phone'] = self.object.owner.userprofile.phone  
         context['owner_email'] = self.object.owner.userprofile.email
 
-        property_object = self.object
-        user_profile = self.get_user_profile() 
+        if self.request.user.is_authenticated:
+            property_object = self.object
+            user_profile = self.get_user_profile() 
 
-        property_saved = SavedProperty.objects.filter(user=user_profile.user, property=property_object).exists()
-        context['property_saved'] = property_saved
+            property_saved = SavedProperty.objects.filter(user=user_profile.user, property=property_object).exists()
+            context['property_saved'] = property_saved
 
         return context
 
@@ -210,7 +211,7 @@ class PropertyUpdateView(UserProfileMixin, views.UpdateView):
                     additional_form.save()
 
         return super().form_valid(form)
-
+ 
 class PropertyDeleteView(views.DeleteView):
     model = BaseProperty
     template_name = 'properties/property_delete.html'
@@ -219,7 +220,7 @@ class PropertyDeleteView(views.DeleteView):
     def form_valid(self, form):
         messages.success(self.request, 'Property successfully deleted.')
         return super().form_valid(form)
-    
+
 class SavePropertyView(views.View):
     model = BaseProperty
     form_class = SavePropertyForm
