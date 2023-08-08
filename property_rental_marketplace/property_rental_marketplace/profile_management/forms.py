@@ -1,5 +1,5 @@
 from django import forms
-from property_rental_marketplace.profile_management.models import ContactMessage, NewsletterFollower
+from property_rental_marketplace.profile_management.models import ContactMessage, NewsletterFollower, AdminNewsLetterPost
 from property_rental_marketplace.user_authentication.models import UserProfile
 from django.db.models import Q
 
@@ -72,4 +72,14 @@ class NewsLetterSubscriberForm(forms.ModelForm):
     class Meta:
         model = NewsletterFollower
         exclude = ('email',)
-        
+
+class AdminNewsLetterPostForm(forms.ModelForm):
+    class Meta:
+        model = AdminNewsLetterPost
+        fields = '__all__'
+
+        widgets = {
+            'newsletter_type': forms.TextInput(attrs={'placeholder': 'Type newsletter'}),
+            'content': forms.Textarea(attrs={'placeholder': 'Title news content'}),
+            'url_redirect': forms.TextInput(attrs={'placeholder': 'Url to redirect'}),
+        }
