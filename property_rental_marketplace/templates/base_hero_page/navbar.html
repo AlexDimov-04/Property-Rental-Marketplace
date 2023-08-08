@@ -16,7 +16,9 @@
             <div class="navbar-nav ms-auto">
                 <a href="{% url 'index' %}" class="nav-item nav-link">Home</a>
                 <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
-                <a href="{% url 'admin:index' %}" class="nav-item nav-link">Dashboard</a>
+                {% if user.is_staff %}
+                    <a href="{% url 'admin:index' %}" class="nav-item nav-link">Dashboard</a>
+                {% endif %}
                 <div class="nav-item dropdown">
                     {% if user_profile %}
                         <a href="{% url 'saved_properties_collection' %}" class="nav-link">Saved Properties</a>
@@ -43,6 +45,7 @@
                         <a href="404.html" class="dropdown-item">404 Error</a>
                     </div>
                 </div>
+                <a href="{% url 'contacts' %}" class="nav-item nav-link">Contacts</a>
                 {% if user_profile %}
                     <a href="{% url 'profile_details' %}" class="nav-item nav-link">Profile</a>
                 {% endif %}
