@@ -112,17 +112,16 @@
                             </div>
 
                             <h3 class="h3 card-title">
-                                <a href="#">Buy a home</a>
+                                <a href="{% url 'property_list' %}">Buy a home</a>
                             </h3>
 
                             <p class="card-text">
-                                over 1 million+ homes for sale available on the website, we can match you with a house
-                                you will want
-                                to call home.
+                                Let us guide you on the journey to finding your perfect abode. Whether you're seeking a
+                                cozy cottage, a modern apartment, or a spacious family house.
                             </p>
 
                             <a href="#" class="card-link">
-                                <span>Find A Home</span>
+                                <a href="{% url 'property_list' %}">Search to buy</a>
 
                                 <ion-icon name="arrow-forward-outline"></ion-icon>
                             </a>
@@ -138,19 +137,16 @@
                             </div>
 
                             <h3 class="h3 card-title">
-                                <a href="#">Rent a home</a>
+                                <a href="{% url 'property_list' %}">Rent a home</a>
                             </h3>
 
                             <p class="card-text">
-                                over 1 million+ homes for sale available on the website, we can match you with a house
-                                you will want
-                                to call home.
+                                Ready to take the next step and sell your property? Look no further. Our expert team is
+                                here to help you navigate the selling process smoothly and successfully.
                             </p>
 
                             <a href="#" class="card-link">
-                                <span>Find A Home</span>
-
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                <a href="{% url 'property_list' %}">Search to Rent</a>
                             </a>
 
                         </div>
@@ -164,19 +160,25 @@
                             </div>
 
                             <h3 class="h3 card-title">
-                                <a href="#">Sell a home</a>
+                                {% if user.is_authenticated  %}
+                                    <a href="{% url 'property_list' %}">Sell a home</a>
+                                {% else %}
+                                    <a href="#">Sell a home</a>
+                                {% endif %}
                             </h3>
 
                             <p class="card-text">
-                                over 1 million+ homes for sale available on the website, we can match you with a house
-                                you will want
-                                to call home.
+                                Selling your home is a big decision, and we're here to make the process as smooth and
+                                rewarding as possible. Here's why you should choose us to sell your property
                             </p>
 
                             <a href="#" class="card-link">
-                                <span>Find A Home</span>
-
-                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'property_list' %}">Sell your property</a>
+                                {% else %}
+                                    <a href="#" id="save_but_login">Sell your property</a>
+                                    {% include 'profiles/profile_create_account_pop_up.html' %}
+                                {% endif %}
                             </a>
 
                         </div>
@@ -197,9 +199,10 @@
                 <ul class="features-list">
 
                     <li>
-                        <a href="#" class="features-card">
-                            <div class="card-icon">                  
-                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/parking.jpg' %}" alt="">
+                        <a href="{% url 'property_list' %}" class="features-card">
+                            <div class="card-icon">
+                                <img style="border-radius: 100%; width: 100px; height: 100px;"
+                                    src="{% static 'images/parking.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Parking Space</h3>
@@ -209,10 +212,11 @@
                     </li>
 
                     <li>
-                        <a href="#" class="features-card">
+                        <a href="{% url 'property_list' %}" class="features-card">
 
                             <div class="card-icon">
-                                <img style="border-radius: 100%; width: 100px; height: 100px; object-fit: cover;" src="{% static 'images/pool.jpg' %}" alt="">
+                                <img style="border-radius: 100%; width: 100px; height: 100px; object-fit: cover;"
+                                    src="{% static 'images/pool.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Swimming Pool</h3>
@@ -222,10 +226,11 @@
                     </li>
 
                     <li>
-                        <a href="#" class="features-card">
+                        <a href="{% url 'property_list' %}" class="features-card">
 
                             <div class="card-icon">
-                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/cctv.jpg' %}" alt="">
+                                <img style="border-radius: 100%; width: 100px; height: 100px;"
+                                    src="{% static 'images/cctv.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Private Security</h3>
@@ -235,10 +240,11 @@
                     </li>
 
                     <li>
-                        <a href="#" class="features-card">
+                        <a href="{% url 'property_list' %}" class="features-card">
 
                             <div class="card-icon">
-                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/a-c.jpg' %}" alt="">
+                                <img style="border-radius: 100%; width: 100px; height: 100px;"
+                                    src="{% static 'images/a-c.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Smart Air Conditioning</h3>
@@ -248,10 +254,11 @@
                     </li>
 
                     <li>
-                        <a href="#" class="features-card">
+                        <a href="{% url 'property_list' %}" class="features-card">
 
                             <div class="card-icon">
-                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/furniture.jpg' %}" alt="">
+                                <img style="border-radius: 100%; width: 100px; height: 100px;"
+                                    src="{% static 'images/furniture.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Modern Furniture</h3>
@@ -261,9 +268,10 @@
                     </li>
 
                     <li>
-                        <a href="#" class="features-card">
+                        <a href="{% url 'property_list' %}" class="features-card">
                             <div class="card-icon">
-                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/bedrooms.jpg' %}" alt="">
+                                <img style="border-radius: 100%; width: 100px; height: 100px;"
+                                    src="{% static 'images/bedrooms.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Large Bedrooms</h3>
@@ -273,10 +281,11 @@
                     </li>
 
                     <li>
-                        <a href="#" class="features-card">
+                        <a href="{% url 'property_list' %}" class="features-card">
 
                             <div class="card-icon">
-                                <img style="border-radius: 100%; width: 100px; height: 100px;" src="{% static 'images/community.jpg' %}" alt="">
+                                <img style="border-radius: 100%; width: 100px; height: 100px;"
+                                    src="{% static 'images/community.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Large Community</h3>
@@ -288,7 +297,8 @@
                     <li>
                         <a href="#" class="features-card">
                             <div class="card-icon">
-                                <img style="border-radius: 100%; width: 100px; height: 100px; object-fit: cover;" src="{% static 'images/clients.jpg' %}" alt="">
+                                <img style="border-radius: 100%; width: 100px; height: 100px; object-fit: cover;"
+                                    src="{% static 'images/clients.jpg' %}" alt="">
                             </div>
 
                             <h3 class="card-title">Satisfied Clients</h3>
@@ -302,176 +312,82 @@
             </div>
         </section>
 
+        {% if user.is_staff %}
+            <div class="container">
+                <div class="row g-2">
+                    <div class="col-md-2">
+                        <a type="submit" class="btn btn-dark border-0 w-100 py-3" onclick="toggleForm()">Create</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    
+        {% include 'newsletter/newsletter_create_form.html' %}
+
         <section class="blog" id="blog">
             <div class="container-about" style="background-color: #fff;">
 
                 <p class="section-subtitle">News & Blogs</p>
 
                 <h2 class="h2 section-title" style="color: #202528;">Top Leatest News Feeds</h2>
-
+                
                 <ul class="blog-list has-scrollbar">
+                    
+                    {% for post in newsletter_posts  %}
+                        <li>
+                            <div class="blog-card">
 
-                    <li>
-                        <div class="blog-card">
+                                <figure class="card-banner">
+                                    <img src="{{ post.image.url }}"
+                                        alt="The Most Inspiring Interior Design Of 2021" class="w-100">
+                                </figure>
 
-                            <figure class="card-banner">
-                                <img src="{% static 'images/property-5.jpg' %}" alt="The Most Inspiring Interior Design Of 2021"
-                                    class="w-100">
-                            </figure>
+                                <div class="blog-content">
 
-                            <div class="blog-content">
+                                    <div class="blog-content-top">
 
-                                <div class="blog-content-top">
+                                        <ul class="card-meta-list">
 
-                                    <ul class="card-meta-list">
+                                            <li>
+                                                <a href="#" class="card-meta-link">
+                                                    <ion-icon name="person"></ion-icon>
 
-                                        <li>
-                                            <a href="#" class="card-meta-link">
-                                                <ion-icon name="person"></ion-icon>
+                                                    <span>By: Staff Admin</span>
+                                                </a>
+                                            </li>
 
-                                                <span>by: Admin</span>
-                                            </a>
-                                        </li>
+                                            <li>
+                                                <a href="#" class="card-meta-link">
+                                                    <ion-icon name="pricetags"></ion-icon>
 
-                                        <li>
-                                            <a href="#" class="card-meta-link">
-                                                <ion-icon name="pricetags"></ion-icon>
+                                                    <span>{{ post.newsletter_type }}</span>
+                                                </a>
+                                            </li>
 
-                                                <span>Interior</span>
-                                            </a>
-                                        </li>
+                                        </ul>
 
-                                    </ul>
+                                        <h3 class="h3 blog-title">
+                                            <a target="_blank" href="{{ post.url_redirect }}">{{ post.content }}</a>
+                                        </h3>
 
-                                    <h3 class="h3 blog-title">
-                                        <a href="#">The Most Inspiring Interior Design Of 2021</a>
-                                    </h3>
-
-                                </div>
-
-                                <div class="blog-content-bottom">
-                                    <div class="publish-date">
-                                        <ion-icon name="calendar"></ion-icon>
-
-                                        <time datetime="2022-27-04">Apr 27, 2022</time>
                                     </div>
 
-                                    <a href="#" class="read-more-btn">Read More</a>
+                                    <div class="blog-content-bottom">
+                                        <div class="publish-date">
+                                            <ion-icon name="calendar"></ion-icon>
+
+                                            <time datetime="2022-27-04">{{ post.timestamp }}</time>
+                                        </div>
+
+                                        <a target="_blank" href="{{ post.url_redirect }}" class="read-more-btn">Read More</a>
+                                    </div>
+
                                 </div>
 
                             </div>
-
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="blog-card">
-
-                            <figure class="card-banner">
-                                <img src="{% static 'images/property-5.jpg' %}" alt="Recent Commercial Real Estate Transactions"
-                                    class="w-100">
-                            </figure>
-
-                            <div class="blog-content">
-
-                                <div class="blog-content-top">
-
-                                    <ul class="card-meta-list">
-
-                                        <li>
-                                            <a href="#" class="card-meta-link">
-                                                <ion-icon name="person"></ion-icon>
-
-                                                <span>by: Admin</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="card-meta-link">
-                                                <ion-icon name="pricetags"></ion-icon>
-
-                                                <span>Estate</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
-
-                                    <h3 class="h3 blog-title">
-                                        <a href="#">Recent Commercial Real Estate Transactions</a>
-                                    </h3>
-
-                                </div>
-
-                                <div class="blog-content-bottom">
-                                    <div class="publish-date">
-                                        <ion-icon name="calendar"></ion-icon>
-
-                                        <time datetime="2022-27-04">Apr 27, 2022</time>
-                                    </div>
-
-                                    <a href="#" class="read-more-btn">Read More</a>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="blog-card">
-
-                            <figure class="card-banner">
-                                <img src="{% static 'images/property-5.jpg' %}"
-                                    alt="Renovating a Living Room? Experts Share Their Secrets" class="w-100">
-                            </figure>
-
-                            <div class="blog-content">
-
-                                <div class="blog-content-top">
-
-                                    <ul class="card-meta-list">
-
-                                        <li>
-                                            <a href="#" class="card-meta-link">
-                                                <ion-icon name="person"></ion-icon>
-
-                                                <span>by: Admin</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="card-meta-link">
-                                                <ion-icon name="pricetags"></ion-icon>
-
-                                                <span>Room</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>
-
-                                    <h3 class="h3 blog-title">
-                                        <a href="#">Renovating a Living Room? Experts Share Their Secrets</a>
-                                    </h3>
-
-                                </div>
-
-                                <div class="blog-content-bottom">
-                                    <div class="publish-date">
-                                        <ion-icon name="calendar"></ion-icon>
-
-                                        <time datetime="2022-27-04">Apr 27, 2022</time>
-                                    </div>
-
-                                    <a href="#" class="read-more-btn">Read More</a>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </li>
-
+                        </li>
+                    {% endfor %}
                 </ul>
-
             </div>
         </section>
 
@@ -482,13 +398,11 @@
                     <div class="card-content">
                         <h2 class="h2 card-title">Looking for a dream home?</h2>
 
-                        <p class="card-text">We can help you realize your dream of a new home</p>
+                        <p class="card-text">We can help you realize your dream! Proceed further.</p>
                     </div>
 
-                    <button class="btn cta-btn">
-                        <span>Explore Properties</span>
-
-                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    <button style="background-color: #202528; border-color: #202528;" class="btn cta-btn">
+                        <a href="{% url 'property_list' %}" style="color: #fff;">Explore Properties</a>
                     </button>
                 </div>
 
