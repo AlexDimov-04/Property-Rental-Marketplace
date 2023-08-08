@@ -187,7 +187,7 @@ JAZZMIN_SETTINGS = {
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": None,
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to the library",
+    "welcome_sign": "Welcome to RentWise Administration",
     # Copyright on the footer
     "copyright": "RentWise Support Ltd.",
     # List of model admins to search from the search bar, search bar omitted if excluded
