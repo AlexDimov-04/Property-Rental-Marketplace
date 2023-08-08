@@ -1,0 +1,20 @@
+{% extends 'base_hero_page/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3" style="color: #202528;">Leave Feedback</h1>
+            <p>Your Feedback Matters! <br> Share Your Thoughts
+
+                We value your opinion and would love to hear about your experience with us. <br> Whether you've rented, bought, or sold a property through our platform, your insights help us improve and provide you with an even better service.
+                <br>
+                Please take a moment to leave a comment below.</p>
+        </div>
+    </div>
+    <div class="container">
+        {% include 'comments/comment_form.html' %}
+    </div>
+</div>
+{% endblock %}
