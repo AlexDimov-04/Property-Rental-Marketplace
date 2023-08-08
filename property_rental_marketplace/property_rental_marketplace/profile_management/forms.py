@@ -1,4 +1,5 @@
 from django import forms
+from property_rental_marketplace.profile_management.models import ContactMessage, NewsletterFollower
 from property_rental_marketplace.user_authentication.models import UserProfile
 from django.db.models import Q
 
@@ -6,7 +7,6 @@ class UserProfileBaseForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         exclude = ('user',)
-
 
 class UserProfileUpdateForm(UserProfileBaseForm):
     birth_date = forms.DateField(
@@ -56,3 +56,20 @@ class UserProfileUpdateForm(UserProfileBaseForm):
                 self.add_error("last_name", "Last name should start with an uppercase letter.")
 
         return cleaned_data
+    
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = '__all__'
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'message': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+        
+class NewsLetterSubscriberForm(forms.ModelForm):
+    class Meta:
+        model = NewsletterFollower
+        exclude = ('email',)
+        
