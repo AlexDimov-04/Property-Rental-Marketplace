@@ -50,19 +50,20 @@
         </div>
         <div class="row g-4">
             {% for property_type, count in property_type_counts.items %}
-                {% if property_type != 'Building' %}
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="{% url 'list_properties' property_type %}?property_type={{ property_type }}">
-                            <div class="rounded p-4">
-                                <div class="icon mb-3">
-                                    <img class="img-fluid" src="{% static 'images/icon-apartment.png' %}" alt="Icon">
-                                </div>
-                                <h6>{{ property_type }}</h6>
-                                <span>{{ count }} Properties</span>
-                            </div>
-                        </a>
+            {% if property_type != 'Building' %}
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="cat-item d-block bg-light text-center rounded p-3"
+                    href="{% url 'list_properties' property_type %}?property_type={{ property_type }}">
+                    <div class="rounded p-4">
+                        <div class="icon mb-3">
+                            <img class="img-fluid" src="{% static 'images/icon-apartment.png' %}" alt="Icon">
+                        </div>
+                        <h6>{{ property_type }}</h6>
+                        <span>{{ count }} Properties</span>
                     </div>
-                {% endif %}
+                </a>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -94,7 +95,7 @@
                     and assists with property tours.</p>
                 <p><i class="fa fa-check text-primary me-3"></i>We understand your specific needs and offer personalized
                     property recommendations to match your lifestyle and preferences.</p>
-                <a class="btn btn-primary py-3 px-5 mt-3" href="">Read More</a>
+                <a class="btn btn-primary py-3 px-5 mt-3" href="{% url 'about' %}">Read More</a>
             </div>
         </div>
     </div>
@@ -108,20 +109,19 @@
             <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                        <img class="img-fluid rounded w-100" src="{% static 'images/call-to-action.jpg' %}" alt="">
+                        <img class="img-fluid rounded w-100" src="{% static 'images/support.jpg' %}" alt="">
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <div class="mb-4">
-                            <h1 class="mb-3" style="color: #fff;">Contact With Our Certified Agent</h1>
+                            <h1 class="mb-3" style="color: #fff;">Contact With Our Support For Further Questions</h1>
                             <p>For professional and reliable assistance, our certified agents are here to help. With
                                 their expertise and in-depth knowledge, they'll guide you through the process and ensure
                                 you find the perfect property that meets your needs. Don't hesitate – get in touch with
                                 us now!</p>
                         </div>
-                        <a href="" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A
-                            Call</a>
-                        <a href="" class="btn btn-dark py-3 px-4"><i class="fa fa-calendar-alt me-2"></i>Get
-                            Appoinment</a>
+                        <a href="{% url 'contacts' %}" class="btn btn-primary py-3 px-4 me-2"><i
+                                class="fa fa-phone-alt me-2"></i>Make A
+                            Contact</a>
                     </div>
                 </div>
             </div>
@@ -135,75 +135,35 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="mb-3" style="color: #202528;">Property Agents</h1>
+            <h1 class="mb-3" style="color: #202528;">RentWise Owner</h1>
             <p>
-                Our team of dedicated property agents is ready to assist you on your journey to find the perfect
-                property. With their extensive experience and passion for real estate, they'll work tirelessly to ensure
-                you discover the home of your dreams. Let us guide you through the process with utmost professionalism
-                and care.</p>
+                At "RentWise," our commitment to revolutionizing the rental experience is fueled by the passion and
+                dedication of our founder, Alexander. With a deep understanding of the real estate landscape and a
+                drive for innovation, Alexander has paved the way for a new era of renting convenience and
+                transparency.
+
+                Meet Alex:
+
+                Alexander Dimov is a seasoned expert in the real estate industry, boasting 10+ years of experience in
+                real estate marketing. His visionary leadership has guided "RentWise" to become a trusted name in the
+                market, known for its customer-centric approach and cutting-edge solutions.</p>
         </div>
+    </div>
+    <div class="container">
         <div class="row g-4">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <div class="team-item rounded overflow-hidden">
                     <div class="position-relative">
-                        <img class="img-fluid border" src="{% static 'images/team-1.jpg' %}" alt="">
+                        <img class="img-fluid border" src="{% static 'images/cv_image.jpg' %}" alt="">
                         <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-square mx-1" target="_blank" href="https://www.facebook.com/alex.dimov.501/"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" target="_blank" href="https://twitter.com/elenaultras?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square mx-1" target="_blank" href="https://www.instagram.com/dimanou_/?hl=bg"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                     <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid border" src="{% static 'images/team-2.jpg' %}" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid border" src="{% static 'images/team-3.jpg' %}" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid border" src="{% static 'images/team-4.jpg' %}" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
+                        <h5 class="fw-bold mb-0">Alexander Dimov</h5>
+                        <small style="color: #fff;">Owner</small>
                     </div>
                 </div>
             </div>
@@ -218,52 +178,26 @@
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h1 class="mb-3" style="color: #202528;">Our Clients Say!</h1>
-            <p>Don't just take our word for it. Here's what our valued clients have to say about their experience with us:</p>
+            <p>Don't just take our word for it. Here's what our valued clients have to say about their experience with
+                us:</p>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            <div class="testimonial-item bg-light rounded p-3">
-                <div class="bg-white border rounded p-4">
-                    <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet
-                        diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                    <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="{% static 'images/testimonial-1.jpg' %}"
-                            style="width: 45px; height: 45px;">
-                        <div class="ps-3">
-                            <h6 class="fw-bold mb-1">Client Name</h6>
-                            <small>Profession</small>
+            {% for com in comments %}
+                <div class="testimonial-item bg-light rounded p-3">
+                    <div class="bg-white border rounded p-4">
+                        <p>{{com.comment}}</p>
+                        <div class="d-flex align-items-center">
+                            <img class="img-fluid flex-shrink-0 rounded" src="{{ user_profile.profile_image.url }}"
+                                style="width: 45px; height: 45px;">
+                            <div class="ps-3">
+                                <small>{{user_profile}} - {{com.profession}}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="testimonial-item bg-light rounded p-3">
-                <div class="bg-white border rounded p-4">
-                    <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet
-                        diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                    <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="{% static 'images/testimonial-2.jpg' %}"
-                            style="width: 45px; height: 45px;">
-                        <div class="ps-3">
-                            <h6 class="fw-bold mb-1">Client Name</h6>
-                            <small>Profession</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-item bg-light rounded p-3">
-                <div class="bg-white border rounded p-4">
-                    <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet
-                        diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                    <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="{% static 'images/testimonial-3.jpg' %}"
-                            style="width: 45px; height: 45px;">
-                        <div class="ps-3">
-                            <h6 class="fw-bold mb-1">Client Name</h6>
-                            <small>Profession</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+        <a style="margin-top: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="{% url 'comments' %}">Leave a comment</a>
     </div>
 </div>
 <!-- Testimonial End -->
