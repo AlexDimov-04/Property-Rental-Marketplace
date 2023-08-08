@@ -1,0 +1,88 @@
+<div class="emailSignup">
+    <h2>Be the first to know about all our special deals</h2>
+    <p>Our email newsletter is the best way to find out about weekly news, new property offers, and more!</p>
+
+    <form method="POST" class="emailSignup--form">
+        {% csrf_token %}
+        {% if not is_subscribed %}
+            {{ form.email }}
+            <input type="submit" class="emailSignup--email-submit" value="Sign me up!">
+        {% else %}
+            {{ form.email }}
+            <input type="submit" class="emailSignup--email-submit" value="Unsign me">
+        {% endif %}
+    </form>
+</div>
+
+<style>
+    .emailSignup {
+        display: block;
+        background: #202528;
+        width: 100%;
+        margin: 0 0 20px;
+        position: relative;
+        box-sizing: border-box;
+        padding: 40px;
+        text-align: center;
+    }
+
+    .emailSignup h2 {
+        font-size: 32px;
+        margin: 0 0 10px;
+        color: #FFFFFF;
+    }
+
+    .emailSignup p {
+        font-size: 20px;
+        line-height: 1.4;
+        margin: 0 0 20px;
+        color: #D3D3D3;
+    }
+
+    .emailSignup form {
+        text-align: center;
+    }
+
+    .emailSignup--email-input {
+        border: 0;
+        outline: 0;
+        width: 50%;
+        height: 46px;
+        line-height: 46px;
+        padding: 5px 20px;
+        box-sizing: border-box;
+        font-size: 18px;
+        border-radius: 3px;
+    }
+
+    .emailSignup--email-submit {
+        position: relative;
+        top: 3px;
+        border: 0;
+        width: 28%;
+        height: 46px;
+        line-height: 46px;
+        font-size: 22px;
+        font-weight: bold;
+        background: #dea205;
+        color: #FFFFFF;
+        border-radius: 3px;
+        text-transform: uppercase;
+        text-shadow: 0 0 1px #0084DB;
+    }
+
+    .closeBox {
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #fff;
+        line-height: 30px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: 9999px;
+        cursor: pointer;
+    }
+</style>
