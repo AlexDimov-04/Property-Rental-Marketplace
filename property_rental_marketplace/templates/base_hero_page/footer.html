@@ -77,16 +77,16 @@
         <div class="copyright">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">RentWise</a>, All Right Reserved.
+                    &copy; <a class="border-bottom" href="{% url 'index' %}">RentWise</a>, All Right Reserved.
 
-                    Designed By <a class="border-bottom" href="">Alexander Dimov</a>
+                    Designed By <a class="border-bottom" href="{% url 'index' %}">Alexander Dimov</a>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                     <div class="footer-menu">
-                        <a href="">Home</a>
+                        <a href="{% url 'index' %}">Home</a>
                         <a href="">Cookies</a>
-                        <a href="">Help</a>
-                        <a href="">FQAs</a>
+                        <a href="{% url 'contacts' %}">Help</a>
+                        <a href="{% url 'faq' %}">FAQs</a>
                     </div>
                 </div>
             </div>
