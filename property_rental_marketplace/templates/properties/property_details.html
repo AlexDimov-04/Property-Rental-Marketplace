@@ -200,24 +200,29 @@
                 <p class="description">{{ property.building.description }}</p>
             {% endif %}
             <div class="action-buttons">
-                {% if property_saved %}
-                    <form action="{% url 'unsave_property' pk=property.pk %}" method="POST">
-                        {% csrf_token %}
-                        <input type="submit" value="Unsave Property" name="unsave" class="inline-btn btn-unsave">
-                    </form>
+                {% if user.is_authenticated  %}
+                    {% if property_saved %}
+                        <form action="{% url 'unsave_property' pk=property.pk %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Unsave Property" name="unsave" class="inline-btn btn-unsave">
+                        </form>
+                    {% else %}
+                        <form action="{% url 'save_property' pk=property.pk %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Save Property" name="save" class="inline-btn btn-save">
+                        </form>
+                    {% endif %}
+
+                    {% if user.username == property.owner.username or user.is_staff %}   
+                        <a href="{% url 'property_update' pk=property.pk %}" class="property-action">Edit Property</a>
+
+                        <a href="#" class="property-action" id="delete">Delete Property</a>
+                        {% include 'properties/property_delete.html' %}
+                    {% endif %}
                 {% else %}
-                    <form action="{% url 'save_property' pk=property.pk %}" method="POST">
-                        {% csrf_token %}
-                        <input type="submit" value="Save Property" name="save" class="inline-btn btn-save">
-                    </form>
+                    <button  class="property-action" id="save_but_login">Save Property</button>
+                    {% include 'profiles/profile_create_account_pop_up.html' %}
                 {% endif %}
-
-            {% if user.username == property.owner.username %}   
-                <a href="{% url 'property_update' pk=property.pk %}" class="property-action">Edit Property</a>
-
-                <a href="#" class="property-action" id="delete">Delete Property</a>
-                {% include 'properties/property_delete.html' %}
-            {% endif %}
             </div>
             </div>
             </section>
