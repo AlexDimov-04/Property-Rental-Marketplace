@@ -16,9 +16,11 @@ class NewsletterFollower(models.Model):
         return self.email
     
 class AdminNewsLetterPost(models.Model):
-    title = models.CharField(max_length=200)
+    newsletter_type = models.CharField(max_length=200)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='newsletter_images')
+    url_redirect = models.URLField()
 
     def __str__(self):
-        return self.title
+        return self.content
