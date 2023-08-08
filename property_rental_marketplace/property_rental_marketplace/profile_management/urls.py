@@ -2,8 +2,8 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from property_rental_marketplace.property_market.views import PropertyListView
 from . import views
+from property_rental_marketplace.property_market.views import PropertyListView
 
 profile_denpendencies = [
     path('details/', views.UserProfileView.as_view(), name='profile_details'),
@@ -34,6 +34,8 @@ profile_denpendencies = [
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('about/', views.AboutView.as_view(), name='about'),
+    path('contacts/', views.ContactsView.as_view(), name='contacts'),
+    path('newsletter/', views.NewsLetterView.as_view(), name='newsletter'),
     path('properties/list_properties/<str:property_type>/', PropertyListView.as_view(), name='list_properties'),
     path('saved-properties/', views.SavedPropertiesCollectionView.as_view(), name='saved_properties_collection'),
     path('profile/', include(profile_denpendencies)),
