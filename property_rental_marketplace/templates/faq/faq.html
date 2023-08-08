@@ -1,0 +1,14 @@
+{% extends 'base_hero_page/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="container">
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+        <h1 class="mb-3" style="color: #202528;">FAQ's</h1>
+        <p>Have questions? We have answers! Here are some of the most common inquiries we receive. If you don't find
+            what you're looking for, feel free to reach out to our support team.</p>
+    </div>
+
+    {% include 'faq/faq_dropbox.html' %}
+</div>
+{% endblock %}
