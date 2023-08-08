@@ -1,6 +1,7 @@
+from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
-from property_rental_marketplace.user_authentication.models import UserProfile
+from property_rental_marketplace.user_authentication.models import UserProfile, UserComment
 
 class UserRegistrationForm(auth_forms.UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -75,3 +76,13 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
             "password1",
             "password2",
         )
+
+class UserCommentForm(forms.ModelForm):
+    class Meta:
+        model = UserComment
+        exclude = ('user_profile',)
+
+        widgets = {
+            'comment': forms.Textarea(attrs={'placeholder': 'Your comment'}),
+            'profession': forms.TextInput(attrs={'placeholder': 'Your profession'}),
+        }
