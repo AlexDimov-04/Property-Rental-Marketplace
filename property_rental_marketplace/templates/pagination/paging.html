@@ -1,0 +1,86 @@
+<div class="col-12 text-center wow fadeInUp pagination" data-wow-delay="0.1s">
+    <div class="page-numbers">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}" class="btn-nav left-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="left-icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+        </a>
+        {% endif %}
+        {% for page_num in paginator.page_range %}
+        <a href="?page={{ page_num }}&search={{ search }}"
+            class="btn-page {% if page_num == page_obj.number %}btn-selected{% endif %}">{{page_num}}</a>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&search={{ search }}" class="btn-nav right-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="right-icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    button {
+        font-family: "Arial", sans-serif;
+        color: #343a40;
+        line-height: 1;
+    }
+
+    .pagination,
+    .page-numbers {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .pagination {
+        margin-top: 128px;
+    }
+
+    .btn-nav,
+    .btn-page {
+        border-radius: 50%;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .btn-nav {
+        padding: 8px;
+    }
+
+    .btn-nav {
+        width: 42px;
+        height: 42px;
+        border: 1.5px solid #ecbb3f;
+        color: #dea205;
+    }
+
+    .btn-nav:hover,
+    .btn-page:hover {
+        background-color: #ecbb3f;
+        color: #fff;
+    }
+
+    .btn-page {
+        border: none;
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .btn-selected {
+        background-color: #dea205;
+        color: #fff;
+    }
+</style>
