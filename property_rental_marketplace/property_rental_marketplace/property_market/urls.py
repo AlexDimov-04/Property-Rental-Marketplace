@@ -1,22 +1,22 @@
 from django.urls import path, include
-from property_rental_marketplace.property_market.views import PropertyListView, PropertyCreateView \
-    ,get_additional_form_fields, PropertyDetailsView, PropertyUpdateView, PropertyDeleteView \
-    ,SavePropertyView, UnsavePropertyView
+from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 properties_operations = [
-    path('', PropertyDetailsView.as_view(), name='property_details'),
-    path('update/', PropertyUpdateView.as_view(), name='property_update'),
-    path('delete/', PropertyDeleteView.as_view(), name='property_delete')
+    path('', views.PropertyDetailsView.as_view(), name='property_details'),
+    path('update/', views.PropertyUpdateView.as_view(), name='property_update'),
+    path('delete/', views.PropertyDeleteView.as_view(), name='property_delete')
 ]
 
+payment_processes = []
+
 urlpatterns = [
-    path('list-properties/', PropertyListView.as_view(), name='property_list'),
-    path('create-properties/', PropertyCreateView.as_view(), name='property_create'),
-    path('get_additional_form_fields/', get_additional_form_fields, name='additional_form_fields'),
-    path('save-property/<int:pk>/', SavePropertyView.as_view(), name='save_property'),
-    path('unsave-property/<int:pk>/', UnsavePropertyView.as_view(), name='unsave_property'),
+    path('list-properties/', views.PropertyListView.as_view(), name='property_list'),
+    path('create-properties/', views.PropertyCreateView.as_view(), name='property_create'),
+    path('get_additional_form_fields/', views.get_additional_form_fields, name='additional_form_fields'),
+    path('save-property/<int:pk>/', views.SavePropertyView.as_view(), name='save_property'),
+    path('unsave-property/<int:pk>/', views.UnsavePropertyView.as_view(), name='unsave_property'),
     path('property/<int:pk>/', include(properties_operations))
 ]
 
