@@ -5,44 +5,56 @@
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-4">Get In Touch</h5>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Rue du Bailli 7A, 1000 Bruxelles, Belgium</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 6789</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>rentwise@gmail.com</p>
                 <div class="d-flex pt-2">
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-light btn-social" target="_blank" href="https://twitter.com/elenaultras?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social" target="_blank" href="https://www.facebook.com/alex.dimov.501/"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social" target="_blank" href="https://www.youtube.com/watch?v=oZwyA9lUwRk&t=990s"><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-light btn-social" target="_blank" href="https://www.linkedin.com/in/aleksandar-dimov-8a0470273/"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-4">Quick Links</h5>
-                <a class="btn btn-link text-white-50" href="">About Us</a>
-                <a class="btn btn-link text-white-50" href="">Contact Us</a>
-                <a class="btn btn-link text-white-50" href="">Our Services</a>
-                <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-                <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
+                <a class="btn btn-link text-white-50" href="{% url 'about' %}">About Us</a>
+                <a class="btn btn-link text-white-50" href="{% url 'contacts' %}">Contact Us</a>
+                <a class="btn btn-link text-white-50" href="{% url 'property_list' %}">Our Marketplace</a>
+                <a class="btn btn-link text-white-50" href="https://www.termsfeed.com/live/ec0fc186-0bcd-41ec-873c-36720133731f">Privacy Policy</a>
+                <a class="btn btn-link text-white-50" href="https://www.termsandconditionsgenerator.com/live.php?token=B3Sul4mHR7JrL5AEEVbyIxHwMtyw7Nhg">Terms & Condition</a>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-white mb-4">Photo Gallery</h5>
                 <div class="row g-2 pt-2">
                     <div class="col-4">
-                        <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-1.jpg' %}" alt="">
+                        <a href="{% static 'images/property-1.jpg' %}">
+                            <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-1.jpg' %}" alt="">
+                        </a>
                     </div>
                     <div class="col-4">
-                        <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-2.jpg' %}" alt="">
+                        <a href="{% static 'images/property-2.jpg' %}">
+                            <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-2.jpg' %}" alt="">
+                        </a>
                     </div>
                     <div class="col-4">
-                        <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-3.jpg' %}" alt="">
+                        <a href="{% static 'images/property-3.jpg' %}">
+                            <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-3.jpg' %}" alt="">
+                        </a>
                     </div>
                     <div class="col-4">
-                        <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-4.jpg' %}" alt="">
+                        <a href="{% static 'images/property-4.jpg' %}">
+                            <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-4.jpg' %}" alt="">
+                        </a>
                     </div>
                     <div class="col-4">
-                        <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-5.jpg' %}" alt="">
+                        <a href="{% static 'images/property-5.jpg' %}">
+                            <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-5.jpg' %}" alt="">
+                        </a>
                     </div>
                     <div class="col-4">
-                        <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-6.jpg' %}" alt="">
+                        <a href="{% static 'images/property-6.jpg' %}">
+                            <img class="img-fluid rounded bg-light p-1" src="{% static 'images/property-6.jpg' %}" alt="">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -51,10 +63,12 @@
                 <p>Don't miss out on the latest updates, property trends, and exclusive offers. Sign up and we'll keep you
                     informed!</p>
                 <div class="position-relative mx-auto" style="max-width: 400px;">
-                    <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
-                        placeholder="Your email">
-                    <button type="button"
-                        class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'newsletter' %}" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" id="save_but_login">SignUp</a>
+                {% else %}
+                    <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" id="save_but_login">SignUp</button>
+                    {% include 'profiles/profile_create_account_pop_up.html' %}
+                {% endif %}
                 </div>
             </div>
         </div>
@@ -63,10 +77,9 @@
         <div class="copyright">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+                    &copy; <a class="border-bottom" href="#">RentWise</a>, All Right Reserved.
 
-
-                    Designed By <a class="border-bottom" href="">your Site name</a>
+                    Designed By <a class="border-bottom" href="">Alexander Dimov</a>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                     <div class="footer-menu">
