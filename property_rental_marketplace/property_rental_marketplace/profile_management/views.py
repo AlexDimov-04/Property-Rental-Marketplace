@@ -1,6 +1,5 @@
-from django.shortcuts import render
 import requests
-from ssl import SSLError
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import generic as views
@@ -8,11 +7,27 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from property_rental_marketplace.profile_management.forms import UserProfileUpdateForm
 from property_rental_marketplace.property_market.models import BaseProperty
 from property_rental_marketplace.property_market.models import SavedProperty
-from property_rental_marketplace.profile_management.models import ContactMessage, NewsletterFollower
-from property_rental_marketplace.profile_management.forms import ContactForm, NewsLetterSubscriberForm
-from property_rental_marketplace.user_authentication.models import UserProfile
+from property_rental_marketplace.profile_management.models import (
+    ContactMessage,
+    NewsletterFollower,
+    AdminNewsLetterPost,
+)
+from property_rental_marketplace.profile_management.forms import (
+    ContactForm,
+    NewsLetterSubscriberForm,
+    AdminNewsLetterPostForm,
+)
+from property_rental_marketplace.profile_management.signals import (
+    send_notification_to_followers,
+)
+from property_rental_marketplace.user_authentication.forms import UserCommentForm
+from property_rental_marketplace.user_authentication.models import (
+    UserProfile,
+    UserComment,
+)
 from django.db.models import Count
 from django.core.mail import EmailMessage
+from django.db import transaction
 
 
 class UserProfileMixin:
@@ -34,6 +49,7 @@ class IndexView(UserProfileMixin, views.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user_profile"] = self.get_user_profile()
+        context["comments"] = UserComment.objects.all()
 
         property_counts = BaseProperty.objects.values("property_type").annotate(
             count=Count("property_type")
@@ -48,14 +64,24 @@ class IndexView(UserProfileMixin, views.TemplateView):
         return context
 
 
-class AboutView(UserProfileMixin, views.TemplateView):
+class AboutView(UserProfileMixin, views.CreateView):
+    model = AdminNewsLetterPost
     template_name = "about_page/about.html"
+    form_class = AdminNewsLetterPostForm
+    success_url = reverse_lazy("about")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user_profile"] = self.get_user_profile()
+        context["newsletter_posts"] = AdminNewsLetterPost.objects.all()
 
         return context
+
+    @transaction.atomic
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        send_notification_to_followers(sender=self.model, instance=self.object)
+        return response
 
 
 class ContactsView(UserProfileMixin, views.CreateView):
@@ -92,17 +118,18 @@ class ContactsView(UserProfileMixin, views.CreateView):
 
         return response
 
+
 class NewsLetterView(UserProfileMixin, views.FormView):
-    template_name = 'newsletter/newsletter_subscribe.html'
+    template_name = "newsletter/newsletter_subscribe.html"
     model = NewsletterFollower
     form_class = NewsLetterSubscriberForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy("index")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_email = self.request.user.email
         context["user_profile"] = self.get_user_profile()
-        context['is_subscribed'] = self.model.objects.filter(email=user_email).exists()
+        context["is_subscribed"] = self.model.objects.filter(email=user_email).exists()
 
         return context
 
@@ -112,13 +139,18 @@ class NewsLetterView(UserProfileMixin, views.FormView):
 
         if is_subscribed:
             self.model.objects.filter(email=user_email).delete()
-            messages.success(self.request, 'You have been unsubscribed.')
+            messages.success(self.request, "You have been unsubscribed.")
         else:
             subscriber, created = self.model.objects.get_or_create(email=user_email)
             if created:
-                messages.success(self.request, 'You have successfully subscribed to our newsletter.')
+                messages.success(
+                    self.request, "You have successfully subscribed to our newsletter."
+                )
 
         return super().form_valid(form)
+
+class FaqView(UserProfileMixin, views.TemplateView):
+    template_name = 'faq/faq.html'
 
 class SavedPropertiesCollectionView(UserProfileMixin, views.ListView):
     model = SavedProperty
@@ -131,6 +163,27 @@ class SavedPropertiesCollectionView(UserProfileMixin, views.ListView):
         context["user_profile"] = self.get_user_profile()
 
         return context
+
+
+class UserCommentView(UserProfileMixin, views.FormView):
+    template_name = "comments/comments.html"
+    form_class = UserCommentForm
+    success_url = reverse_lazy("index")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user_profile"] = self.get_user_profile()
+
+        return context
+
+    def form_valid(self, form):
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        form.instance.user_profile = user_profile
+        form.save()
+
+        messages.success(self.request, "You left a comment successfully.")
+
+        return super().form_valid(form)
 
 
 class UserProfileView(LoginRequiredMixin, UserProfileMixin, views.DetailView):
@@ -223,15 +276,15 @@ class UserProfileDeleteView(LoginRequiredMixin, UserProfileMixin, views.DeleteVi
         return super().delete(request, *args, **kwargs)
 
 
-# not for production, it should be changed
 @staticmethod
 def get_countries():
     try:
-        response = requests.get("https://restcountries.com/v2/all", verify=False)
-        if response.status_code == 200:
-            countries = response.json()
-            return countries
-    except SSLError as e:
+        response = requests.get("https://restcountries.com/v2/all")
+        response.raise_for_status()
+
+        countries = response.json()
+        return countries
+    except requests.exceptions.RequestException as e:
         print(f"Failed to retrieve countries: {e}")
 
     return []
