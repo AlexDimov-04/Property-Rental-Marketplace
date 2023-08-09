@@ -171,6 +171,15 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 # STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 # MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
+# Stripe
+STRIPE_PUBLIC_KEY_TEST = os.environ.get('STRIPE_PUBLIC_KEY_TEST')
+STRIPE_SECRET_KEY_TEST = os.environ.get('STRIPE_SECRET_KEY_TEST')
+STRIPE_WEBHOOK_SECRET_TEST = os.environ.get('STRIPE_WEBHOOK_SECRET_TEST')
+PRODUCT_PRICE = os.environ.get('PRODUCT_PRICE')
+
+# Redirect domain
+REDIRECT_DOMAIN = os.environ.get('REDIRECT_DOMAIN')
+
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Library Admin",
