@@ -1,6 +1,6 @@
 from django.contrib import admin
 from property_rental_marketplace.property_market.models import BaseProperty, Apartment \
-    ,Villa, Office, Shop, Building
+    ,Villa, Office, Shop, Building, PropertyEstimate
 
 @admin.register(BaseProperty)
 class BasePropertyAdmin(admin.ModelAdmin):
@@ -24,4 +24,8 @@ class ShopAdmin(admin.ModelAdmin):
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(PropertyEstimate)
+class PropertyEstimateAdmin(admin.ModelAdmin):
     pass
