@@ -25,7 +25,9 @@
                     {% endif %}
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rw Marketplace</a>
+                    {% if user.is_authenticated %}
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Rw Marketplace</a>
+                    {% endif %}
                     <div class="dropdown-menu rounded-0 m-0">
                         <a href="{% url 'newsletter' %}" class="dropdown-item">Newsletter</a>
                         <a href="{% url 'property_list' %}" class="dropdown-item">Properties</a>
