@@ -17,6 +17,8 @@ urlpatterns = [
     path('get_additional_form_fields/', views.get_additional_form_fields, name='additional_form_fields'),
     path('save-property/<int:pk>/', views.SavePropertyView.as_view(), name='save_property'),
     path('unsave-property/<int:pk>/', views.UnsavePropertyView.as_view(), name='unsave_property'),
+    path('estimate-calculator/', views.EstimatePropertyView.as_view(), name='estimate'),
+    path('estimated-result/', views.EstimatePropertyResultView.as_view(), name='estimated_result'),
     path('property/<int:pk>/', include(properties_operations))
 ]
 
