@@ -69,6 +69,10 @@
                     </div>
                 </div>
             </div>
+            {% if user.is_authenticated %}
+                <p style="font-size: 20px; color: #202528;">Try our new feature - estimate calculator!</p> 
+                <a style="margin-bottom: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="{% url 'estimate' %}">TRY</a>
+            {% endif %}
 
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">
