@@ -1,0 +1,93 @@
+{% extends 'base_hero_page/base.html' %}
+{% load static %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3" style="color: #202528;">Introducing Our New Feature: Estimate Property Calculator!</h1>
+            <p>Our brand-new Estimate Property Calculator is here to help! Whether you're planning to sell, rent, or just
+                curious about your property's market value, this tool provides you with an instant estimate based on current
+                market trends and data.</p>
+        </div>
+    </div>
+
+    <div class="emailSignup">
+        <h2>Your property estimates at:</h2>
+        <p style="color: gray;">*Have in mind that this is an early version so it, has risks of producing irrelavent or incorrect data.</p>
+    
+        <p>Estimated Property Value: <span style="color: #dea205;">${{ estimated_value.estimate_value }}</span></p>
+    </div>
+    
+    <style>
+        .emailSignup {
+            display: block;
+            background: #202528;
+            width: 100%;
+            margin: 0 0 20px;
+            position: relative;
+            box-sizing: border-box;
+            padding: 40px;
+            text-align: center;
+        }
+    
+        .emailSignup h2 {
+            font-size: 32px;
+            margin: 0 0 10px;
+            color: #FFFFFF;
+        }
+    
+        .emailSignup p {
+            font-size: 20px;
+            line-height: 1.4;
+            margin: 0 0 20px;
+            color: #D3D3D3;
+        }
+    
+        .emailSignup form {
+            text-align: center;
+        }
+    
+        .emailSignup--email-input {
+            border: 0;
+            outline: 0;
+            width: 50%;
+            height: 46px;
+            line-height: 46px;
+            padding: 5px 20px;
+            box-sizing: border-box;
+            font-size: 18px;
+            border-radius: 3px;
+        }
+    
+        .emailSignup--email-submit {
+            position: relative;
+            top: 3px;
+            border: 0;
+            width: 28%;
+            height: 46px;
+            line-height: 46px;
+            font-size: 22px;
+            font-weight: bold;
+            background: #dea205;
+            color: #FFFFFF;
+            border-radius: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 1px #0084DB;
+        }
+    
+        .closeBox {
+            height: 30px;
+            width: 30px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fff;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 9999px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,335 @@
+<div class="wrapper-pop-up hide" id="popupForm">
+    <div class="scroll-container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <h4 id="acc">Estimator</h4>
+                {{form}}
+
+                <div class="btn-wrapper">
+                    <button type="submit" class="btn">Calculate</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .wrapperContainer {
+        display: flex;
+    }
+
+    .scroll-container {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding-right: 13px;
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        width: 5px;
+        height: 1px;
+    }
+
+    .scroll-container::-webkit-scrollbar-thumb {
+        background-color: #c0c0c0;
+        border-radius: 4px;
+    }
+
+    .scroll-container::-webkit-scrollbar-thumb:hover {
+        background-color: #a0a0a0;
+    }
+
+    .btn-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 90px;
+    }
+
+    .btn-wrapper .btn {
+        color: #fff;
+        background-color: #dea205;
+        font-size: 18px;
+        padding: 10px 70px;
+    }
+
+    .btn-wrapper .btn:hover {
+        background-color: #d6ac41;
+    }
+
+    #acc {
+        color: #fff;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    input,
+    select option,
+    select {
+        width: 100%;
+        padding: 1em;
+        line-height: 1.4;
+        background-color: #f9f9f9;
+        border: 1px solid #e5e5e5;
+        border-radius: 3px;
+        -webkit-transition: 0.35s ease-in-out;
+        -moz-transition: 0.35s ease-in-out;
+        -o-transition: 0.35s ease-in-out;
+        transition: 0.35s ease-in-out;
+        transition: all 0.35s ease-in-out;
+        margin-bottom: 35px;
+    }
+
+    input:focus {
+        outline: 0;
+        border-color: #dea205;
+    }
+
+    input:focus+.input-icon i {
+        color: #dea205;
+    }
+
+    input:focus+.input-icon:after {
+        border-right-color: #dea205;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    input[type="radio"]+label,
+    select {
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        float: left;
+        border-radius: 0;
+    }
+
+    input[type="radio"]+label:first-of-type {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    input[type="radio"]+label:last-of-type {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    input[type="radio"]+label i {
+        padding-right: 0.4em;
+    }
+
+    input[type='checkbox'] {
+        position: relative;
+        right: 155px;
+        bottom: 18px;
+    }
+
+    select {
+        height: 3.4em;
+        line-height: 2;
+        width: 100%;
+    }
+
+    select:first-of-type {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+    select:last-of-type {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    select:focus {
+        outline: 0;
+        border-color: #dea205;
+    }
+
+    select:focus+.input-icon i {
+        color: #dea205;
+    }
+
+    select:focus+.input-icon i:after {
+        border-right-color: #dea205;
+    }
+
+    select:focus,
+    select:active {
+        outline: 0;
+    }
+
+    select option {
+        background-color: #202528;
+        color: #fff;
+    }
+
+    .input-group {
+        zoom: 1;
+    }
+
+    .input-group:before,
+    .input-group:after {
+        content: "";
+        display: table;
+    }
+
+    .input-group:after {
+        clear: both;
+    }
+
+    .input-group-icon {
+        position: relative;
+    }
+
+    .input-group-icon input {
+        padding-left: 4.4em;
+    }
+
+    .input-group-icon .input-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3.4em;
+        height: 3.4em;
+        line-height: 3.4em;
+        text-align: center;
+        pointer-events: none;
+    }
+
+    .input-group-icon .input-icon:after {
+        position: absolute;
+        top: 0.6em;
+        bottom: 0.6em;
+        left: 3.4em;
+        display: block;
+        border-right: 1px solid #e5e5e5;
+        content: "";
+        -webkit-transition: 0.35s ease-in-out;
+        -moz-transition: 0.35s ease-in-out;
+        -o-transition: 0.35s ease-in-out;
+        transition: 0.35s ease-in-out;
+        transition: all 0.35s ease-in-out;
+    }
+
+    .input-group-icon .input-icon i {
+        -webkit-transition: 0.35s ease-in-out;
+        -moz-transition: 0.35s ease-in-out;
+        -o-transition: 0.35s ease-in-out;
+        transition: 0.35s ease-in-out;
+        transition: all 0.35s ease-in-out;
+    }
+
+    .wrapper-pop-up {
+        max-width: 38em;
+        padding: 1em 3em 2em 3em;
+        margin: 0em auto;
+        background-color: #202528;
+        border-radius: 4.2px;
+        box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 1000;
+    }
+
+    .wrapper-pop-up.active {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .row {
+        zoom: 1;
+    }
+
+    .row:before,
+    .row:after {
+        content: "";
+        display: table;
+    }
+
+    .row:after {
+        clear: both;
+    }
+
+    .col-half {
+        padding-right: 10px;
+        float: left;
+        width: 50%;
+    }
+
+    .col-half:last-of-type {
+        padding-right: 0;
+    }
+
+    .col-third {
+        padding-right: 10px;
+        float: left;
+        width: 33.33333333%;
+    }
+
+    .col-third:last-of-type {
+        padding-right: 0;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .wrapper-pop-up {
+            max-width: 80%;
+        }
+    }
+
+    @media only screen and (max-width: 739px) {
+        input[type='checkbox'] {
+            position: relative;
+            right: 120px;
+            bottom: 18px;
+        }
+    }
+
+    @media only screen and (max-width: 660px) {
+        input[type='checkbox'] {
+            position: relative;
+            right: 100px;
+            bottom: 18px;
+        }
+    }
+
+    @media only screen and (max-width: 610px) {
+        .btn-wrapper {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn-wrapper .btn {
+            width: 100%;
+        }
+
+        .input-group,
+        select {
+            width: 100%;
+        }
+
+        input[type='checkbox'] {
+            position: relative;
+            right: 60px;
+            bottom: 18px;
+        }
+    }
+
+    @media only screen and (max-width: 540px) {
+        .col-half {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        input[type='checkbox'] {
+            position: relative;
+            right: 30px;
+            bottom: 18px;
+        }
+    }
+
+    @media only screen and (max-width: 540px) {
+        input[type='checkbox'] {
+            position: unset;
+        }
+    }
+</style>

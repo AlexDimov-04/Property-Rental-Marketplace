@@ -1,0 +1,14 @@
+{% extends 'base_hero_page/base.html' %}
+{% load static %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3" style="color: #202528;">Introducing Our New Feature: Estimate Property Calculator!</h1>
+            <p>Our brand-new Estimate Property Calculator is here to help! Whether you're planning to sell, rent, or just
+                curious about your property's market value, this tool provides you with an instant estimate based on current
+                market trends and data.</p>
+        </div>
+    </div>
+    {% include 'estimate_calc/estimator_form.html' %}
+{% endblock %}
