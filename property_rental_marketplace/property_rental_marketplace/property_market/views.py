@@ -1,13 +1,13 @@
 from django.http import JsonResponse
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, SavedProperty, Apartment \
-    ,Villa, Shop, Building, Office
+    ,Villa, Shop, Building, Office, PropertyEstimate
 from property_rental_marketplace.profile_management.views import UserProfileMixin
 from property_rental_marketplace.property_market.forms import BasePropertyForm, ApartmentForm \
-    ,VillaForm, OfficeForm, ShopForm, BuildingForm, SavePropertyForm
+    ,VillaForm, OfficeForm, ShopForm, BuildingForm, SavePropertyForm, PropertyEstimateForm
 
 PROPERTY_TYPE_MAPPING = {
     'Apartment': {
@@ -258,3 +258,37 @@ class UnsavePropertyView(views.View):
             messages.error(request, 'This property is not saved.')
 
         return redirect('property_list')
+
+class EstimatePropertyView(UserProfileMixin, views.FormView):
+    template_name = 'estimate_calc/estimator.html'
+    form_class = PropertyEstimateForm
+    success_url = reverse_lazy('estimated_result')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_profile'] = self.get_user_profile()
+
+        return context
+
+    def form_valid(self, form):
+        size_sqft = form.cleaned_data['size_sqft']
+        amenities = form.cleaned_data['amenities']
+        rooms = form.cleaned_data['rooms']
+        balconies = form.cleaned_data['balconies']
+
+        estimate_value = size_sqft * (balconies + rooms) * (20 if amenities else 10)
+
+        form.instance.estimate_value = estimate_value
+        form.save()
+
+        return super().form_valid(form)
+    
+class EstimatePropertyResultView(UserProfileMixin, views.TemplateView):
+    template_name = 'estimate_calc/result.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_profile'] = self.get_user_profile()
+        context['estimated_value'] = PropertyEstimate.objects.last()
+
+        return context
