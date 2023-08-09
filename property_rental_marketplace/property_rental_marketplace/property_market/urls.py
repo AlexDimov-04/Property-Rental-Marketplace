@@ -9,7 +9,11 @@ properties_operations = [
     path('delete/', views.PropertyDeleteView.as_view(), name='property_delete')
 ]
 
-payment_processes = []
+payment_processes = [
+    path('', views.product_page, name='payment'),
+    path('successful/', views.payment_successful, name='payment_successful'),
+    path('cancelled/', views.payment_cancelled, name='payment_cancelled'),
+]
 
 urlpatterns = [
     path('list-properties/', views.PropertyListView.as_view(), name='property_list'),
@@ -19,6 +23,8 @@ urlpatterns = [
     path('unsave-property/<int:pk>/', views.UnsavePropertyView.as_view(), name='unsave_property'),
     path('estimate-calculator/', views.EstimatePropertyView.as_view(), name='estimate'),
     path('estimated-result/', views.EstimatePropertyResultView.as_view(), name='estimated_result'),
+    path('stripe_webhook/', views.stripe_webhook, name="stripe_webhook"),
+    path('payment/', include(payment_processes)),
     path('property/<int:pk>/', include(properties_operations))
 ]
 
