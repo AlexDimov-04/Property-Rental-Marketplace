@@ -1,0 +1,146 @@
+{% load static %}
+
+<section id="window">
+    <div class="modal-box">
+        <i class="fa-regular fa-circle-check"></i>
+        <img class="question_mark" style="width: 90px;" src="{% static 'images/question_icon.png' %}"
+            alt="question_mark">
+        <h3 style="margin-bottom: 20px;">Do you want to proceed with the payment details?</h3>
+        <p style="color: #b3b3b3; text-align: center;">You'll be redirected to the property purchasing details.</p>
+
+        <div class="buttons">
+            <a href="{% url 'payment' %}" class="log-in">Proceed</a>
+            <a class="close-btn">Cancel</a>
+        </div>
+    </div>
+
+</section>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .dark-body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+    }
+
+    #window {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background: #fff;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 2;
+    }
+
+    .question_mark {
+        position: relative;
+        bottom: 35px;
+    }
+
+    button,
+    .close-btn,
+    .log-in {
+        font-size: 18px;
+        font-weight: 400;
+        color: #fff;
+        padding: 14px 22px;
+        border: none;
+        background: #dea205;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    button:hover,
+    .close-btn:hover,
+    .log-in:hover {
+        color: #fff;
+        background-color: #e6ac1a;
+    }
+
+    button.show-modal,
+    .modal-box {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    section.active .show-modal {
+        display: none;
+    }
+
+    section.active .overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 380px;
+        width: 100%;
+        padding: 100px 20px;
+        border-radius: 24px;
+        background-color: #202528;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    section.active .modal-box {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal-box h3 {
+        font-size: 30px;
+        font-weight: 400;
+        color: #fff;
+        text-align: center;
+    }
+
+    .modal-box .buttons {
+        margin-top: 25px;
+    }
+
+    .modal-box button,
+    .modal-box a {
+        font-size: 14px;
+        padding: 10px 50px;
+        margin: 0 10px;
+    }
+</style>
+
+<script>
+    const section = document.querySelector("#window"),
+        body = document.getElementsByTagName('body')[0],
+        overlay = document.querySelector(".overlay"),
+        saveBtn = document.querySelector("#proceed"),
+        closeBtn = document.querySelector(".close-btn");
+    modalBox = document.querySelector('.modal-box')
+
+    saveBtn.addEventListener("click", () => {
+        section.classList.add("active");
+        body.classList.add('dark-body');
+    });
+
+    closeBtn.addEventListener("click", () => {
+        section.classList.remove("active");
+        body.classList.remove('dark-body');
+    });
+</script>
