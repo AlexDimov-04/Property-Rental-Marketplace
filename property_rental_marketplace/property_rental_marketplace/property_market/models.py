@@ -150,4 +150,27 @@ class Building(models.Model):
 
     def __str__(self):
         return f"Building: {self.property.title}"
+
+class PropertyEstimate(models.Model):
+    TYPE_CHOICES = [
+        ('Apartment', 'Apartment'),
+        ('Villa', 'Villa'),
+        ('Office', 'Office'),
+        ('Shop', 'Shop'),
+        ('Building', 'Building')
+    ]
+
+    property_type = models.CharField(
+        max_length=20,
+        choices=TYPE_CHOICES
+    )
     
+    rooms = models.IntegerField()
+
+    balconies = models.IntegerField()
+
+    size_sqft = models.IntegerField()
+
+    amenities = models.BooleanField(default=False)
+    
+    estimate_value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)    
