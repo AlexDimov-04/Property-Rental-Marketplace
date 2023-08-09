@@ -187,17 +187,22 @@
                     <div class="bg-white border rounded p-4">
                         <p>{{com.comment}}</p>
                         <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="{{ user_profile.profile_image.url }}"
+                            <img class="img-fluid flex-shrink-0 rounded" src="{{ com.user_profile.profile_image.url }}"
                                 style="width: 45px; height: 45px;">
                             <div class="ps-3">
-                                <small>{{user_profile}} - {{com.profession}}</small>
+                                <small>{{com.user_profile}} - {{com.profession}}</small>
                             </div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
-        <a style="margin-top: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="{% url 'comments' %}">Leave a comment</a>
+        {% if user.is_authenticated %}
+            <a style="margin-top: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="{% url 'comments' %}">Leave a comment</a>
+        {% else %}
+            <a style="margin-top: 20px;" class="btn btn-primary py-3 px-5 mt-3" id="save_but_login" href="#">Leave a comment</a>
+            {% include 'profiles/profile_create_account_pop_up.html' %}
+        {% endif %}
     </div>
 </div>
 <!-- Testimonial End -->
