@@ -1,5 +1,10 @@
 from django import forms
-from .models import BaseProperty, SavedProperty, Apartment, Villa, Office, Shop, Building
+from .models import BaseProperty, SavedProperty, Apartment, Villa, Office, Shop, Building, PropertyEstimate
+
+class PropertyEstimateForm(forms.ModelForm):
+    class Meta:
+        model = PropertyEstimate
+        exclude = ('estimate_value',)
 
 class SavePropertyForm(forms.ModelForm):
     class Meta:
