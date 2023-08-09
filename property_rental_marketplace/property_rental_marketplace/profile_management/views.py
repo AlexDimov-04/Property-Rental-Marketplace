@@ -149,8 +149,10 @@ class NewsLetterView(UserProfileMixin, views.FormView):
 
         return super().form_valid(form)
 
+
 class FaqView(UserProfileMixin, views.TemplateView):
     template_name = 'faq/faq.html'
+
 
 class SavedPropertiesCollectionView(UserProfileMixin, views.ListView):
     model = SavedProperty
