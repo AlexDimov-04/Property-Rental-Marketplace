@@ -1,10 +1,11 @@
-import time
+import datetime
 import stripe
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
+from django.core.mail import send_mail
 from django.views import generic as views
 from property_rental_marketplace.property_market.models import BaseProperty, SavedProperty, Apartment \
     ,Villa, Shop, Building, Office, PropertyEstimate
@@ -13,7 +14,8 @@ from property_rental_marketplace.property_market.forms import BasePropertyForm, 
     ,VillaForm, OfficeForm, ShopForm, BuildingForm, SavePropertyForm, PropertyEstimateForm
 from property_rental_marketplace.user_authentication.models import UserProfile
 from property_rental_marketplace.user_authentication.models import UserPayment
-from django.views.decorators.csrf import csrf_exempt
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 PROPERTY_TYPE_MAPPING = {
     'Apartment': {
@@ -147,6 +149,8 @@ class PropertyDetailsView(UserProfileMixin, views.DetailView):
         context['owner_last_name'] = self.object.owner.userprofile.last_name
         context['owner_phone'] = self.object.owner.userprofile.phone  
         context['owner_email'] = self.object.owner.userprofile.email
+        context['stripe_public_key'] = settings.STRIPE_PUBLIC_KEY
+        context['property_id'] = self.object.id
 
         if self.request.user.is_authenticated:
             property_object = self.object
@@ -299,32 +303,51 @@ class EstimatePropertyResultView(UserProfileMixin, views.TemplateView):
 
         return context
     
-def product_page(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+def product_page(request, property_id):
+    QUANTITY_ITEMS = 1
+    CURRENCY = 'usd'
+
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    property = BaseProperty.objects.get(pk=property_id)
+
     if request.method == "POST":
+
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=[
                 {
-                    "price": 'price_1NdC33INgkhsKPqSYPk3VQ2u',
-                    "quantity": 1,
+                    "price_data": {
+                        'unit_amount': property.price * 100,
+                        'currency' : CURRENCY,
+                        'product_data': {
+                            'name': property.title,
+                        },
+                    },
+                    "quantity": QUANTITY_ITEMS,
                 },
             ],
             mode="payment",
             customer_creation="always",
             success_url=settings.REDIRECT_DOMAIN
-            + "/properties/payment/successful/?session_id={CHECKOUT_SESSION_ID}",
+            + f"/properties/payment/successful/{property_id}/?session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=settings.REDIRECT_DOMAIN + "/properties/payment/cancelled/",
         )
-        print(property_instance)
-        return redirect(checkout_session.url, code=303)
-    return render(request, "payments/payment_page.html")
 
-def payment_successful(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+        return redirect(checkout_session.url, code=303)
+    
+    context = {
+        'property': property
+    }
+
+    return render(request, "payments/payment_page.html", context=context)
+
+def payment_successful(request, property_id):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    property = BaseProperty.objects.get(pk=property_id)
     checkout_session_id = request.GET.get("session_id", None)
     session = stripe.checkout.Session.retrieve(checkout_session_id)
     customer = stripe.Customer.retrieve(session.customer)
+    current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     user_profile = UserProfile.objects.get(user=request.user)
     user_payment, created = UserPayment.objects.get_or_create(user_profile=user_profile)
@@ -332,35 +355,27 @@ def payment_successful(request):
     user_payment.stripe_checkout_id = checkout_session_id
     user_payment.payment_bool = True
     user_payment.save()
+
+    property.delete()
+
+    context = {
+        'property': property,
+        'customer': customer,
+        'time': current_time
+    }
+
+    subject = 'Payment Receipt for Property Purchase'
+    html_message = render_to_string('payments/payment_receipt_email.html', context=context)
+    plain_message = strip_tags(html_message)
+    from_email = settings.DEFAULT_FROM_EMAIL
+    to_email = [request.user.email]
+
+    send_mail(subject, plain_message, from_email, to_email, html_message=html_message)
     
     return render(
         request, "payments/payment_successful.html", {"customer": customer}
     )
 
 def payment_cancelled(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+    stripe.api_key = settings.STRIPE_SECRET_KEY
     return render(request, "payments/payment_cancelled.html")
-
-@csrf_exempt
-def stripe_webhook(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    time.sleep(10)
-    payload = request.body
-    signature_header = request.META["HTTP_STRIPE_SIGNATURE"]
-    event = None
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, signature_header, settings.STRIPE_WEBHOOK_SECRET_TEST
-        )
-    except ValueError as e:
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        return HttpResponse(status=400)
-    if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
-        session_id = session.get("id", None)
-        time.sleep(15)
-        user_payment = UserPayment.objects.get(stripe_checkout_id=session_id)
-        user_payment.payment_bool = True
-        user_payment.save()
-    return HttpResponse(status=200)
