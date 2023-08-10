@@ -8,7 +8,15 @@
                 <h4 id="acc">Property Details</h4>
                 <label class="state">State:</label>
                 <div class="input-group input-group-icon">
-                    {{form.property_state}}
+                    {% if user.is_staff %}
+                        {{form.property_state}}
+                    {% else %}
+                        <select name="{{ form.property_state.name }}" id="{{ form.property_state.id_for_label }}">
+                            <option value="{{ form.property_state.field.choices.0.0 }}">{{ form.property_state.field.choices.0.1 }}</option>
+                            <option value="{{ form.property_state.field.choices.1.0 }}">{{ form.property_state.field.choices.1.1 }}</option>
+                            <option value="{{ form.property_state.field.choices.2.0 }}">{{ form.property_state.field.choices.2.1 }}</option>
+                        </select>
+                    {% endif %}
                     <div class="input-icon" id="state">
                         <i class="fa fa-building"></i>
                     </div>
@@ -21,9 +29,20 @@
                     </div>
                 </div>
 
-                <div id="additionalFields">
-
+                <div class="input-group input-group-icon" id="fromDateField" style="display: none;">
+                    {{form.from_date}}
+                    <div class="input-icon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
                 </div>
+                <div class="input-group input-group-icon" id="toDateField" style="display: none;">
+                    {{form.to_date}}
+                    <div class="input-icon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+
+                <div id="additionalFields"></div>
 
                 <div class="input-group input-group-icon">
                     {{form.price}}
