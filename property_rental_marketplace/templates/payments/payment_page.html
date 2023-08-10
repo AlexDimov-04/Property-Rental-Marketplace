@@ -2,15 +2,36 @@
 {% load static %}
 
 {% block main_content %}
-    <div class="container home_msg">
-        {% if user.is_authenticated %}
-          <form enctype="multipart/form-data" method="post" role="product_page">
-          {% csrf_token %}
-            <h2>Hi {{ user }}! To pay, click on this button <button type="submit" class="btn btn-success" href="{% url 'payment' %}" data-bind-href="pricing">Payment</button></h2>
-          </form>
-        {% else %}
-          <h2>You're not logged in...</h2><a href="{% url 'sign_in' %}" class="btn btn-secondary">Log in</a>
-    
-        {% endif %}
+  <div class="container">
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+        <h1 class="mb-3" style="color: #202528;">Review your order before purchase</h1>
+        <p style="font-size: 20px;">Look up the property details one more time <br> before taking the payment action.</p>
     </div>
+  </div>
+
+  <div class="row g-5 align-items-center" style="margin-top: 60px;">
+    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+      <a href="{% url 'property_details' property.pk %}"><img style="height: 500px; width: 600px; object-fit: cover;" class="img-fluid" src="{{property.images.url}}" alt="property image"></a>
+    </div>
+    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+      <h1 class="mb-3" style="color: #fff;">Property Base Information</h1>
+      <br>
+        <div class="mb-4">
+          <ul>
+            <li><h2 class="mb-3" style="color: #fff;">State - {{ property.property_state }}</h2></li>
+            <br>
+            <li><h2 class="text-primary mb-3" style="color: #fff;">Type - {{ property.property_type }}</h2></li>
+            <li><h2 class="text-primary mb-3" style="color: #fff;">Price - $ {{ property.price }}</h2></li>
+            <li><h2 class="text-primary mb-3" style="color: #fff;">Title - {{ property.title }}</h2></li>
+            <br>
+            <li><h2 class="mb-3" style="color: #fff;"><i class="fa fa-map-marker-alt text-primary me-2"></i> Location - {{ property.location }}</h2></li>
+            <br>
+        </ul>      
+        </div>
+        <form action="" enctype="multipart/form-data" method="post" role="product_page">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success py-3 px-4 me-2" data-bind-href="pricing">Make a payment</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
