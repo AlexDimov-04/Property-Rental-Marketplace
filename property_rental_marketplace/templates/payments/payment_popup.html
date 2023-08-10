@@ -9,7 +9,7 @@
         <p style="color: #b3b3b3; text-align: center;">You'll be redirected to the property purchasing details.</p>
 
         <div class="buttons">
-            <a href="{% url 'payment' %}" class="log-in">Proceed</a>
+            <a href="{% url 'payment' property.id %}" class="log-in">Proceed</a>
             <a class="close-btn">Cancel</a>
         </div>
     </div>
