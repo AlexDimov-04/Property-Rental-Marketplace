@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
-from django.utils.decorators import method_decorator
 
 # 1 week in seconds
 SESSION_EXPIRATION_TIME = 604_800
