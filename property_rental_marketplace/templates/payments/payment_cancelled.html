@@ -1,13 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: rgb(176, 176, 176);
+        }
+
+        #error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .popup-content {
+            height: 408px;
+            background: #202528;
+            box-shadow: 4px 4px 70px 10px rgb(0 0 0/11%);
+            border-radius: 25px;
+        }
+
+        .imgbox {
+            text-align: center;
+        }
+
+        .img {
+            width: 112px;
+            margin-top: 40px;
+        }
+
+        .title {
+            font-weight: 500;
+            font-size: 24px;
+            letter-spacing: 0.05em;
+            text-align: center;
+            margin: auto;
+        }
+
+        #error .title {
+            color: #dea205;
+        }
+
+        .para {
+            font-weight: 500;
+            width: 80%;
+            font-size: 18px;
+            line-height: 30px;
+            letter-spacing: 0.05em;
+            text-align: center;
+            margin: auto;
+            color: #fff;
+        }
+
+        .button {
+            width: 50%;
+            display: block;
+            margin: 20px auto;
+            border-radius: 25px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        #e_button {
+            background: #dea205;
+        }
+    </style>
+    <title>RentWise</title>
+    <link href="{% static 'images/favicon_house.png' %}" rel="icon">
 </head>
+
 <body>
-    <div class="container home_msg">
-        <h1>Your payment didn't go through!</h1>
+    <div class="popup" id="error">
+        <div class="popup-content">
+            <div class="imgbox">
+                <img src="{% static 'images/cancel.png' %}" alt="" class="img">
+            </div>
+            <div class="title">
+                <h3>Sorry :(</h3>
+            </div>
+            <p class="para">Your payment was cancelled. Return and try again.</p>
+            <a href="{% url 'property_list' %}" class="button" id="e_button">TRY AGAIN</a>
+        </div>
     </div>
 </body>
-</html>
