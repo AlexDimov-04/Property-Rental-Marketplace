@@ -6,6 +6,22 @@
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h1 class="mb-3" style="color: #202528;">Create a Property Offer</h1>
             <p>To move forward with your offer, simply click the "Create" button below. By doing so, you're taking the first step by inroducing your property to others.</p>
+            {% for message in messages %}
+                <div class="alert alert-danger my-2 p-3" role="alert">
+                    <strong  style="font-size: 20px;">Error:</strong>
+                    <p style="font-size:18px;">
+                        {{ message }}<br>
+                    </p>
+                </div>
+            {% endfor %}
+            {% for field, error in form.errors.items %}
+                <div class="alert alert-danger my-2 p-3" role="alert">
+                    <strong  style="font-size: 20px;">Error:</strong>
+                    <p style="font-size:18px;">
+                        {{ error|striptags }}<br>
+                    </p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
