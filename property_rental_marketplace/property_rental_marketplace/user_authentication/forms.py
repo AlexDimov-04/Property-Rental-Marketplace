@@ -38,16 +38,16 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
         if email and User.objects.filter(email=email).exists():
             self.add_error("email", "This email address is already in use.")
 
-        if User.objects.filter(username=username).exists():
+        elif User.objects.filter(username=username).exists():
             self.add_error("username", "This username is already taken.")
 
-        if username:
+        elif username:
             if len(username) < 2:
                 self.add_error("username", "Username must be at least 2 characters long.")
-            if username.isdigit() or username[0].isupper():
+            elif username.isdigit() or username[0].isupper():
                 self.add_error("username", "Invalid username.")
 
-        if first_name:
+        elif first_name:
             if len(first_name) < 2:
                 self.add_error("first_name", " First name should be at least 2 characters long.")
             elif any(char.isdigit() for char in first_name):
@@ -55,7 +55,7 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
             elif first_name[0].islower():
                 self.add_error("first_name", " First name should start with an uppercase letter.")
 
-        if last_name:
+        elif last_name:
             if len(last_name) < 2:
                 self.add_error("last_name", " Last name should be at least 2 characters long.")
             elif any(char.isdigit() for char in last_name):
