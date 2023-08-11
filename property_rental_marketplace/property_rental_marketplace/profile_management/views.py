@@ -5,8 +5,7 @@ from django.contrib import messages
 from django.views import generic as views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from property_rental_marketplace.profile_management.forms import UserProfileUpdateForm
-from property_rental_marketplace.property_market.models import BaseProperty
-from property_rental_marketplace.property_market.models import SavedProperty
+from property_rental_marketplace.property_market.models import BaseProperty, SavedProperty
 from property_rental_marketplace.profile_management.models import (
     ContactMessage,
     NewsletterFollower,
@@ -151,10 +150,10 @@ class NewsLetterView(UserProfileMixin, views.FormView):
 
 
 class FaqView(UserProfileMixin, views.TemplateView):
-    template_name = 'faq/faq.html'
+    template_name = "faq/faq.html"
 
 
-class SavedPropertiesCollectionView(UserProfileMixin, views.ListView):
+class SavedPropertiesCollectionView(LoginRequiredMixin, UserProfileMixin, views.ListView):
     model = SavedProperty
     template_name = "properties/saved_properties_collection.html"
     context_object_name = "saved_properties"
@@ -167,7 +166,7 @@ class SavedPropertiesCollectionView(UserProfileMixin, views.ListView):
         return context
 
 
-class UserCommentView(UserProfileMixin, views.FormView):
+class UserCommentView(LoginRequiredMixin, UserProfileMixin, views.FormView):
     template_name = "comments/comments.html"
     form_class = UserCommentForm
     success_url = reverse_lazy("index")
