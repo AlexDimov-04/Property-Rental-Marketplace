@@ -72,13 +72,7 @@
             </div>
         </div>
 
-        {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
-        {% endif %}
-            <span class="current-page">{{ page_obj.number }} / {{ paginator.num_pages }}</span>
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
-        {% endif %}
+        {% include 'pagination/paging.html' %}
     {% else %}
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h1 class="mb-3" style="color: #202528;">Your Collection Is Empty</h1>
