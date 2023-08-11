@@ -1,8 +1,8 @@
+from . import views
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from . import views
 from property_rental_marketplace.property_market.views import PropertyListView
 
 profile_denpendencies = [
