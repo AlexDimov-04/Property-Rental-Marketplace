@@ -75,14 +75,6 @@
                 </div>
 
                 <div class="btn-wrapper">
-                    {% for message in messages %}
-                        <div class="alert alert-danger my-2 p-3" role="alert">
-                            <strong  style="font-size: 20px;">Error:</strong>
-                            <p style="font-size:18px;">
-                                {{ message }}<br>
-                            </p>
-                        </div>
-                    {% endfor %}
                     <button type="submit" class="btn">Create</button>
                     <button type="button" class="btn" onclick="closeForm()">Close</button>
                 </div>
