@@ -29,18 +29,23 @@
                     </div>
                 </div>
 
-                <div class="input-group input-group-icon" id="fromDateField" style="display: none;">
-                    {{form.from_date}}
-                    <div class="input-icon">
-                        <i class="fa fa-calendar"></i>
+                <div id="dateFields">
+                    <label id="id_from_date" style="display: none;">Arrival Date:</label>
+                    <div class="input-group input-group-icon" id="fromDateField" style="display: none;">
+                        {{form.from_date}}
+                        <div class="input-icon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                    <label id="id_to_date" style="display: none;">Leaving Date:</label>
+                    <div class="input-group input-group-icon" id="toDateField" style="display: none;">
+                        {{form.to_date}}
+                        <div class="input-icon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="input-group input-group-icon" id="toDateField" style="display: none;">
-                    {{form.to_date}}
-                    <div class="input-icon">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                </div>
+
 
                 <div id="additionalFields"></div>
 
@@ -70,6 +75,14 @@
                 </div>
 
                 <div class="btn-wrapper">
+                    {% for message in messages %}
+                        <div class="alert alert-danger my-2 p-3" role="alert">
+                            <strong  style="font-size: 20px;">Error:</strong>
+                            <p style="font-size:18px;">
+                                {{ message }}<br>
+                            </p>
+                        </div>
+                    {% endfor %}
                     <button type="submit" class="btn">Create</button>
                     <button type="button" class="btn" onclick="closeForm()">Close</button>
                 </div>
@@ -393,6 +406,28 @@
         }
     }
 </style>
+
+<script>
+    const propertyStateSelect = document.querySelector('#id_property_state');
+    const fromDateField = document.querySelector('#fromDateField');
+    const toDateField = document.querySelector('#toDateField');
+    const fromDateLabel = document.querySelector('#id_from_date');
+    const toDateLabel = document.querySelector('#id_to_date');
+    
+    propertyStateSelect.addEventListener('change', function () {
+        if (this.value === 'For Rent') {
+            fromDateField.style.display = 'block';
+            toDateField.style.display = 'block';
+            fromDateLabel.style.display = 'block';
+            toDateLabel.style.display = 'block'
+        } else {
+            fromDateField.style.display = 'none';
+            toDateField.style.display = 'none';
+            fromDateLabel.style.display = 'none';
+            toDateLabel.style.display = 'none'
+        }
+    });
+</script>
 
 <script>
     function toggleForm() {
