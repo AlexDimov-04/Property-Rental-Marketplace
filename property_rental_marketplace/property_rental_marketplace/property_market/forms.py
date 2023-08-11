@@ -9,7 +9,6 @@ from .models import (
     Building,
     PropertyEstimate,
 )
-from django.core.exceptions import ValidationError
 
 
 class PropertyEstimateForm(forms.ModelForm):
@@ -36,16 +35,6 @@ class BasePropertyForm(forms.ModelForm):
             "from_date": forms.DateInput(attrs={"type": "date"}),
             "to_date": forms.DateInput(attrs={"type": "date"}),
         }
-
-        def clean(self):
-            cleaned_data = super().clean()
-            from_date = cleaned_data.get("from_date")
-            to_date = cleaned_data.get("to_date")
-
-            if from_date and to_date and from_date > to_date:
-                raise ValidationError("From date must be before or equal to the to date.")
-
-            return cleaned_data
 
 
 class ApartmentForm(BasePropertyForm):
