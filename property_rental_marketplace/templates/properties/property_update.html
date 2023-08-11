@@ -27,6 +27,22 @@
                     {% include 'properties/additional_property_fields/_additional_fields.html' with form=form %}
                 </div>
 
+                {% if form.from_date.value and form.to_date.value  %}
+                    <div class="input-group input-group-icon">
+                        {{form.from_date}}
+                        <div class="input-icon">
+                            <i class="fa fa-book"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group input-group-icon">
+                        {{form.to_date}}
+                        <div class="input-icon">
+                            <i class="fa fa-book"></i>
+                        </div>
+                    </div>
+                {% endif %}
+
                 <div class="input-group input-group-icon">
                     {{form.price}}
                     <div class="input-icon">
