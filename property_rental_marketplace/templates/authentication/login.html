@@ -52,5 +52,6 @@
         </div>
         {% csrf_token %}
         <input class="btn btn-success w-100" type="submit" value="SIGN IN">
+        <a style="margin-top: 10px; background-color: #202528; color: #fff;" class="btn w-100" href="{% url 'index' %}" class="">RETURN HOME</a>
     </form>
 {% endblock %}
