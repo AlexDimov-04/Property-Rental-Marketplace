@@ -1,7 +1,11 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
-from property_rental_marketplace.user_authentication.models import UserProfile, UserComment
+from property_rental_marketplace.user_authentication.models import (
+    UserProfile,
+    UserComment,
+)
+
 
 class UserRegistrationForm(auth_forms.UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -43,28 +47,37 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
 
         elif username:
             if len(username) < 2:
-                self.add_error("username", "Username must be at least 2 characters long.")
+                self.add_error(
+                    "username", "Username must be at least 2 characters long."
+                )
             elif username.isdigit() or username[0].isupper():
                 self.add_error("username", "Invalid username.")
 
         elif first_name:
             if len(first_name) < 2:
-                self.add_error("first_name", " First name should be at least 2 characters long.")
+                self.add_error(
+                    "first_name", " First name should be at least 2 characters long."
+                )
             elif any(char.isdigit() for char in first_name):
                 self.add_error("first_name", " First name cannot contain digits.")
             elif first_name[0].islower():
-                self.add_error("first_name", " First name should start with an uppercase letter.")
+                self.add_error(
+                    "first_name", " First name should start with an uppercase letter."
+                )
 
         elif last_name:
             if len(last_name) < 2:
-                self.add_error("last_name", " Last name should be at least 2 characters long.")
+                self.add_error(
+                    "last_name", " Last name should be at least 2 characters long."
+                )
             elif any(char.isdigit() for char in last_name):
                 self.add_error("last_name", " Last name cannot contain digits.")
             elif last_name[0].islower():
-                self.add_error("last_name", " Last name should start with an uppercase letter.")
+                self.add_error(
+                    "last_name", " Last name should start with an uppercase letter."
+                )
 
         return cleaned_data
-
 
     class Meta(auth_forms.UserCreationForm.Meta):
         model = User
@@ -77,12 +90,13 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
             "password2",
         )
 
+
 class UserCommentForm(forms.ModelForm):
     class Meta:
         model = UserComment
-        exclude = ('user_profile',)
+        exclude = ("user_profile",)
 
         widgets = {
-            'comment': forms.Textarea(attrs={'placeholder': 'Your comment'}),
-            'profession': forms.TextInput(attrs={'placeholder': 'Your profession'}),
+            "comment": forms.Textarea(attrs={"placeholder": "Your comment"}),
+            "profession": forms.TextInput(attrs={"placeholder": "Your profession"}),
         }

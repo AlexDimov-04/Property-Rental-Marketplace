@@ -11,6 +11,7 @@ from django.views import generic as views
 # 1 week in seconds
 SESSION_EXPIRATION_TIME = 604_800
 
+
 class RegisterView(views.CreateView):
     template_name = "authentication/register.html"
     form_class = UserRegistrationForm
@@ -29,18 +30,19 @@ class RegisterView(views.CreateView):
         user.save()
 
         user_profile = UserProfile.objects.create(user=user)
-        user_profile.first_name = form.cleaned_data['first_name']
-        user_profile.last_name = form.cleaned_data['last_name']
+        user_profile.first_name = form.cleaned_data["first_name"]
+        user_profile.last_name = form.cleaned_data["last_name"]
         user_profile.save()
 
-        renter_group, created = Group.objects.get_or_create(name='renter')
+        renter_group, created = Group.objects.get_or_create(name="renter")
         user.groups.add(renter_group)
-        
+
         messages.success(
             self.request, "User: " + user.username + " successfully created an account!"
         )
 
         return super().form_valid(form)
+
 
 class SignInView(auth_views.LoginView):
     template_name = "authentication/login.html"
@@ -59,16 +61,17 @@ class SignInView(auth_views.LoginView):
             login(request, user)
 
             if remember_me:
-                request.session.set_expiry(SESSION_EXPIRATION_TIME)  
+                request.session.set_expiry(SESSION_EXPIRATION_TIME)
 
             return super().post(request, *args, **kwargs)
         else:
             messages.info(request, "Incorrect password or username!")
             return render(request, self.template_name)
 
+
 class SignOutView(auth_views.LogoutView):
     def dispatch(self, request, *args, **kwargs):
         if request.session.get_expiry_age() == SESSION_EXPIRATION_TIME:
             messages.info(request, "Session has expired. Please log in again.")
-            
+
         return super().dispatch(request, *args, **kwargs)
