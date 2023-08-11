@@ -25,22 +25,24 @@
             <div class="thumb">
                 <div class="big-image">
                     <img src="{{property.images.url}}" alt="">
-                    {% if user.is_authenticated %}
-                        {% if property.property_state == 'For Rent' %}
-                            <a style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" id="proceed" href="#">Rent</a>
-                        {% else %}
-                            <a style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" id="proceed" href="#">Buy</a>
-                        {% endif %}
+                    {% if user.username != property.owner.username %}
+                        {% if user.is_authenticated %}
+                            {% if property.property_state == 'For Rent' %}
+                                <a style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" id="proceed" href="#">Rent</a>
+                            {% else %}
+                                <a style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" id="proceed" href="#">Buy</a>
+                            {% endif %}
 
-                        {% include 'payments/payment_popup.html' %}
-                    {% else %}
-                        {% if property.property_state == 'For Rent' %}
-                            <a id="save_but_login" style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="#">Rent</a>
+                            {% include 'payments/payment_popup.html' %}
                         {% else %}
-                            <a id="save_but_login" style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="#">Buy</a>
-                        {% endif %}
+                            {% if property.property_state == 'For Rent' %}
+                                <a id="save_but_login" style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="#">Rent</a>
+                            {% else %}
+                                <a id="save_but_login" style="background-color: rgb(74, 175, 74); border-color: rgb(74, 175, 74); font-size: 20px;" class="btn btn-primary py-3 px-5 mt-3" href="#">Buy</a>
+                            {% endif %}
 
-                        {% include 'profiles/profile_create_account_pop_up.html' %}
+                            {% include 'profiles/profile_create_account_pop_up.html' %}
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
