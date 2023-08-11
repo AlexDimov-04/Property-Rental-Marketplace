@@ -8,6 +8,14 @@
             {% csrf_token %}
             <div class="row">
                 <h4 id="acc">Property Details</h4>
+                {% for message in messages %}
+                    <div class="alert alert-danger my-2 p-3" role="alert">
+                        <strong  style="font-size: 20px;">Error:</strong>
+                        <p style="font-size:18px;">
+                            {{ message }}<br>
+                        </p>
+                    </div>
+                {% endfor %}
                 <label class="state">State:</label>
                 <div class="input-group input-group-icon">
                     {{form.property_state}}
