@@ -30,9 +30,9 @@ class BaseProperty(models.Model):
 
     property_state = models.CharField(max_length=10, choices=STATE_CHOICES)
 
-    from_date = models.DateField(blank=True, null=True)
+    from_date = models.DateField(null=True, blank=True)
     
-    to_date = models.DateField(blank=True, null=True)
+    to_date = models.DateField(null=True, blank=True)
 
     property_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
 
