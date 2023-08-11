@@ -56,7 +56,15 @@
                     href="{% url 'list_properties' property_type %}?property_type={{ property_type }}">
                     <div class="rounded p-4">
                         <div class="icon mb-3">
-                            <img class="img-fluid" src="{% static 'images/icon-apartment.png' %}" alt="Icon">
+                            {% if property_type == 'Apartment' %}
+                                <img style="width: 50px;" class="img-fluid" src="{% static 'images/apartment.png' %}" alt="Icon">
+                            {% elif property_type == 'Villa'%}
+                                <img style="width: 50px;" class="img-fluid" src="{% static 'images/villa.png' %}" alt="Icon">
+                            {% elif property_type == 'Shop'%}
+                                <img style="width: 50px;" class="img-fluid" src="{% static 'images/shop.png' %}" alt="Icon">
+                            {% elif property_type == 'Office' %}
+                                <img style="width: 50px;" class="img-fluid" src="{% static 'images/office.png' %}" alt="Icon">
+                            {% endif %}
                         </div>
                         <h6>{{ property_type }}</h6>
                         <span>{{ count }} Properties</span>
