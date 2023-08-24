@@ -179,3 +179,51 @@ Integrate third-party testing tools (e.g., pytest-django) for integration tests.
 ### Common Issues <a name="common-issues"></a>
 
 - The project is open source, if you have any suggestions of improvement, fork the repo and make pull request.
+
+## Contributing <a name="contributing"></a>
+
+We welcome contributions from the community to enhance and improve the Property Rental Marketplace - RentWise. To contribute, follow these steps:
+
+1. Fork the repository on GitHub.
+2. Create a new branch from the main branch for your contributions.
+3. Make your changes, enhancements, or fixes.
+4. Commit your changes with clear and concise messages.
+5. Push your branch to your forked repository.
+6. Open a Pull Request (PR) on the main repository with a description of your changes and what they aim to achieve.
+7. Your PR will be reviewed by project maintainers. Any feedback or required changes will be communicated through comments on the PR.
+8. Once your contribution is approved, it will be merged into the main repository.
+
+Please ensure that your contributions adhere to our Code of Conduct and coding standards.
+
+### Version Control
+
+This project uses Git for version control. The main branch is the primary development branch. Features, bug fixes, and other changes are developed in feature branches before being merged into the main branch through Pull Requests.
+
+To work with the repository:
+
+- Clone the repository: `git clone [[repository_url](https://github.com/AlexDimov-04/Property-Rental-Marketplace---RentWise)]`
+- Create a new feature branch: `git checkout -b feature/rent-wise-branch`
+- Make your changes and commit them: `git commit -m "describe your commit"`
+- Push your changes to your fork: `git push origin feature/rent-wise-branch`
+- Open a Pull Request on the main repository.
+
+### Pull Requests
+
+When submitting a Pull Request:
+
+- Describe your changes clearly and concisely.
+- Provide context for your changes and explain their purpose.
+- Be responsive to feedback and iterate on your changes as needed.
+- Ensure that all tests pass before submitting your PR.
+- Include relevant documentation updates if necessary.
+
+## Contact <a name="contact"></a>
+
+If you have any questions, feedback, or need assistance, you can reach out to us through the following channels:
+
+- GitHub Issues: https://github.com/AlexDimov-04/Property-Rental-Marketplace---RentWise/issues
+- Email: rentwise.markeplace@gmail.com
+
+## License <a name="license"></a>
+
+The Property Rental Marketplace - RentWise is licensed under the MIT License.
