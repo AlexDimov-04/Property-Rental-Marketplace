@@ -23,7 +23,6 @@
     - [Integration Tests](#integration-tests)
 8. [Troubleshooting](#troubleshooting)
     - [Common Issues](#common-issues)
-    - [Debugging](#debugging)
 9. [Contributing](#contributing)
     - [Version Control](#version-control)
     - [Pull Requests](#pull-requests)
