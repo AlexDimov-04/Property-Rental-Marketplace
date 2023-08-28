@@ -107,6 +107,7 @@ The Property Rental Marketplace is a comprehensive web application that facilita
 
 ### Front end <a name="Front end"></a>
 Used Front End tools + UI interface
+- HTML & CSS
 - Bootstrap
 - Jquery
 - Vanilla JS
