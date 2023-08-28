@@ -1,3 +1,4 @@
+.vscode
 *.pyc
 *.pem
 METADATA
@@ -19,5 +20,6 @@ AUTHORS
 *.gz
 *.eot
 *.ttf
-*.rst
+*.
+djangoenvironment/
 /djangoenvironment/
