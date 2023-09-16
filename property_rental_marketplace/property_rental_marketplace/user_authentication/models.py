@@ -39,7 +39,7 @@ class UserProfile(models.Model):
         max_length=20, choices=GENDER_CHOICES, null=True, blank=True
     )
 
-    country = models.CharField(null=True, blank=True)
+    country = models.CharField(max_length=30, null=True, blank=True)
 
     phone = models.CharField(
         validators=[phone_regex],
